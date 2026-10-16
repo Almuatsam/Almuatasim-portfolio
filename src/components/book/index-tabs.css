@@ -1,0 +1,114 @@
+.index-tabs {
+  position: absolute;
+  inset-block: 4%;
+  inset-inline-end: -34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-1);
+  z-index: 20;
+}
+
+.index-tabs__tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  flex: 1 1 0;
+  background: var(--tab-accent);
+  box-shadow: 2px 2px 6px rgba(46, 42, 38, 0.22);
+  border-start-end-radius: 4px;
+  border-end-end-radius: 4px;
+  text-decoration: none;
+  transition:
+    transform var(--duration-micro) var(--ease-ui),
+    background-color var(--duration-page) var(--ease-page);
+}
+
+.index-tabs__tab--fabric {
+  clip-path: polygon(
+    0 0,
+    85% 0,
+    100% 8%,
+    85% 16%,
+    100% 24%,
+    85% 32%,
+    100% 40%,
+    85% 48%,
+    100% 56%,
+    85% 64%,
+    100% 72%,
+    85% 80%,
+    100% 88%,
+    85% 96%,
+    100% 100%,
+    0 100%
+  );
+}
+
+.index-tabs__tab--active {
+  background: var(--color-paper);
+  transform: translateX(6px);
+}
+
+:root[dir='rtl'] .index-tabs__tab--active {
+  transform: translateX(-6px);
+}
+
+.index-tabs__label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: var(--fs-label);
+  letter-spacing: 0.05em;
+  color: var(--color-paper);
+  white-space: nowrap;
+}
+
+.index-tabs__tab--active .index-tabs__label {
+  color: var(--tab-ink);
+}
+
+@media (max-width: 900px) {
+  .index-tabs {
+    position: fixed;
+    inset-inline: 0;
+    inset-block-end: 0;
+    inset-block-start: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    background: var(--color-paper);
+    padding: var(--space-1);
+    box-shadow: 0 -4px 12px rgba(46, 42, 38, 0.16);
+  }
+
+  .index-tabs__tab {
+    width: auto;
+    flex: 1 1 auto;
+    height: 44px;
+    min-width: 0;
+    padding-inline: 2px;
+    border-radius: 6px;
+  }
+
+  .index-tabs__tab--fabric {
+    clip-path: none;
+  }
+
+  .index-tabs__tab--active {
+    transform: translateY(-4px);
+  }
+
+  :root[dir='rtl'] .index-tabs__tab--active {
+    transform: translateY(-4px);
+  }
+
+  .index-tabs__label {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+}
