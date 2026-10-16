@@ -11,10 +11,19 @@
   position: relative;
   width: min(80%, 220px);
   aspect-ratio: 3 / 4;
+  padding: 6px;
   border: 1.5px solid var(--color-ink);
   background: var(--color-cream);
   box-shadow: 0 10px 20px rgba(46, 42, 38, 0.16);
   transform: rotate(-1.5deg);
+}
+
+.about__portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: grayscale(0.1) sepia(0.06);
 }
 
 .about__tape {
