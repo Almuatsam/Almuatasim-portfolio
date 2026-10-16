@@ -1,0 +1,71 @@
+.about__context {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  height: 100%;
+  padding-block-start: var(--space-2);
+}
+
+.about__portrait-frame {
+  position: relative;
+  width: min(80%, 220px);
+  aspect-ratio: 3 / 4;
+  border: 1.5px solid var(--color-ink);
+  background: var(--color-cream);
+  box-shadow: 0 10px 20px rgba(46, 42, 38, 0.16);
+  transform: rotate(-1.5deg);
+}
+
+.about__tape {
+  position: absolute;
+  inset-block-start: -14px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 70px;
+  height: 26px;
+  background: rgba(252, 248, 243, 0.78);
+  border: 1px solid rgba(46, 42, 38, 0.18);
+}
+
+.about__notes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 90%;
+}
+
+.about__note {
+  font-size: var(--fs-note);
+  color: var(--accent-ink);
+  text-align: center;
+}
+
+.about__work {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  justify-content: center;
+  height: 100%;
+}
+
+.about__headline {
+  font-size: var(--fs-display);
+  margin-block-end: var(--space-2);
+}
+
+.about__paragraph {
+  font-size: var(--fs-body);
+  max-width: 66ch;
+  color: var(--color-ink);
+}
+
+@media (max-width: 900px) {
+  .about__context {
+    padding-block: var(--space-3);
+  }
+}

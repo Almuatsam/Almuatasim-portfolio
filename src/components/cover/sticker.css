@@ -1,0 +1,24 @@
+.sticker {
+  position: absolute;
+  inset-inline-start: var(--sticker-left);
+  inset-block-start: var(--sticker-top);
+  width: var(--sticker-width);
+  height: auto;
+  transform: translate(var(--parallax-x), var(--parallax-y)) rotate(var(--sticker-rotate));
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.28));
+  transition: transform var(--duration-micro) var(--ease-ui);
+  will-change: transform;
+}
+
+.sticker:hover,
+.sticker:focus-visible {
+  transform: translate(var(--parallax-x), calc(var(--parallax-y) - 2px))
+    rotate(calc(var(--sticker-rotate) * 0.25));
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.5)) drop-shadow(0 12px 22px rgba(0, 0, 0, 0.32));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticker {
+    transition: none;
+  }
+}

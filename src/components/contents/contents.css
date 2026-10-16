@@ -1,0 +1,74 @@
+.contents__context,
+.contents__work {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+}
+
+.contents__heading {
+  font-size: var(--fs-display);
+  margin-block-end: var(--space-2);
+}
+
+.contents__part-heading {
+  font-size: var(--fs-h2);
+  color: var(--color-ink);
+  margin-block-start: var(--space-3);
+}
+
+.contents__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.contents__link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  text-decoration: none;
+  color: var(--color-ink);
+  padding-block: var(--space-half);
+}
+
+.contents__label {
+  font-size: var(--fs-body);
+  white-space: nowrap;
+}
+
+.contents__link:hover .contents__label {
+  color: var(--accent-ink);
+}
+
+.contents__leader {
+  flex: 1 1 auto;
+  border-block-end: 1px dotted var(--color-edge);
+  min-width: var(--space-3);
+}
+
+.contents__folio {
+  font-size: var(--fs-label);
+  color: var(--color-secondary);
+}
+
+.contents__sketch {
+  width: 72px;
+  height: 72px;
+  margin-block-start: auto;
+  align-self: flex-end;
+  opacity: 0.8;
+}
+
+.contents__sketch--phone {
+  align-self: flex-start;
+}
+
+@media (max-width: 900px) {
+  .contents__sketch {
+    display: none;
+  }
+}
