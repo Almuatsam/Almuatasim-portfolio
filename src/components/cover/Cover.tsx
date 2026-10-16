@@ -8,19 +8,17 @@ import { chapterPath } from '../../content/chapters';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import './cover.css';
 
-// A1 — cover-relative x, y, width, rotation on a 540x760 reference cover.
+// A1 — cover-relative x, y, width as percentages of the cover's own box,
+// rotation in degrees, transform-origin: top left (checked layout).
 const STICKER_LAYOUT = [
-  { n: 1, x: 20, y: 20, w: 176, r: -7 },
-  { n: 2, x: 110, y: 570, w: 175, r: -9 },
-  { n: 3, x: 228, y: 12, w: 150, r: 5 },
-  { n: 4, x: 12, y: 226, w: 78, r: -5 },
-  { n: 5, x: 30, y: 410, w: 190, r: 4 },
-  { n: 6, x: 390, y: 34, w: 132, r: -4 },
-  { n: 7, x: 240, y: 400, w: 200, r: -6 },
+  { n: 1, x: 3.7, y: 2.8, w: 32.6, r: -7 },
+  { n: 3, x: 42.2, y: 1.7, w: 27.8, r: 5 },
+  { n: 6, x: 72.2, y: 4.7, w: 24.4, r: -4 },
+  { n: 4, x: 2.2, y: 31.4, w: 14.4, r: -5 },
+  { n: 5, x: 5.6, y: 56.9, w: 35.2, r: 4 },
+  { n: 7, x: 44.4, y: 55.6, w: 37.0, r: -6 },
+  { n: 2, x: 20.4, y: 79.2, w: 32.4, r: -9 },
 ] as const;
-
-const COVER_W = 540;
-const COVER_H = 760;
 
 export function Cover() {
   const { t } = useTranslation();
@@ -82,9 +80,9 @@ export function Cover() {
               src={`/stickers/sticker-${n}.png`}
               alt={stickerAlts[n - 1] ?? ''}
               position={{
-                leftPct: (x / COVER_W) * 100,
-                topPct: (y / COVER_H) * 100,
-                widthPct: (w / COVER_W) * 100,
+                leftPct: x,
+                topPct: y,
+                widthPct: w,
                 rotateDeg: r,
               }}
               parallaxX={parallax.x}

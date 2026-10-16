@@ -4,6 +4,7 @@
   inset-block-start: var(--sticker-top);
   width: var(--sticker-width);
   height: auto;
+  transform-origin: top left;
   transform: translate(var(--parallax-x), var(--parallax-y)) rotate(var(--sticker-rotate));
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.28));
   transition: transform var(--duration-micro) var(--ease-ui);

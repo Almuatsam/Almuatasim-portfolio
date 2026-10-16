@@ -20,7 +20,7 @@ export function UtilityBar() {
         aria-label={t('common.languageToggle.ariaLabel')}
         lang={otherLang}
       >
-        {t(`common.languageToggle.label`, { lng: otherLang })}
+        {t('common.languageToggle.label')}
       </Link>
       <Link
         to={plainPath}

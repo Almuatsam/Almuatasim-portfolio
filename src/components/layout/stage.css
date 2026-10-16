@@ -16,7 +16,11 @@
   background-size:
     100% 100%,
     16px 16px;
-  padding: var(--space-4) var(--space-2);
+  /* Clear the fixed utility bar (space-3 offset + ~36px tall) with room
+     to spare, while staying well inside the book's own 180px height
+     budget (book.css) so nothing forces a page scroll. */
+  padding-block: 88px var(--space-4);
+  padding-inline: var(--space-2);
   overflow-x: hidden;
 }
 
