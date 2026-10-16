@@ -1,5 +1,6 @@
 .book {
   position: relative;
+  z-index: 2;
   width: min(88vw, var(--book-max-width));
   aspect-ratio: 16 / 10;
   transform: rotate(-1.5deg);
@@ -13,7 +14,10 @@
   .book {
     width: 94vw;
     aspect-ratio: auto;
-    min-height: 100dvh;
+    /* A definite height (not just a floor) so the flip card's absolutely
+       positioned faces have something real to resolve their own 100%
+       height against. */
+    height: 100dvh;
     transform: none;
   }
 }
