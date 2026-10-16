@@ -1,0 +1,95 @@
+/* Design tokens — Portfolio Book Prompt, sections A3 / A4 / B6 */
+
+@property --accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #c97c5d;
+}
+
+@property --accent-ink {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #a55737;
+}
+
+:root {
+  /* A3 — fixed anchor colours */
+  --color-cream: #f7f1e8;
+  --color-paper: #fcf8f2;
+  --color-edge: #e6dccd;
+  --color-tracing: #fffdf9;
+  --color-ink: #2e2a26;
+  --color-secondary: #605c56;
+
+  /* A3 — chapter accent (default: terracotta, cover/contents/about) */
+  --accent: #c97c5d;
+  --accent-ink: #a55737;
+
+  /* 8px spacing scale, 4px for fine adjustment */
+  --space-half: 4px;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 96px;
+
+  /* A4 — type scale, fluid 375 -> 1440, EN values */
+  --fs-display: clamp(2.5rem, 2.1479rem + 1.5023vw, 3.5rem);
+  --fs-h1: clamp(2rem, 1.8239rem + 0.7512vw, 2.5rem);
+  --fs-h2: clamp(1.5rem, 1.4119rem + 0.3756vw, 1.75rem);
+  --fs-h3: clamp(1.25rem, 1.206rem + 0.1878vw, 1.375rem);
+  --fs-body: clamp(1.0625rem, 1.0405rem + 0.0939vw, 1.125rem);
+  --fs-small: clamp(0.9375rem, 0.9155rem + 0.0939vw, 1rem);
+  --fs-label: clamp(0.8125rem, 0.7905rem + 0.0939vw, 0.875rem);
+  --fs-note: clamp(1.25rem, 1.1619rem + 0.3756vw, 1.5rem);
+
+  /* A4 — fonts, default English */
+  --font-body: 'IBM Plex Sans', 'Arial', sans-serif;
+  --font-display: 'Fraunces Variable', 'Georgia', serif;
+  --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+  --font-hand: 'Caveat', cursive;
+
+  --lh-body: 1.6;
+  --lh-title: 1.2;
+
+  /* B6 — motion */
+  --ease-page: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-ui: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-micro: 200ms;
+  --duration-reveal: 500ms;
+  --duration-page: 1000ms;
+
+  --radius-card: 4px;
+  --book-max-width: 1400px;
+}
+
+/* A4 — Arabic: each size scaled by 1.1, Naskh / Plex Sans Arabic / Aref Ruqaa,
+   generous line height, no letter-spacing */
+:root[dir='rtl'] {
+  --fs-display: clamp(2.75rem, 2.3627rem + 1.6525vw, 3.85rem);
+  --fs-h1: clamp(2.2rem, 2.0063rem + 0.8263vw, 2.75rem);
+  --fs-h2: clamp(1.65rem, 1.5531rem + 0.4132vw, 1.925rem);
+  --fs-h3: clamp(1.375rem, 1.3266rem + 0.2066vw, 1.5125rem);
+  --fs-body: clamp(1.16875rem, 1.1446rem + 0.1033vw, 1.2375rem);
+  --fs-small: clamp(1.03125rem, 1.0071rem + 0.1033vw, 1.1rem);
+  --fs-label: clamp(0.89375rem, 0.8696rem + 0.1033vw, 0.9625rem);
+  --fs-note: clamp(1.375rem, 1.2781rem + 0.4132vw, 1.65rem);
+
+  --font-body: 'IBM Plex Sans Arabic', 'Tahoma', sans-serif;
+  --font-display: 'Noto Naskh Arabic', 'Traditional Arabic', serif;
+  --font-hand: 'Aref Ruqaa', cursive;
+
+  --lh-body: 1.8;
+}
+
+/* B9 — reduced motion: page curls, draw-ins and the language flip
+   collapse to a short cross-fade; no parallax, specks or cursor trail */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-micro: 120ms;
+    --duration-reveal: 200ms;
+    --duration-page: 200ms;
+  }
+}

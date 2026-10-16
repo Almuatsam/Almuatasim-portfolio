@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "siteTitle": "Almuatasim Alfarsi — The Maker's Sketchbook",
+    "description": "A portfolio by Almuatasim Alfarsi: interfaces, art, sewing and set work, in one open sketchbook."
+  },
+  "common": {
+    "skipToContent": "Skip to content",
+    "languageToggle": {
+      "label": "EN",
+      "ariaLabel": "Switch to Arabic"
+    },
+    "sound": {
+      "ariaLabelOn": "Turn sound off",
+      "ariaLabelOff": "Turn sound on"
+    },
+    "plainVersion": {
+      "label": "Plain version",
+      "ariaLabel": "Switch to the plain text version"
+    },
+    "folio": "{{current}} / {{total}}",
+    "arrowBack": "Back to {{chapter}}",
+    "arrowForward": "On to {{chapter}}",
+    "openBook": "Open the sketchbook",
+    "comingSoon": {
+      "title": "Still being drawn",
+      "body": "This page of the sketchbook isn't inked in yet. It's coming in the next phase.",
+      "back": "Back to contents"
+    }
+  },
+  "chapters": {
+    "cover": { "title": "Cover", "tabLabel": "" },
+    "contents": { "title": "Contents", "tabLabel": "" },
+    "about": { "title": "About", "tabLabel": "About" },
+    "screens": { "title": "Part One: Screens", "tabLabel": "Screens" },
+    "estudioa": { "title": "EstudioA", "tabLabel": "EstudioA" },
+    "apos": { "title": "APOS", "tabLabel": "APOS" },
+    "padelaura": { "title": "PadelAura", "tabLabel": "PadelAura" },
+    "papitoooo": { "title": "Papitoooo", "tabLabel": "Papitoooo" },
+    "byhand": { "title": "Part Two: By Hand", "tabLabel": "" },
+    "art": { "title": "Artworks", "tabLabel": "Art" },
+    "sewing": { "title": "Sewing", "tabLabel": "Sewing" },
+    "onset": { "title": "On Set", "tabLabel": "On Set" },
+    "process": { "title": "Process", "tabLabel": "Process" },
+    "skills": { "title": "Skills", "tabLabel": "Skills" },
+    "contact": { "title": "Contact", "tabLabel": "Contact" }
+  },
+  "cover": {
+    "nameLatin": "Almuatasim Alfarsi",
+    "nameArabic": "المعتصم الفارسي",
+    "openHint": "Open the sketchbook",
+    "stickers": [
+      "Artwork by Almuatasim Alfarsi, a face drawn in line on a pink circle.",
+      "Artwork by Almuatasim Alfarsi, a face with purple fracture lines across the eyes, inside a pastel yellow diamond.",
+      "Artwork by Almuatasim Alfarsi, a face with a third eye on the forehead, inside a pink cloud shape on purple.",
+      "Artwork by Almuatasim Alfarsi, a tall green line portrait of a head with a spiral on the forehead and two raised hands.",
+      "Artwork by Almuatasim Alfarsi, a face with a third eye and tear-shaped eyes, inside a teal oval with lightning-bolt corners.",
+      "Artwork by Almuatasim Alfarsi, a face with broken-heart shapes at the neck, inside a glowing octagon on sage green.",
+      "Artwork by Almuatasim Alfarsi, two cubist faces in teal, blue and orange patches, joined by a flowing pink ribbon."
+    ]
+  },
+  "contents": {
+    "heading": "Contents",
+    "frontMatter": { "label": "About", "chapter": "about" },
+    "partOne": {
+      "heading": "Part One — Screens",
+      "items": [
+        { "label": "EstudioA", "chapter": "estudioa" },
+        { "label": "APOS", "chapter": "apos" },
+        { "label": "PadelAura", "chapter": "padelaura" },
+        { "label": "Papitoooo", "chapter": "papitoooo" }
+      ]
+    },
+    "partTwo": {
+      "heading": "Part Two — By Hand",
+      "items": [
+        { "label": "Artworks", "chapter": "art" },
+        { "label": "Sewing", "chapter": "sewing" },
+        { "label": "On Set", "chapter": "onset" }
+      ]
+    },
+    "closing": {
+      "heading": "Closing",
+      "items": [
+        { "label": "Process", "chapter": "process" },
+        { "label": "Skills", "chapter": "skills" },
+        { "label": "Contact", "chapter": "contact" }
+      ]
+    }
+  },
+  "about": {
+    "headline": "I make things, in code, colour and fabric.",
+    "paragraphs": [
+      "I'm Almuatasim Alfarsi, a Computer Science graduate from Middle East College in Muscat. I design and build interfaces, I draw and paint, I sew, and I build sets for art and fashion projects. To me it is all the same work: taking an idea and making it real, whether the material is code, colour or fabric.",
+      "In tech, I focus on UI/UX design and front-end development. In art, I make bold, cubism-influenced portraits, and I work with Omani artist Abdulaziz Al-Hosni as a set and fabrication artist, building, painting and sewing for projects with WeTransfer and Amouage.",
+      "Five years in customer service taught me to read people and notice what they need before they say it. I bring that to everything I make, so whoever uses it, wears it or stands in front of it feels it was made for them."
+    ],
+    "marginNotes": [
+      "CS graduate, MEC Muscat",
+      "UI/UX + front-end",
+      "painter",
+      "sewist",
+      "set and fabrication artist",
+      "5 years in customer service"
+    ],
+    "portraitAlt": "Portrait of Almuatasim Alfarsi"
+  },
+  "contact": {
+    "email": "Almuatsamalfarsi@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/almuatasimalfarsi",
+    "github": "https://github.com/Almuatsam",
+    "copyLabel": "Copy email",
+    "copiedNote": "copied — talk soon"
+  },
+  "plain": {
+    "title": "Plain version",
+    "intro": "A plain-text version of this portfolio, for a quick read.",
+    "backToBook": "Open the illustrated sketchbook instead",
+    "contactHeading": "Contact"
+  }
+}
