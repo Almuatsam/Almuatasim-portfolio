@@ -2,6 +2,11 @@ import type { ComponentType } from 'react';
 import { ContentsContext, ContentsWork } from '../components/contents/Contents';
 import { AboutContext, AboutWork } from '../components/about/About';
 import { ComingSoonContext, ComingSoonWork } from '../components/comingsoon/ComingSoon';
+import { ScreensContext, ScreensWork } from '../components/screens/Screens';
+import { EstudioAContext, EstudioAWork } from '../components/projects/estudioa/EstudioA';
+import { APOSContext, APOSWork } from '../components/projects/apos/APOS';
+import { PadelAuraContext, PadelAuraWork } from '../components/projects/padelaura/PadelAura';
+import { PapitooooContext, PapitooooWork } from '../components/projects/papitoooo/Papitoooo';
 import type { ChapterDef, ChapterId } from '../content/chapters';
 import type { SupportedLang } from '../i18n';
 
@@ -15,11 +20,21 @@ type PanelComponent = ComponentType<ChapterPanelProps>;
 export const CONTEXT_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   contents: ContentsContext,
   about: AboutContext,
+  screens: ScreensContext,
+  estudioa: EstudioAContext,
+  apos: APOSContext,
+  padelaura: PadelAuraContext,
+  papitoooo: PapitooooContext,
 };
 
 export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   contents: ContentsWork,
   about: AboutWork,
+  screens: ScreensWork,
+  estudioa: EstudioAWork,
+  apos: APOSWork,
+  padelaura: PadelAuraWork,
+  papitoooo: PapitooooWork,
 };
 
 export function contextComponentFor(id: ChapterId): PanelComponent {

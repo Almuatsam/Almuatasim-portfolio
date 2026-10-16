@@ -1,0 +1,66 @@
+.fuzzy-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  margin-block-start: var(--space-3);
+  width: 100%;
+  max-width: 320px;
+}
+
+.fuzzy-demo__label {
+  font-size: var(--fs-note);
+  color: var(--color-secondary);
+}
+
+.fuzzy-demo__input {
+  width: 100%;
+  padding-block-end: var(--space-half);
+  font-size: var(--fs-body);
+  background: transparent;
+  border: none;
+  border-block-end: 2px solid var(--accent);
+  color: var(--color-ink);
+}
+
+.fuzzy-demo__input:focus-visible {
+  outline: none;
+  border-block-end-color: var(--accent-ink);
+}
+
+.fuzzy-demo__submit {
+  font-size: var(--fs-label);
+  color: var(--accent-ink);
+  border-bottom: 1px solid currentColor;
+}
+
+.fuzzy-demo__results {
+  list-style: none;
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+}
+
+.fuzzy-demo__result {
+  font-size: var(--fs-small);
+  color: var(--color-ink);
+  padding-inline-start: var(--space-2);
+  position: relative;
+}
+
+.fuzzy-demo__result::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.6em;
+  width: 6px;
+  height: 1.5px;
+  background: var(--accent-ink);
+}
+
+.fuzzy-demo__empty {
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+}

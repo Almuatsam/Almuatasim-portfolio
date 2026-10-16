@@ -1,0 +1,112 @@
+.merge-screens {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.merge-screens__stage {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 280px;
+}
+
+.merge-screens__target {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 92px;
+  border: 2px dashed var(--accent-ink);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+}
+
+.merge-screens__target-label {
+  font-size: var(--fs-label);
+  color: var(--accent-ink);
+}
+
+.merge-screens__card {
+  position: absolute;
+  width: 128px;
+  height: 80px;
+  background: var(--color-paper);
+  border: 1.5px solid var(--color-ink);
+  box-shadow: 0 8px 16px rgba(46, 42, 38, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  touch-action: none;
+}
+
+.merge-screens__card:active {
+  cursor: grabbing;
+}
+
+.merge-screens__card-label {
+  font-size: var(--fs-label);
+  color: var(--color-secondary);
+}
+
+.merge-screens__card--cafe {
+  inset-inline-start: 4%;
+  inset-block-start: 6%;
+  transform: rotate(-6deg);
+  border-radius: 10px;
+}
+
+.merge-screens__card--gift {
+  inset-inline-end: 6%;
+  inset-block-start: 10%;
+  transform: rotate(4deg);
+  border-style: dashed;
+}
+
+.merge-screens__card--tickets {
+  inset-inline-start: 30%;
+  inset-block-end: 4%;
+  transform: rotate(-2deg);
+  border-radius: 0;
+}
+
+.merge-screens__controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.merge-screens__button {
+  font-size: var(--fs-small);
+  color: var(--accent-ink);
+  border-bottom: 1px solid currentColor;
+}
+
+.merge-screens__receipt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-paper);
+  box-shadow: 0 6px 14px rgba(46, 42, 38, 0.18);
+}
+
+.merge-screens__receipt-text {
+  font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  color: var(--color-ink);
+}
+
+.merge-screens__tick {
+  width: 32px;
+  height: 24px;
+}

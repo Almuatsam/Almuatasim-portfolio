@@ -1,0 +1,27 @@
+.project-screenshot {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 14px 28px rgba(46, 42, 38, 0.22);
+  transform: rotate(var(--rotate, -1.5deg));
+  border: 1px solid rgba(46, 42, 38, 0.1);
+}
+
+.project-screenshot__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.project-screenshot__tape {
+  position: absolute;
+  inset-block-start: -12px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 64px;
+  height: 22px;
+  background: rgba(252, 248, 243, 0.78);
+  border: 1px solid rgba(46, 42, 38, 0.18);
+  z-index: 2;
+}

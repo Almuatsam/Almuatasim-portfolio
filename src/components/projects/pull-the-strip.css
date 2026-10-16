@@ -1,0 +1,78 @@
+.pull-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.pull-strip__slot {
+  position: relative;
+  width: 220px;
+  height: 64px;
+  background: var(--color-ink);
+  border-radius: 6px 6px 2px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.pull-strip__hint {
+  color: var(--color-paper);
+  font-size: var(--fs-note);
+}
+
+.pull-strip__count {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  color: var(--color-paper);
+}
+
+.pull-strip__flash {
+  position: absolute;
+  inset: 0;
+  background: #fffdf9;
+  opacity: 0.9;
+}
+
+.pull-strip__photo {
+  margin: 0;
+  width: 220px;
+  box-shadow: 0 14px 26px rgba(46, 42, 38, 0.24);
+  padding: 10px 10px 24px;
+  background: var(--color-paper);
+}
+
+.pull-strip__photo--scallop {
+  border: 3px solid var(--accent);
+  clip-path: polygon(
+    0 2%,
+    5% 0,
+    95% 0,
+    100% 2%,
+    100% 98%,
+    95% 100%,
+    5% 100%,
+    0 98%
+  );
+}
+
+.pull-strip__photo--receipt {
+  border-inline: 2px dashed var(--color-secondary);
+}
+
+.pull-strip__photo--boarding-pass {
+  border-block: 3px double var(--accent-ink);
+}
+
+.pull-strip__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pull-strip__note {
+  font-size: var(--fs-note);
+  color: var(--accent-ink);
+}

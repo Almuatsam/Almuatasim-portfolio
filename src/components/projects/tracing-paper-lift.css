@@ -1,0 +1,106 @@
+.tracing-lift {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.tracing-lift__stage {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid rgba(46, 42, 38, 0.1);
+  box-shadow: 0 14px 28px rgba(46, 42, 38, 0.22);
+}
+
+.tracing-lift__screenshot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tracing-lift__paper {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 253, 249, 0.78);
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.tracing-lift__paper:active {
+  cursor: grabbing;
+}
+
+.tracing-lift__wireframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.tracing-lift__wireframe rect {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.4;
+  opacity: 0.75;
+}
+
+.tracing-lift__curl {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, transparent 50%, rgba(46, 42, 38, 0.12) 50%);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.tracing-lift__tape {
+  position: absolute;
+  inset-block-start: 6px;
+  inset-inline-end: 6px;
+  width: 30px;
+  height: 14px;
+  background: rgba(252, 248, 243, 0.85);
+  border: 1px solid rgba(46, 42, 38, 0.18);
+  transform: rotate(10deg);
+}
+
+.tracing-lift__guide {
+  position: absolute;
+  inset-block-end: 10px;
+  inset-inline-end: 10px;
+  width: 64px;
+  height: 20px;
+}
+
+.tracing-lift__controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+.tracing-lift__button {
+  font-size: var(--fs-small);
+  color: var(--accent-ink);
+  border-bottom: 1px solid currentColor;
+}
+
+.tracing-lift__reward {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--fs-note);
+  color: var(--accent-ink);
+}
+
+.tracing-lift__reward svg {
+  width: 18px;
+  height: 14px;
+}
