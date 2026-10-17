@@ -138,10 +138,12 @@ export function BookFlipApp() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang, isRtl, t, use3D, handleOpen]);
 
+  const hide3DBookBehindCover = isCover && use3D && !fading3D;
+
   return (
     <Book accent={chapter.accent}>
       <div className={`flipbook-stage${isRtl ? ' flipbook-stage--rtl' : ''}`}>
-        <div className="flipbook-stage__mirror">
+        <div className={`flipbook-stage__mirror${hide3DBookBehindCover ? ' flipbook-stage__mirror--hidden' : ''}`}>
           <HTMLFlipBook
             key={lang}
             ref={flipBookRef}

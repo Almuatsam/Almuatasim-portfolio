@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { RoundedBox, useTexture } from '@react-three/drei';
-import type { Group, Mesh, PerspectiveCamera } from 'three';
+import { SRGBColorSpace, type CanvasTexture, type Group, type Mesh, type PerspectiveCamera } from 'three';
 import { gsap, useGSAP } from '../../lib/gsap';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { STICKER_LAYOUT, BAND_STICKER, BAND_LAYOUT, LABEL_LAYOUT } from '../../content/coverLayout';
@@ -17,28 +17,43 @@ const PAGE_W = SPREAD_W / 2;
 const PAGE_BLOCK_THICKNESS = 0.045;
 const COVER_THICKNESS = 0.012;
 
+const FOV_DEG = 18;
+const REST_TILT_DEG = 3.5;
+const MAX_POINTER_TILT = (1.5 * Math.PI) / 180;
+
 interface CoverSceneProps {
   lang: SupportedLang;
   isOpening: boolean;
   onOpened: () => void;
 }
 
+function cameraDistanceFor(fovDeg: number, tiltRad: number): number {
+  const fovRad = (fovDeg * Math.PI) / 180;
+  return SPREAD_H / 2 / Math.tan(fovRad / 2) / Math.cos(tiltRad) + 0.05;
+}
+
+function setCameraTilt(camera: PerspectiveCamera, tiltDeg: number): void {
+  const tiltRad = (tiltDeg * Math.PI) / 180;
+  const distance = cameraDistanceFor(FOV_DEG, tiltRad);
+  camera.position.set(0, distance * Math.sin(tiltRad), distance * Math.cos(tiltRad));
+  camera.up.set(0, 1, 0);
+  camera.lookAt(0, 0, 0);
+}
+
+/** Sets the rest-state camera (slight tilt). The opening timeline takes
+ * over and animates tilt down to exactly 0 (top-down) at handover. */
 function CameraFit() {
   const { camera, size } = useThree();
   useEffect(() => {
-    const persp = camera as PerspectiveCamera;
-    const fovRad = (persp.fov * Math.PI) / 180;
-    const tilt = (11 * Math.PI) / 180;
-    const distance = SPREAD_H / 2 / Math.tan(fovRad / 2) / Math.cos(tilt) + 0.05;
-    camera.position.set(0, distance * Math.sin(tilt), distance * Math.cos(tilt));
-    camera.up.set(0, 1, 0);
-    camera.lookAt(0, 0, 0);
+    setCameraTilt(camera as PerspectiveCamera, REST_TILT_DEG);
   }, [camera, size]);
   return null;
 }
 
 function StickerPlane({ n, x, y, w, r }: { n: number; x: number; y: number; w: number; r: number }) {
-  const texture = useTexture(`/stickers/sticker-${n}.png`);
+  const texture = useTexture(`/stickers/sticker-${n}.png`, (t) => {
+    t.colorSpace = SRGBColorSpace;
+  });
   const image = texture.image as HTMLImageElement | undefined;
   const aspect = (image?.width ?? 1) / (image?.height ?? 1);
   const widthWorld = (w / 100) * PAGE_W;
@@ -70,18 +85,34 @@ function StickerPlane({ n, x, y, w, r }: { n: number; x: number; y: number; w: n
   );
 }
 
+/** A soft shadow only slightly larger than the closed book, with a wide
+ * transparent margin baked into the texture so it never shows an edge.
+ * Lives inside bookGroup so it slides with the book as it opens. */
 function ShadowBlob() {
   const texture = useMemo(() => drawShadowBlobTexture(), []);
   return (
-    <mesh position={[0, -SPREAD_H * 0.08, -0.035]}>
-      <planeGeometry args={[SPREAD_W * 1.3, SPREAD_H * 1.5]} />
-      <meshBasicMaterial map={texture} transparent depthWrite={false} />
+    <mesh position={[0, -SPREAD_H * 0.02, -PAGE_BLOCK_THICKNESS / 2 - 0.01]}>
+      <planeGeometry args={[PAGE_W * 1.5, SPREAD_H * 1.5]} />
+      <meshBasicMaterial map={texture} transparent depthWrite={false} toneMapped={false} />
     </mesh>
   );
 }
 
 function NameLabel() {
-  const texture = useMemo(() => drawNameLabelTexture(), []);
+  const [texture, setTexture] = useState<CanvasTexture | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void drawNameLabelTexture().then((tex) => {
+      if (!cancelled) setTexture(tex);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!texture) return null;
+
   const w = (LABEL_LAYOUT.w / 100) * PAGE_W;
   const h = (LABEL_LAYOUT.h / 100) * SPREAD_H;
   const cx = -PAGE_W / 2 + (LABEL_LAYOUT.x / 100) * PAGE_W + w / 2;
@@ -89,21 +120,20 @@ function NameLabel() {
   return (
     <mesh position={[cx, cy, COVER_THICKNESS / 2 + 0.003]} rotation={[0, 0, (-1 * Math.PI) / 180]}>
       <planeGeometry args={[w, h]} />
-      <meshStandardMaterial map={texture} roughness={0.95} />
+      {/* Unlit — the paper stays true #FCF8F2 regardless of scene lighting. */}
+      <meshBasicMaterial map={texture} toneMapped={false} />
     </mesh>
   );
 }
 
-const MAX_TILT = (2 * Math.PI) / 180;
-
-/** B1b — at rest the book gently follows the pointer, at most 2 degrees,
+/** At rest the book gently follows the pointer, at most 1.5 degrees,
  * eased. Off once the open timeline starts and under reduced motion. */
 function PointerTilt({ active, children }: { active: boolean; children: ReactNode }) {
   const tiltRef = useRef<Group>(null);
   useFrame((state) => {
     if (!tiltRef.current) return;
-    const targetX = active ? -state.pointer.y * MAX_TILT : 0;
-    const targetY = active ? state.pointer.x * MAX_TILT : 0;
+    const targetX = active ? -state.pointer.y * MAX_POINTER_TILT : 0;
+    const targetY = active ? state.pointer.x * MAX_POINTER_TILT : 0;
     tiltRef.current.rotation.x += (targetX - tiltRef.current.rotation.x) * 0.06;
     tiltRef.current.rotation.y += (targetY - tiltRef.current.rotation.y) * 0.06;
   });
@@ -115,7 +145,10 @@ function CoverBookGroup({ lang, isOpening, onOpened }: CoverSceneProps) {
   const bookGroupRef = useRef<Group>(null);
   const hingeRef = useRef<Group>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const paperGrain = useTexture('/web-assets/paper-grain.png');
+  const paperGrain = useTexture('/web-assets/paper-grain.png', (t) => {
+    t.colorSpace = SRGBColorSpace;
+  });
+  const { camera } = useThree();
 
   // The cover's closed footprint matches the page block exactly (centred
   // at bookGroup x=0); the hinge sits at its spine edge, so the cover's
@@ -130,22 +163,28 @@ function CoverBookGroup({ lang, isOpening, onOpened }: CoverSceneProps) {
     () => {
       if (!isOpening || !bookGroupRef.current || !hingeRef.current) return;
       const duration = prefersReducedMotion ? 0.001 : 1.4;
+      const ease = prefersReducedMotion ? 'none' : 'paper';
+      const cameraRig = { tilt: REST_TILT_DEG };
       const tl = gsap.timeline({ onComplete: onOpened });
-      tl.to(
-        hingeRef.current.rotation,
-        { y: targetAngle, duration, ease: prefersReducedMotion ? 'none' : 'paper' },
-        0,
-      ).to(
-        bookGroupRef.current.position,
-        { x: slideAmount, duration, ease: prefersReducedMotion ? 'none' : 'paper' },
-        0,
-      );
+      tl.to(hingeRef.current.rotation, { y: targetAngle, duration, ease }, 0)
+        .to(bookGroupRef.current.position, { x: slideAmount, duration, ease }, 0)
+        .to(
+          cameraRig,
+          {
+            tilt: 0,
+            duration,
+            ease,
+            onUpdate: () => setCameraTilt(camera as PerspectiveCamera, cameraRig.tilt),
+          },
+          0,
+        );
     },
     { dependencies: [isOpening] },
   );
 
   return (
     <group ref={bookGroupRef}>
+      <ShadowBlob />
       <RoundedBox args={[PAGE_W, SPREAD_H, PAGE_BLOCK_THICKNESS]} radius={0.01} smoothness={2} position={[0, 0, 0]}>
         <meshStandardMaterial color="#f4ede1" roughness={0.95} />
       </RoundedBox>
@@ -153,7 +192,7 @@ function CoverBookGroup({ lang, isOpening, onOpened }: CoverSceneProps) {
       <group ref={hingeRef} position={[hingeLocalX, 0, PAGE_BLOCK_THICKNESS / 2 + COVER_THICKNESS / 2]}>
         <group position={[coverOffsetFromHinge, 0, 0]}>
           <RoundedBox args={[PAGE_W, SPREAD_H, COVER_THICKNESS]} radius={0.003} smoothness={2}>
-            <meshStandardMaterial color="#2e2a26" roughness={0.9} bumpMap={paperGrain} bumpScale={0.003} />
+            <meshStandardMaterial color="#2e2a26" roughness={0.88} metalness={0} bumpMap={paperGrain} bumpScale={0.003} />
           </RoundedBox>
           {STICKER_LAYOUT.map(({ n, x, y, w, r }) => (
             <StickerPlane key={n} n={n} x={x} y={y} w={w} r={r} />
@@ -162,7 +201,7 @@ function CoverBookGroup({ lang, isOpening, onOpened }: CoverSceneProps) {
           {/* inside face (endpaper), visible once the cover has swung past 90deg */}
           <mesh position={[0, 0, -COVER_THICKNESS / 2 - 0.001]} rotation={[0, Math.PI, 0]}>
             <planeGeometry args={[PAGE_W, SPREAD_H]} />
-            <meshStandardMaterial color="#fbf6ee" roughness={0.95} />
+            <meshBasicMaterial color="#fbf6ee" toneMapped={false} />
           </mesh>
         </group>
       </group>
@@ -174,15 +213,22 @@ export function CoverScene(props: CoverSceneProps) {
   return (
     <Canvas
       className="cover3d-canvas"
+      flat
       dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true }}
-      camera={{ fov: 28, near: 0.1, far: 10 }}
+      camera={{ fov: FOV_DEG, near: 0.1, far: 10 }}
+      // react-use-measure (which R3F uses for auto-sizing) reads
+      // getBoundingClientRect(), which includes .book's decorative
+      // rotate(-1.5deg) and inflates the measured aspect ratio.
+      // offsetWidth/offsetHeight are layout-box values, unaffected by
+      // that transform, so the canvas — and the camera fit inside it —
+      // sizes to the book's true (unrotated) 1160:760 box.
+      resize={{ offsetSize: true }}
     >
       <CameraFit />
-      <ambientLight intensity={0.55} color="#fff4e6" />
-      <directionalLight position={[-1.4, 1.8, 1.6]} intensity={1.35} color="#fff4e6" />
-      <directionalLight position={[0.6, -0.4, 1.2]} intensity={0.25} color="#e9dfd0" />
-      <ShadowBlob />
+      <ambientLight intensity={1.0} color="#fff4e6" />
+      <directionalLight position={[-1.4, 1.8, 1.6]} intensity={1.85} color="#fff4e6" />
+      <directionalLight position={[0.6, -0.4, 1.2]} intensity={0.4} color="#e9dfd0" />
       <PointerTilt active={!props.isOpening}>
         <CoverBookGroup {...props} />
       </PointerTilt>

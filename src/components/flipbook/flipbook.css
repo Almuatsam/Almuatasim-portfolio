@@ -7,6 +7,18 @@
 .flipbook-stage__mirror {
   width: 100%;
   height: 100%;
+  opacity: 1;
+  transition: opacity 200ms ease;
+}
+
+/* While the 3D cover scene is eligible and active, the real HTML book
+ * underneath must be fully hidden — not just covered — so the Contents
+ * spread can never show through around or behind the cover. It fades
+ * back in (cross-fading with the canvas fading out) on handover. */
+.flipbook-stage__mirror--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .flipbook-stage--rtl .flipbook-stage__mirror {
@@ -30,6 +42,12 @@
 .flipbook-cover3d--fading {
   opacity: 0;
   pointer-events: none;
+}
+
+/* Belt-and-braces: opaque regardless of mode, so nothing can ever show
+ * through the cover page itself. */
+.flip-page--cover {
+  background: var(--color-ink);
 }
 
 .flipbook-stage__hint {
