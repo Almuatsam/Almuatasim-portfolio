@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import type { TFunction } from 'i18next';
 import { RevealText } from '../motion/RevealText';
+import { computeParagraphDelays } from '../../lib/revealStagger';
 import './case-notes.css';
 
 interface CaseNotesProps {
@@ -15,15 +16,10 @@ const ORDER: Array<'problem' | 'insight' | 'build' | 'result'> = ['problem', 'in
  * Result) rather than long blocks. */
 export function CaseNotes({ t, isRtl, notes }: CaseNotesProps) {
   const entries = ORDER.filter((key) => notes[key]);
-  const stepSize = isRtl ? 90 : 20;
-
-  const baseDelays: number[] = [];
-  entries.reduce((offset, key) => {
-    baseDelays.push(480 + offset * stepSize);
-    const text = notes[key] as string;
-    const stepCount = isRtl ? Math.ceil(text.split(/\s+/).length / 3) : text.split(/\s+/).length;
-    return offset + stepCount;
-  }, 0);
+  const baseDelays = computeParagraphDelays(
+    entries.map((key) => notes[key] as string),
+    isRtl,
+  );
 
   return (
     <dl className="case-notes">

@@ -7,6 +7,7 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useViewerOpen } from '../../hooks/useViewerOpen';
 import { registerScrollReset, unregisterScrollReset } from '../../lib/scrollRegistry';
 import { registerLenis, unregisterLenis } from '../../lib/lenisRafLoop';
+import { createRevealController, type RevealController } from '../../lib/revealController';
 import './scroll-area.css';
 
 interface ScrollAreaProps {
@@ -56,6 +57,7 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
   const prefersReducedMotion = usePrefersReducedMotion();
   const viewerOpen = useViewerOpen();
   const lenisRef = useRef<Lenis | null>(null);
+  const revealRef = useRef<RevealController | null>(null);
   const [hints, setHints] = useState<HintState>(DEFAULT_HINTS);
 
   useEffect(
@@ -65,6 +67,10 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
         unregisterLenis(lenisRef.current);
         lenisRef.current.destroy();
         lenisRef.current = null;
+      }
+      if (revealRef.current) {
+        revealRef.current.dispose();
+        revealRef.current = null;
       }
     },
     [scrollKey],
@@ -90,10 +96,22 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
     viewport.setAttribute('role', 'region');
     viewport.setAttribute('aria-label', label);
 
+    const reveal = createRevealController(viewport, content, prefersReducedMotion);
+    revealRef.current = reveal;
+
+    // The same moment the reader arrives at this page (chapter switch or
+    // initial load) is exactly when BookFlipApp resets scroll position
+    // via this registry — re-running the reveal pass here too means
+    // content already in view on arrival shows immediately, and content
+    // left mid-reveal from a previous visit settles instead of staying
+    // stuck (see revealController.ts).
     registerScrollReset(scrollKey, () => {
       if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
       else viewport.scrollTop = 0;
+      reveal.run();
     });
+
+    reveal.run();
 
     if (!prefersReducedMotion) {
       const lenis = new Lenis({

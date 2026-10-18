@@ -51,6 +51,11 @@ export function APOSWork({ lang }: ChapterPanelProps) {
     <div className="project-spread__work">
       <MergeTheScreens
         t={t}
+        cards={{
+          cafe: { src: project.images[0].src, alt: altFor('cafe') },
+          gift: { src: project.images[2].src, alt: altFor('employees') },
+          tickets: { src: project.images[3].src, alt: altFor('payment') },
+        }}
         unifiedScreenshotSrc={project.images[0].src}
         unifiedScreenshotAlt={altFor('cafe')}
         onOpenScreenshot={() => viewer.open(0)}

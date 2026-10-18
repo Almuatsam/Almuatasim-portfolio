@@ -53,9 +53,7 @@
   background: var(--color-paper);
   border: 1.5px solid var(--color-ink);
   box-shadow: 0 8px 16px rgba(22, 20, 43, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   cursor: grab;
   touch-action: none;
 }
@@ -64,9 +62,23 @@
   cursor: grabbing;
 }
 
+.merge-screens__card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
 .merge-screens__card-label {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
   font-size: var(--fs-label);
-  color: var(--color-secondary);
+  color: var(--color-paper);
+  background: var(--color-ink);
+  padding: 2px var(--space-half);
 }
 
 .merge-screens__card--cafe {

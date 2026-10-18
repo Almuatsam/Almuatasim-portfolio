@@ -5,20 +5,28 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { ProjectScreenshot } from './ProjectScreenshot';
 import './merge-the-screens.css';
 
+type CardId = 'cafe' | 'gift' | 'tickets';
+const CARD_IDS: CardId[] = ['cafe', 'gift', 'tickets'];
+
+interface CardImage {
+  src: string;
+  alt: string;
+}
+
 interface MergeTheScreensProps {
   t: TFunction;
+  /** One real, different APOS screen per card, so the "three mismatched
+   * systems" idea is visible before they merge (B5 #2). */
+  cards: Record<CardId, CardImage>;
   unifiedScreenshotSrc: string;
   unifiedScreenshotAlt: string;
   onOpenScreenshot?: () => void;
 }
 
-type CardId = 'cafe' | 'gift' | 'tickets';
-const CARD_IDS: CardId[] = ['cafe', 'gift', 'tickets'];
-
 /** B5 #2 — three mismatched terminal cards sit apart; dragging each into
  * the dashed frame snaps it in, and once all three land, they cross-fade
  * into the single APOS screen with a printed receipt reward. */
-export function MergeTheScreens({ t, unifiedScreenshotSrc, unifiedScreenshotAlt, onOpenScreenshot }: MergeTheScreensProps) {
+export function MergeTheScreens({ t, cards, unifiedScreenshotSrc, unifiedScreenshotAlt, onOpenScreenshot }: MergeTheScreensProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
@@ -67,6 +75,7 @@ export function MergeTheScreens({ t, unifiedScreenshotSrc, unifiedScreenshotAlt,
                 id={`merge-card-${id}`}
                 style={{ '--offset': index } as CSSProperties}
               >
+                <img src={cards[id].src} alt={cards[id].alt} className="merge-screens__card-img" draggable={false} />
                 <span className="merge-screens__card-label font-mono">{t(`projects.apos.merge.${id}`)}</span>
               </motion.div>
             );

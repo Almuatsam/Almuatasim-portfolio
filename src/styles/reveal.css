@@ -1,6 +1,18 @@
 /* B6 part 2 — the incoming content arrives in three layers: lines draw
    on, then images/colour fade in, then text reveals word by word (or by
-   word group in Arabic, so joined letters never split mid-word). */
+   word group in Arabic, so joined letters never split mid-word).
+
+   Visible is the default state; the reveal is an enhancement layered on
+   top by src/lib/revealController.ts, never a gate content depends on to
+   be readable:
+   - `.reveal-pending` is the only thing that hides an element, and it is
+     added by JS only for content starting below the fold.
+   - `.reveal-in` is added once that content scrolls into view (or
+     immediately, for anything already in view when the page arrives) and
+     plays the actual animation.
+   - Content the controller never reaches (JS disabled, observer failure,
+     anything past its 1.5s safety net) simply stays at this file's
+     default opacity: 1 and is never pending in the first place. */
 
 @keyframes reveal-draw {
   from {
@@ -35,23 +47,45 @@
 
 .reveal-sketch {
   stroke-dasharray: var(--draw-length, 300);
-  stroke-dashoffset: var(--draw-length, 300);
-  animation: reveal-draw 500ms var(--ease-ui) forwards;
+  stroke-dashoffset: 0;
 }
 
-.reveal-fade {
-  opacity: 0;
-  animation: reveal-fade 450ms var(--ease-ui) 260ms forwards;
-}
-
+.reveal-fade,
 .reveal-fade-slow {
-  opacity: 0;
-  animation: reveal-fade 550ms var(--ease-ui) 180ms forwards;
+  opacity: 1;
 }
 
 .reveal-word {
   display: inline-block;
+  opacity: 1;
+}
+
+.reveal-sketch.reveal-pending {
+  stroke-dashoffset: var(--draw-length, 300);
+}
+
+.reveal-fade.reveal-pending,
+.reveal-fade-slow.reveal-pending {
   opacity: 0;
+}
+
+.reveal-word.reveal-pending {
+  opacity: 0;
+}
+
+.reveal-sketch.reveal-in {
+  animation: reveal-draw 500ms var(--ease-ui) forwards;
+}
+
+.reveal-fade.reveal-in {
+  animation: reveal-fade 450ms var(--ease-ui) forwards;
+}
+
+.reveal-fade-slow.reveal-in {
+  animation: reveal-fade 550ms var(--ease-ui) forwards;
+}
+
+.reveal-word.reveal-in {
   animation: reveal-word 320ms var(--ease-ui) forwards;
   animation-delay: calc(var(--reveal-base, 480ms) + (var(--word-index, 0) * var(--word-stagger, 20ms)));
 }

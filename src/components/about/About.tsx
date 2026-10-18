@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { useFixedT } from '../../hooks/useFixedT';
 import { RevealText } from '../motion/RevealText';
+import { computeParagraphDelays } from '../../lib/revealStagger';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './about.css';
 
@@ -36,14 +37,7 @@ export function AboutWork({ lang }: ChapterPanelProps) {
   const t = useFixedT(lang);
   const isRtl = lang === 'ar';
   const paragraphs = t('about.paragraphs', { returnObjects: true }) as string[];
-  const stepSize = isRtl ? 90 : 20;
-
-  const paragraphDelays: number[] = [];
-  paragraphs.reduce((offset, paragraph) => {
-    paragraphDelays.push(480 + offset * stepSize);
-    const stepCount = isRtl ? Math.ceil(paragraph.split(/\s+/).length / 3) : paragraph.split(/\s+/).length;
-    return offset + stepCount;
-  }, 0);
+  const paragraphDelays = computeParagraphDelays(paragraphs, isRtl);
 
   return (
     <div className="about__work">
