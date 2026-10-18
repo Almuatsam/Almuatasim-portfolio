@@ -69,6 +69,19 @@
   background: linear-gradient(to top, var(--color-paper), transparent);
 }
 
+/* Full-screen viewer fix item 3 — the fade is dropped when the page's
+   edge is covered by an image (it would read as a pale band across the
+   photo); the chevron + label stay, with a drop-shadow instead of a
+   paper background so they're still legible against any image. */
+.scroll-area__hint--bottom-no-fade {
+  background: none;
+}
+
+.scroll-area__hint--bottom-no-fade .scroll-area__hint-chevron,
+.scroll-area__hint--bottom-no-fade .scroll-area__hint-label {
+  filter: drop-shadow(0 1px 3px rgba(22, 20, 43, 0.7));
+}
+
 .scroll-area__hint-chevron {
   width: 10px;
   height: 7px;

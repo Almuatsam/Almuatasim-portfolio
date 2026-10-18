@@ -64,7 +64,7 @@ export function PapitooooWork({ lang }: ChapterPanelProps) {
         altFor={altFor}
         openIndex={viewer.openIndex}
         onClose={viewer.close}
-        onNavigate={viewer.navigate}
+        onIndexChange={viewer.setIndex}
         label={t('chapters.papitoooo.title')}
       />
     </div>

@@ -4,6 +4,7 @@ import type { OverlayScrollbars } from 'overlayscrollbars';
 import Lenis from 'lenis';
 import 'overlayscrollbars/overlayscrollbars.css';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { useViewerOpen } from '../../hooks/useViewerOpen';
 import { registerScrollReset, unregisterScrollReset } from '../../lib/scrollRegistry';
 import { registerLenis, unregisterLenis } from '../../lib/lenisRafLoop';
 import './scroll-area.css';
@@ -23,10 +24,28 @@ interface HintState {
   isScrollable: boolean;
   atTop: boolean;
   atBottom: boolean;
+  /** Full-screen viewer fix item 3 — the fade must only ever sit over
+   * paper. True when the page's own content under the top/bottom edge
+   * is an image, so that edge should show no fade (bottom keeps its
+   * chevron + label; top just hides). */
+  topOverImage: boolean;
+  bottomOverImage: boolean;
 }
 
 const EDGE_EPSILON = 1;
-const DEFAULT_HINTS: HintState = { isScrollable: false, atTop: true, atBottom: true };
+const FADE_BAND = 16;
+const DEFAULT_HINTS: HintState = {
+  isScrollable: false,
+  atTop: true,
+  atBottom: true,
+  topOverImage: false,
+  bottomOverImage: false,
+};
+
+function isOverImage(x: number, y: number): boolean {
+  const el = document.elementFromPoint(x, y);
+  return el !== null && el.closest('img, picture, video, canvas') !== null;
+}
 
 /** Page Scrolling.md — the one scroll area each book page gets. Page
  * margins, the folio and any fixed header live outside this component
@@ -35,6 +54,7 @@ const DEFAULT_HINTS: HintState = { isScrollable: false, atTop: true, atBottom: t
  * (Lenis) scoped to this page alone. */
 export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const viewerOpen = useViewerOpen();
   const lenisRef = useRef<Lenis | null>(null);
   const [hints, setHints] = useState<HintState>(DEFAULT_HINTS);
 
@@ -53,10 +73,14 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
   function updateHints(instance: OverlayScrollbars): void {
     const { viewport } = instance.elements();
     const overflow = viewport.scrollHeight - viewport.clientHeight;
+    const rect = viewport.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
     setHints({
       isScrollable: overflow > EDGE_EPSILON,
       atTop: viewport.scrollTop <= EDGE_EPSILON,
       atBottom: viewport.scrollTop >= overflow - EDGE_EPSILON,
+      topOverImage: isOverImage(x, rect.top + FADE_BAND),
+      bottomOverImage: isOverImage(x, rect.bottom - FADE_BAND),
     });
   }
 
@@ -115,9 +139,16 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
         {children}
       </OverlayScrollbarsComponent>
 
-      {hints.isScrollable && !hints.atTop && <div className="scroll-area__hint scroll-area__hint--top" aria-hidden="true" />}
-      {hints.isScrollable && !hints.atBottom && (
-        <div className="scroll-area__hint scroll-area__hint--bottom" aria-hidden="true">
+      {/* Full-screen viewer fix item 3 — no hints at all while the
+          viewer is open; the fade never sits over an image. */}
+      {!viewerOpen && hints.isScrollable && !hints.atTop && !hints.topOverImage && (
+        <div className="scroll-area__hint scroll-area__hint--top" aria-hidden="true" />
+      )}
+      {!viewerOpen && hints.isScrollable && !hints.atBottom && (
+        <div
+          className={`scroll-area__hint scroll-area__hint--bottom${hints.bottomOverImage ? ' scroll-area__hint--bottom-no-fade' : ''}`}
+          aria-hidden="true"
+        >
           <svg className="scroll-area__hint-chevron" viewBox="0 0 10 7" aria-hidden="true">
             <path d="M1 1 L5 6 L9 1" fill="none" stroke="var(--accent-ink)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>

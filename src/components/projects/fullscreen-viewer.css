@@ -1,75 +1,65 @@
-.fullscreen-viewer {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Reset section 3 / full-screen viewer fix — yet-another-react-lightbox,
+   restyled to the book's palette instead of its own defaults. The
+   library sets its root z-index to 9999 and portals to document.body
+   on its own, so it always sits above the tabs (z-index 20), utility
+   bar (40) and the book itself, regardless of any transform on the
+   page it was opened from. */
+.fv-lightbox {
+  --yarl__color_backdrop: color-mix(in srgb, var(--color-ink) 94%, transparent);
+  --yarl__container_background_color: var(--yarl__color_backdrop);
+  --yarl__color_button: var(--color-paper);
+  --yarl__color_button_active: var(--color-paper);
+  --yarl__color_button_disabled: color-mix(in srgb, var(--color-paper) 40%, transparent);
+  --yarl__button_filter: none;
+  --yarl__icon_size: 22px;
+  --yarl__button_padding: 11px;
+  --yarl__toolbar_padding: 20px;
+  --yarl__navigation_button_padding: 11px;
+  --yarl__slide_captions_container_background: transparent;
+  --yarl__slide_title_color: var(--color-paper);
+  --yarl__slide_title_font_size: var(--fs-small);
+  --yarl__slide_title_font_weight: 600;
+  --yarl__counter_color: var(--color-paper);
+  --yarl__counter_filter: none;
+  font-family: var(--font-body);
 }
 
-.fullscreen-viewer__backdrop {
-  position: absolute;
-  inset: 0;
-  background: var(--color-ink);
-  opacity: 0.92;
-  border: none;
-  cursor: zoom-out;
-}
-
-.fullscreen-viewer__img {
-  position: relative;
-  max-width: 92vw;
-  max-height: 88vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
-
-.fullscreen-viewer__close {
-  position: absolute;
-  inset-block-start: var(--space-3);
-  inset-inline-end: var(--space-3);
-  z-index: 2;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Close button (toolbar) and prev/next — round chips at the viewport
+   edges, never over the image. */
+.fv-lightbox .yarl__toolbar .yarl__button,
+.fv-lightbox .yarl__navigation_prev,
+.fv-lightbox .yarl__navigation_next {
+  box-sizing: border-box;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: rgba(252, 248, 243, 0.12);
-  color: var(--color-paper);
-  border: 1px solid rgba(252, 248, 243, 0.3);
+  background: color-mix(in srgb, var(--color-paper) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-paper) 30%, transparent);
 }
 
-.fullscreen-viewer__close:hover {
-  background: rgba(252, 248, 243, 0.2);
+.fv-lightbox .yarl__toolbar .yarl__button:hover,
+.fv-lightbox .yarl__navigation_prev:hover,
+.fv-lightbox .yarl__navigation_next:hover {
+  background: color-mix(in srgb, var(--color-paper) 20%, transparent);
 }
 
-.fullscreen-viewer__nav {
-  position: absolute;
-  inset-block-start: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: rgba(252, 248, 243, 0.12);
-  color: var(--color-paper);
-  border: 1px solid rgba(252, 248, 243, 0.3);
+/* Position (top-right close, left/right nav edges, mirrored in
+   Arabic) is already correct from the library's own defaults — only
+   appearance is customised here. */
+
+.fv-lightbox .yarl__slide_title {
+  letter-spacing: 0.01em;
 }
 
-.fullscreen-viewer__nav:hover {
-  background: rgba(252, 248, 243, 0.2);
+/* The counter is plain "current / total" digits — force LTR reading
+   order so Arabic's RTL paragraph direction doesn't flip it to
+   "total / current" (same convention as folios elsewhere: bdi /
+   .ltr-fragment in global.css). */
+.fv-lightbox .yarl__counter {
+  direction: ltr;
+  unicode-bidi: isolate;
 }
 
-.fullscreen-viewer__nav--prev {
-  inset-inline-start: var(--space-3);
-}
-
-.fullscreen-viewer__nav--next {
-  inset-inline-end: var(--space-3);
+:root[dir='rtl'] .fv-lightbox .yarl__slide_title {
+  letter-spacing: 0;
 }

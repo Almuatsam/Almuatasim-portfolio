@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/check-dashes.mjs",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
   "dependencies": {
     "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource/amiri": "^5.3.0",
     "@fontsource/ibm-plex-mono": "^5.3.0",
     "@fontsource/ibm-plex-sans": "^5.3.0",
     "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
@@ -32,7 +34,8 @@
     "react-pageflip": "^2.0.3",
     "react-router-dom": "^7.18.4",
     "three": "^0.186.1",
-    "three-stdlib": "^2.36.1"
+    "three-stdlib": "^2.36.1",
+    "yet-another-react-lightbox": "^3.32.2"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",

@@ -72,7 +72,7 @@ export function PadelAuraWork({ lang }: ChapterPanelProps) {
         altFor={altFor}
         openIndex={viewer.openIndex}
         onClose={viewer.close}
-        onNavigate={viewer.navigate}
+        onIndexChange={viewer.setIndex}
         label={t('chapters.padelaura.title')}
       />
     </div>
