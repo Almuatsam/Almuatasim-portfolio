@@ -10,8 +10,8 @@ import { Cover2D } from '../cover/Cover2D';
 import { CoverCanvasLoader } from '../book3d/CoverCanvasLoader';
 import { useCurrentChapter } from '../../routes/useCurrentChapter';
 import { contextComponentFor, workComponentFor } from '../../routes/chapterContent';
-import { CHAPTERS, chapterPath, type ChapterDef } from '../../content/chapters';
-import { folioFor } from '../../content/navigation';
+import { CHAPTERS, chapterPath } from '../../content/chapters';
+import { pageIndexForChapter, chapterForPageIndex, contextFolio, workFolio } from '../../content/navigation';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useWebGLSupport } from '../../hooks/useWebGLSupport';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
@@ -19,19 +19,6 @@ import './stpageflip-base.css';
 import './flipbook.css';
 
 const CONTENT_CHAPTERS = CHAPTERS.filter((c) => c.id !== 'cover');
-const TOTAL_PAGES = 1 + CONTENT_CHAPTERS.length * 2 + 1; // cover + chapters*2 + blank back cover
-
-function pageIndexForChapter(chapterId: string): number {
-  if (chapterId === 'cover') return 0;
-  const i = CONTENT_CHAPTERS.findIndex((c) => c.id === chapterId);
-  return i < 0 ? 0 : 1 + i * 2;
-}
-
-function chapterForPageIndex(pageIndex: number): ChapterDef {
-  if (pageIndex <= 0) return CHAPTERS[0];
-  const i = Math.min(Math.floor((pageIndex - 1) / 2), CONTENT_CHAPTERS.length - 1);
-  return CONTENT_CHAPTERS[i];
-}
 
 interface PageFlipLike {
   flip: (page: number) => void;
@@ -116,19 +103,19 @@ export function BookFlipApp() {
       </div>,
     );
     for (const ch of CONTENT_CHAPTERS) {
-      const folio = t('common.folio', {
-        current: String(folioFor(ch).current).padStart(2, '0'),
-        total: String(folioFor(ch).total).padStart(2, '0'),
-      });
+      // Each page shows its own folio — the left (context) and right
+      // (work) pages of a spread are never the same number.
+      const leftFolio = String(contextFolio(ch)).padStart(2, '0');
+      const rightFolio = String(workFolio(ch)).padStart(2, '0');
       const ContextComponent = contextComponentFor(ch.id);
       const WorkComponent = workComponentFor(ch.id);
       items.push(
-        <FlipPage key={`${ch.id}-context`} folio={folio} mirrorContent={isRtl}>
+        <FlipPage key={`${ch.id}-context`} folio={leftFolio} mirrorContent={isRtl}>
           <ContextComponent lang={lang} chapter={ch} />
         </FlipPage>,
       );
       items.push(
-        <FlipPage key={`${ch.id}-work`} folio={folio} mirrorContent={isRtl}>
+        <FlipPage key={`${ch.id}-work`} folio={rightFolio} mirrorContent={isRtl}>
           <WorkComponent lang={lang} chapter={ch} />
         </FlipPage>,
       );
@@ -149,12 +136,17 @@ export function BookFlipApp() {
             ref={flipBookRef}
             className=""
             style={{}}
-            width={1160}
+            // StPageFlip's width/height are the size of ONE PAGE, not the
+            // spread (see its README) — 1160x760 here made every page
+            // 1160 wide, so two side by side rendered as a 2320x760
+            // strip. The spread is two pages, so the page itself is
+            // half-width: 580x760.
+            width={580}
             height={760}
             size="stretch"
-            minWidth={320}
-            maxWidth={1160}
-            minHeight={210}
+            minWidth={290}
+            maxWidth={580}
+            minHeight={380}
             maxHeight={760}
             startPage={pageIndexForChapter(chapter.id)}
             drawShadow
@@ -201,5 +193,3 @@ export function BookFlipApp() {
     </Book>
   );
 }
-
-export { TOTAL_PAGES };

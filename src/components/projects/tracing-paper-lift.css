@@ -2,14 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-2);
   width: 100%;
 }
 
 .tracing-lift__stage {
   position: relative;
   width: 100%;
-  max-width: 260px;
+  max-width: 420px;
   aspect-ratio: 16 / 10;
   overflow: hidden;
   border: 1px solid rgba(46, 42, 38, 0.1);

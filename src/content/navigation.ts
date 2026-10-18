@@ -9,10 +9,36 @@ import {
 } from './chapters';
 import type { AccentKey } from './accents';
 
-export const TOTAL_SPREADS = CHAPTERS.length;
+/** Every chapter except the cover becomes two StPageFlip pages (context
+ * = left, work = right). The cover is page index 0 (a hard page, no
+ * folio); content pages are numbered 1..N in reading order. */
+const CONTENT_CHAPTERS = CHAPTERS.filter((c) => c.id !== 'cover');
 
-export function folioFor(chapter: ChapterDef): { current: number; total: number } {
-  return { current: chapter.order + 1, total: TOTAL_SPREADS };
+export const TOTAL_PAGES = CONTENT_CHAPTERS.length * 2;
+
+/** The StPageFlip array index for a chapter's context (left) page. The
+ * work (right) page is always the next index. The cover is index 0. */
+export function pageIndexForChapter(id: ChapterId): number {
+  if (id === 'cover') return 0;
+  const i = CONTENT_CHAPTERS.findIndex((c) => c.id === id);
+  return i < 0 ? 0 : 1 + i * 2;
+}
+
+export function chapterForPageIndex(pageIndex: number): ChapterDef {
+  if (pageIndex <= 0) return CHAPTERS[0];
+  const i = Math.min(Math.floor((pageIndex - 1) / 2), CONTENT_CHAPTERS.length - 1);
+  return CONTENT_CHAPTERS[i];
+}
+
+/** The printed folio number for a chapter's context (left) page. */
+export function contextFolio(chapter: ChapterDef): number {
+  return pageIndexForChapter(chapter.id);
+}
+
+/** The printed folio number for a chapter's work (right) page — always
+ * one more than its context page, never the same number on both. */
+export function workFolio(chapter: ChapterDef): number {
+  return pageIndexForChapter(chapter.id) + 1;
 }
 
 export function previousChapter(chapter: ChapterDef): ChapterDef | undefined {

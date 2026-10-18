@@ -2,9 +2,8 @@ import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { useFixedT } from '../../hooks/useFixedT';
 import { chapterPath, getChapter, type ChapterId } from '../../content/chapters';
-import { folioFor } from '../../content/navigation';
+import { contextFolio } from '../../content/navigation';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
-import type { TFunction } from 'i18next';
 import './contents.css';
 
 interface TocItem {
@@ -26,16 +25,16 @@ function useTocData(lang: ChapterPanelProps['lang']) {
   const closing = t('contents.closing', { returnObjects: true }) as TocSection;
 
   function renderItem(item: TocItem, index: number) {
-    return renderTocItem(t, lang, item, index);
+    return renderTocItem(lang, item, index);
   }
 
   return { t, frontMatter, partOne, partTwo, closing, renderItem };
 }
 
-function renderTocItem(t: TFunction, lang: ChapterPanelProps['lang'], item: TocItem, index: number) {
+function renderTocItem(lang: ChapterPanelProps['lang'], item: TocItem, index: number) {
   const chapter = getChapter(item.chapter as ChapterId);
-  const { current, total } = folioFor(chapter);
-  const folio = t('common.folio', { current: String(current).padStart(2, '0'), total: String(total).padStart(2, '0') });
+  // Reset section 3 — entries show just the page number, not "NN / total".
+  const folio = String(contextFolio(chapter)).padStart(2, '0');
   const style: CSSProperties = {
     '--word-index': index,
     '--word-stagger': '70ms',
