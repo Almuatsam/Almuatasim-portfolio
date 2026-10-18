@@ -1,8 +1,10 @@
 /* Design tokens — Portfolio Book Prompt, sections A3 / A4 / B6 */
 
-/* Display Font - Soria.md — one style only (regular). "Soria" reads as
-   a Reserved Font Name in its own metadata (a trademark notice), so
-   only the original, unmodified TTF is served (no WOFF2 copy). */
+/* Display Font - Soria.md — one style only (regular). Soria's own name
+   table credits Bydani (behance.net/danibydani) under CC BY-ND 4.0
+   (public/fonts/soria/LICENSE.txt), which forbids derivative works, so
+   only the original, unmodified TTF is served (no WOFF2 copy, no
+   subsetting). */
 @font-face {
   font-family: 'Soria';
   src: url('/fonts/soria/Soria-Regular.ttf') format('truetype');

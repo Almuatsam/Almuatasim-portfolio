@@ -11,7 +11,6 @@ export interface ProjectImage {
 export interface ProjectDef {
   id: 'estudioa' | 'apos' | 'padelaura' | 'papitoooo';
   accent: AccentKey;
-  descriptor: string;
   stack: string[];
   liveUrl: string;
   liveDomain: string;
@@ -22,7 +21,6 @@ export const PROJECTS: ProjectDef[] = [
   {
     id: 'estudioa',
     accent: 'red',
-    descriptor: 'Graduation project',
     stack: ['React 19', 'Vite', 'Framer Motion', 'Axios', 'Flask', 'JWT', 'SQLAlchemy', 'MySQL', 'spaCy', 'RapidFuzz', 'scikit-learn'],
     liveUrl: 'https://estudioa.vercel.app',
     liveDomain: 'estudioa.vercel.app',
@@ -44,7 +42,6 @@ export const PROJECTS: ProjectDef[] = [
   {
     id: 'apos',
     accent: 'blue',
-    descriptor: 'Adaptive POS',
     stack: [],
     liveUrl: 'https://apos-three.vercel.app/login',
     liveDomain: 'apos-three.vercel.app',
@@ -58,7 +55,6 @@ export const PROJECTS: ProjectDef[] = [
   {
     id: 'padelaura',
     accent: 'yellow',
-    descriptor: 'Nahj programme, 4-day build',
     stack: ['.NET 8', 'Clean Architecture', 'React 19', 'TypeScript', 'MySQL'],
     liveUrl: 'https://padelaura.vercel.app',
     liveDomain: 'padelaura.vercel.app',
@@ -81,7 +77,6 @@ export const PROJECTS: ProjectDef[] = [
   {
     id: 'papitoooo',
     accent: 'cyan',
-    descriptor: 'Just for fun',
     stack: ['Canvas 2D', 'Fabric.js'],
     liveUrl: 'https://photo-booth-xi-fawn.vercel.app',
     liveDomain: 'photo-booth-xi-fawn.vercel.app',

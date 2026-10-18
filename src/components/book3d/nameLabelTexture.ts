@@ -39,7 +39,11 @@ export async function drawNameLabelTexture(): Promise<CanvasTexture> {
 
   // The canvas maps 1:1 onto the label plane (LABEL_LAYOUT's own box),
   // so sizes are relative to CANVAS_W/H, not the whole cover — matching
-  // the 2D cover's ~22px font in a ~344px-wide label (ratio ~0.064).
+  // the 2D cover's ~34px Soria name (--fs-title) in a ~344px-wide label
+  // (ratio ~0.099). Soria's thin, regular-only strokes read smaller and
+  // lighter than the bold Arabic line at the same font-size, so the
+  // Latin start size is bumped well past the old ~22px/0.064 ratio to
+  // land at about the same visual weight.
   const maxTextWidth = canvas.width * 0.86;
 
   function fittedSize(text: string, font: (px: number) => string, startPx: number): number {
@@ -55,7 +59,7 @@ export async function drawNameLabelTexture(): Promise<CanvasTexture> {
   const latinFont = (px: number) => `400 ${px}px Soria, Fraunces, Georgia, serif`;
   const arabicFont = (px: number) => `700 ${px}px Amiri, "Noto Naskh Arabic", serif`;
 
-  const latinSize = fittedSize(NAME_LATIN, latinFont, Math.round(CANVAS_W * 0.064));
+  const latinSize = fittedSize(NAME_LATIN, latinFont, Math.round(CANVAS_W * 0.099));
   const arabicSize = fittedSize(NAME_ARABIC, arabicFont, Math.round(latinSize * 1.1));
 
   ctx.font = latinFont(latinSize);

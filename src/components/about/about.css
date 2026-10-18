@@ -33,10 +33,23 @@
   max-width: 90%;
 }
 
+/* Palette v2 — at most 2-3 colour highlights per page: the margin notes
+   read in ink like the rest of the page, with just a small indigo
+   square (matching the Contents entries' chapter-ink swatch) marking
+   each one instead of setting the whole line in accent colour. */
 .about__note {
-  font-size: var(--fs-note);
-  color: var(--accent-ink);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--fs-label);
+  color: var(--color-ink);
+}
+
+.about__note-marker {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  background: var(--accent-ink);
 }
 
 .about__work {

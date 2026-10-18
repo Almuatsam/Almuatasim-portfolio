@@ -21,8 +21,9 @@ export function AboutContext({ lang }: ChapterPanelProps) {
             '--reveal-base': '420ms',
           } as CSSProperties;
           return (
-            <li key={note} className="about__note font-hand reveal-word" style={style}>
-              {note}
+            <li key={note} className="about__note reveal-word" style={style}>
+              <span className="about__note-marker" aria-hidden="true" />
+              <span className="about__note-text font-hand">{note}</span>
             </li>
           );
         })}

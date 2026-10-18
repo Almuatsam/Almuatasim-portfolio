@@ -120,7 +120,7 @@
     "intro": "A plain-text version of this portfolio, for a quick read.",
     "backToBook": "Open the illustrated sketchbook instead",
     "contactHeading": "Contact",
-    "colophon": "Display type: Soria, by Bydani (SIL Open Font License)."
+    "colophon": "Display type: Soria by <designer>Bydani</designer>, used unmodified under <license>CC BY-ND 4.0</license>."
   },
   "screens": {
     "heading": "Part One: Screens",
@@ -143,6 +143,7 @@
   },
   "projects": {
     "estudioa": {
+      "descriptor": "Graduation project",
       "problem": "Users searching for sewing patterns found keyword-only search frustrating: a typo or an unusual phrase turned up nothing.",
       "insight": "A pattern-discovery platform needed natural-language, typo-tolerant search, built for three different people: the person looking for a pattern, the designer who made it, and the admin who moderates the library.",
       "build": "Fuzzy search (\"summer dress for beginners\", typos allowed) and a recommendation score (category 0.3, difficulty 0.1, tags 0.3, semantic similarity 0.3), with User, Designer and Admin roles and a moderation workflow. Built solo across 6 Scrum sprints, shaped by a user survey, documented with UML, ERD and DFD.",
@@ -165,6 +166,7 @@
       "shippedLabel": "shipped"
     },
     "apos": {
+      "descriptor": "Adaptive POS",
       "problem": "At a cafe in a venue with three outlets (cafe, gift shop and ticketing), three disconnected POS systems ran side by side.",
       "insight": "One multi-tenant platform, with screen sets tailored to each outlet, deterministic and auditable instead of black-box AI.",
       "build": "PIN clock-in, Admin and Device modes, terminal pairing with device JWTs, roaming staff, void/refund approval chains, and company-wide cash rollup.",
@@ -185,6 +187,7 @@
       }
     },
     "padelaura": {
+      "descriptor": "Nahj programme, 4-day build",
       "problem": "The practical exam for the Nahj training-to-employment programme: build a working booking platform in four days.",
       "insight": "Booking with only a phone number removes the sign-up wall that stops people booking a court on the spot.",
       "build": "Smart random court allocation, tiered pricing, pay on arrival or online via Thawani, QR confirmations, an analytics dashboard, full Arabic and English.",
@@ -206,6 +209,7 @@
       }
     },
     "papitoooo": {
+      "descriptor": "Just for fun",
       "insight": "Not every project has to solve a problem. A browser photo booth for friends and family, for happy, unfiltered moments. Nothing leaves the device.",
       "build": "Themed frames (boarding pass, thermal receipt, music card, and original hand-drawn leopard-scallop and glitter-star frames) fit nine layouts using 9-slice compositing. Mobile Safari download and filter bugs solved. Arabic and English with RTL.",
       "images": {

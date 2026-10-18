@@ -1,0 +1,12 @@
+Soria
+
+Copyright (c) 2016 by Bydani (https://www.behance.net/danibydani)
+
+Licensed under the Creative Commons Attribution-NoDerivatives 4.0
+International License (CC BY-ND 4.0):
+https://creativecommons.org/licenses/by-nd/4.0/
+
+This font is distributed and used unmodified, as required by the
+No-Derivatives clause of this license: the original Soria-Regular.ttf
+is shipped as-is (no subsetting, no WOFF2 conversion, no hinting or
+metadata changes).

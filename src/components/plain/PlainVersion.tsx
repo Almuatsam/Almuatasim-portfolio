@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useCurrentChapter } from '../../routes/useCurrentChapter';
 import './plain-version.css';
@@ -37,7 +37,21 @@ export function PlainVersion() {
         </li>
       </ul>
 
-      <p className="plain__colophon">{t('plain.colophon')}</p>
+      <p className="plain__colophon">
+        {/* Soria's CC BY-ND 4.0 licence (public/fonts/soria/LICENSE.txt)
+            asks for attribution to the designer and the licence itself,
+            so both render as real links, not just visible URL text.
+            Named components (not child-order indices) so the <designer>/
+            <license> tags in en.json/ar.json can't drift out of sync with
+            JSX child position. */}
+        <Trans
+          i18nKey="plain.colophon"
+          components={{
+            designer: <a href="https://www.behance.net/danibydani" target="_blank" rel="noopener noreferrer" />,
+            license: <a href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener noreferrer" />,
+          }}
+        />
+      </p>
 
       <Link to={`/${lang}`} className="plain__back">
         {t('plain.backToBook')}

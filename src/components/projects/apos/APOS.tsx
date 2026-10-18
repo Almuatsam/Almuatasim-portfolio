@@ -23,7 +23,7 @@ export function APOSContext({ lang }: ChapterPanelProps) {
         {t('projectLabels.backToScreens')}
       </Link>
       <h1 className="font-display project-spread__title reveal-fade-slow">{t('chapters.apos.title')}</h1>
-      <p className="project-spread__descriptor reveal-fade">{project.descriptor}</p>
+      <p className="project-spread__descriptor reveal-fade">{t('projects.apos.descriptor')}</p>
       <CaseNotes
         t={t}
         isRtl={isRtl}

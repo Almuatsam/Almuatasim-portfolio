@@ -26,7 +26,7 @@ export function PapitooooContext({ lang }: ChapterPanelProps) {
         {t('projectLabels.backToScreens')}
       </Link>
       <h1 className="font-display project-spread__title reveal-fade-slow">{t('chapters.papitoooo.title')}</h1>
-      <p className="project-spread__descriptor reveal-fade">{project.descriptor}</p>
+      <p className="project-spread__descriptor reveal-fade">{t('projects.papitoooo.descriptor')}</p>
       <CaseNotes
         t={t}
         isRtl={isRtl}

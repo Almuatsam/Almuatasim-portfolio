@@ -41,7 +41,12 @@
 
 .cover-page__name--latin {
   font-family: var(--font-display);
-  font-size: var(--fs-h3);
+  /* --fs-title (~34px at the 1160px book reference, i.e. a ~580px-wide
+     closed cover) rather than --fs-h3: Soria's regular-only, thin
+     strokes read smaller and lighter than the bold Arabic line at the
+     same font-size, so the Latin name needs a visibly larger size to
+     land at about the same weight on the page. */
+  font-size: var(--fs-title);
   font-weight: 400;
   font-style: normal;
   font-synthesis: none;
