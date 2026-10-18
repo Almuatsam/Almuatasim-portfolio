@@ -21,7 +21,7 @@ export interface ProjectDef {
 export const PROJECTS: ProjectDef[] = [
   {
     id: 'estudioa',
-    accent: 'clay',
+    accent: 'red',
     descriptor: 'Graduation project',
     stack: ['React 19', 'Vite', 'Framer Motion', 'Axios', 'Flask', 'JWT', 'SQLAlchemy', 'MySQL', 'spaCy', 'RapidFuzz', 'scikit-learn'],
     liveUrl: 'https://estudioa.vercel.app',
@@ -43,7 +43,7 @@ export const PROJECTS: ProjectDef[] = [
   },
   {
     id: 'apos',
-    accent: 'ochre',
+    accent: 'blue',
     descriptor: 'Adaptive POS',
     stack: [],
     liveUrl: 'https://apos-three.vercel.app/login',
@@ -57,7 +57,7 @@ export const PROJECTS: ProjectDef[] = [
   },
   {
     id: 'padelaura',
-    accent: 'sage',
+    accent: 'yellow',
     descriptor: 'Nahj programme, 4-day build',
     stack: ['.NET 8', 'Clean Architecture', 'React 19', 'TypeScript', 'MySQL'],
     liveUrl: 'https://padelaura.vercel.app',
@@ -80,7 +80,7 @@ export const PROJECTS: ProjectDef[] = [
   },
   {
     id: 'papitoooo',
-    accent: 'coral',
+    accent: 'cyan',
     descriptor: 'Just for fun',
     stack: ['Canvas 2D', 'Fabric.js'],
     liveUrl: 'https://photo-booth-xi-fawn.vercel.app',

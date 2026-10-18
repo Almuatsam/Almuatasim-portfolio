@@ -1,13 +1,17 @@
-// A3 — the accent band. One accent per chapter, always paired with its
-// text-safe ink shade (4.6:1+ on cream) for anything that renders as text.
+// Palette v2 — the five flat risograph inks. `ink` is the text-safe
+// shade for this colour used as small text on paper (cyan/yellow have
+// none, so their `ink` is the global ink colour instead — "don't use
+// cyan/yellow for text; use ink text"). `tint` is the ink at 22% on
+// paper, for soft fills (inactive tabs, etc). `text` is which colour
+// reads correctly on TOP of a full fill of this ink: paper for the
+// three darker inks, the global ink for the two light/bright ones.
 export const ACCENTS = {
-  terracotta: { accent: '#c97c5d', ink: '#a55737' },
-  clay: { accent: '#c48b7a', ink: '#9e5b46' },
-  ochre: { accent: '#c99a4e', ink: '#8c662b' },
-  sage: { accent: '#a5a15c', ink: '#716e3e' },
-  coral: { accent: '#e0916b', ink: '#af5125' },
-  plum: { accent: '#a9727f', ink: '#965c6a' },
-  walnut: { accent: '#a87b5d', ink: '#8a644a' },
+  indigo: { accent: '#1C12E3', ink: '#1C12E3', tint: '#C7C3EC', text: 'paper' },
+  blue: { accent: '#1271E3', ink: '#116CDA', tint: '#C5D8EC', text: 'paper' },
+  red: { accent: '#E31C12', ink: '#DA1B11', tint: '#F3C5BE', text: 'paper' },
+  cyan: { accent: '#12D9E3', ink: '#16142B', tint: '#C5EFEC', text: 'ink' },
+  yellow: { accent: '#D9E312', ink: '#16142B', tint: '#F0F1BE', text: 'ink' },
 } as const;
 
 export type AccentKey = keyof typeof ACCENTS;
+export type AccentTextOn = 'paper' | 'ink';

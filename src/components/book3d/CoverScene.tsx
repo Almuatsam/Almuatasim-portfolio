@@ -120,7 +120,7 @@ function NameLabel() {
   return (
     <mesh position={[cx, cy, COVER_THICKNESS / 2 + 0.003]}>
       <planeGeometry args={[w, h]} />
-      {/* Unlit — the paper stays true #FCF8F2 regardless of scene lighting. */}
+      {/* Unlit — the paper stays true #F7F5EF regardless of scene lighting. */}
       <meshBasicMaterial map={texture} toneMapped={false} />
     </mesh>
   );
@@ -186,13 +186,13 @@ function CoverBookGroup({ lang, isOpening, onOpened }: CoverSceneProps) {
     <group ref={bookGroupRef}>
       <ShadowBlob />
       <RoundedBox args={[PAGE_W, SPREAD_H, PAGE_BLOCK_THICKNESS]} radius={0.01} smoothness={2} position={[0, 0, 0]}>
-        <meshStandardMaterial color="#f4ede1" roughness={0.95} />
+        <meshStandardMaterial color="#e4e1d8" roughness={0.95} />
       </RoundedBox>
 
       <group ref={hingeRef} position={[hingeLocalX, 0, PAGE_BLOCK_THICKNESS / 2 + COVER_THICKNESS / 2]}>
         <group position={[coverOffsetFromHinge, 0, 0]}>
           <RoundedBox args={[PAGE_W, SPREAD_H, COVER_THICKNESS]} radius={0.003} smoothness={2}>
-            <meshStandardMaterial color="#2e2a26" roughness={0.88} metalness={0} bumpMap={paperGrain} bumpScale={0.003} />
+            <meshStandardMaterial color="#16142b" roughness={0.88} metalness={0} bumpMap={paperGrain} bumpScale={0.003} />
           </RoundedBox>
           {STICKER_LAYOUT.map(({ n, x, y, w, r }) => (
             <StickerPlane key={n} n={n} x={x} y={y} w={w} r={r} />
@@ -201,7 +201,7 @@ function CoverBookGroup({ lang, isOpening, onOpened }: CoverSceneProps) {
           {/* inside face (endpaper), visible once the cover has swung past 90deg */}
           <mesh position={[0, 0, -COVER_THICKNESS / 2 - 0.001]} rotation={[0, Math.PI, 0]}>
             <planeGeometry args={[PAGE_W, SPREAD_H]} />
-            <meshBasicMaterial color="#fbf6ee" toneMapped={false} />
+            <meshBasicMaterial color="#f7f5ef" toneMapped={false} />
           </mesh>
         </group>
       </group>

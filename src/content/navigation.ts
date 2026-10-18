@@ -57,7 +57,7 @@ export function tabAccent(tab: TabDef, current: ChapterDef): AccentKey {
     if (openProject) return openProject.accent;
   }
   const tabChapter = CHAPTERS.find((c) => c.id === tab.chapterId);
-  return tabChapter?.accent ?? 'terracotta';
+  return tabChapter?.accent ?? 'indigo';
 }
 
 export function isTabActive(tab: TabDef, currentId: ChapterId): boolean {

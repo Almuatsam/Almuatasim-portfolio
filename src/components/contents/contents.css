@@ -35,6 +35,15 @@
   padding-block: var(--space-half);
 }
 
+/* Palette v2 — a small solid square in the entry's own chapter ink, so
+   Contents doubles as a key to the colour story. */
+.contents__swatch {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  align-self: center;
+}
+
 .contents__label {
   font-size: var(--fs-body);
   white-space: nowrap;

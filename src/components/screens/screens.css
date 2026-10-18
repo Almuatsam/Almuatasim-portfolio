@@ -70,7 +70,7 @@
   padding: var(--space-1);
   padding-block-start: calc(var(--space-1) + 3px);
   background: var(--color-paper);
-  box-shadow: 0 8px 16px rgba(46, 42, 38, 0.14);
+  box-shadow: 0 8px 16px rgba(22, 20, 43, 0.14);
   border: 1px solid var(--color-edge);
   border-block-start: 3px solid var(--card-accent);
   text-decoration: none;
@@ -81,7 +81,7 @@
 
 .screens__card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 22px rgba(46, 42, 38, 0.18);
+  box-shadow: 0 12px 22px rgba(22, 20, 43, 0.18);
 }
 
 .screens__card-img {

@@ -15,6 +15,7 @@ import { pageIndexForChapter, chapterForPageIndex, contextFolio, workFolio } fro
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useWebGLSupport } from '../../hooks/useWebGLSupport';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { usePreloadSoriaFont } from '../../hooks/usePreloadSoriaFont';
 import { resetScrollArea } from '../../lib/scrollRegistry';
 import './stpageflip-base.css';
 import './flipbook.css';
@@ -52,6 +53,8 @@ export function BookFlipApp() {
 
   const isRtl = lang === 'ar';
   const isCover = chapter.id === 'cover';
+
+  usePreloadSoriaFont(chapter.id);
 
   const handleOpen = useCallback(() => {
     if (!use3D) {

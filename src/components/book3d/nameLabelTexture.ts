@@ -10,11 +10,19 @@ const CANVAS_H = 660;
 
 /** Renders the bilingual name label once into a canvas texture, waiting
  * for fonts to be ready so it never falls back to a system serif. Sizes
- * and colours match the 2D cover's label exactly (Fraunces for the Latin
- * name, the Arabic name 1.1x larger per the brief's Arabic type scale). */
+ * and colours match the 2D cover's label exactly (Soria for the Latin
+ * name, the Arabic name 1.1x larger per the brief's Arabic type scale).
+ * Display Font - Soria.md step 8 — explicitly requests Soria (and the
+ * Arabic partner) rather than only awaiting `fonts.ready`, since ready
+ * only covers fonts some other element has already requested — nothing
+ * else on the cover page necessarily has, this early. */
 export async function drawNameLabelTexture(): Promise<CanvasTexture> {
-  if (typeof document !== 'undefined' && document.fonts?.ready) {
-    await document.fonts.ready;
+  if (typeof document !== 'undefined' && document.fonts) {
+    await Promise.all([
+      document.fonts.load('400 64px Soria'),
+      document.fonts.load('700 64px Amiri'),
+      document.fonts.ready,
+    ]).catch(() => {});
   }
 
   const canvas = document.createElement('canvas');
@@ -23,9 +31,9 @@ export async function drawNameLabelTexture(): Promise<CanvasTexture> {
   const ctx = canvas.getContext('2d');
   if (!ctx) return new CanvasTexture(canvas);
 
-  ctx.fillStyle = '#fcf8f2';
+  ctx.fillStyle = '#f7f5ef';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#2e2a26';
+  ctx.fillStyle = '#16142b';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
@@ -44,8 +52,8 @@ export async function drawNameLabelTexture(): Promise<CanvasTexture> {
     return px;
   }
 
-  const latinFont = (px: number) => `600 ${px}px Fraunces, Georgia, serif`;
-  const arabicFont = (px: number) => `${px}px "Noto Naskh Arabic", serif`;
+  const latinFont = (px: number) => `400 ${px}px Soria, Fraunces, Georgia, serif`;
+  const arabicFont = (px: number) => `700 ${px}px Amiri, "Noto Naskh Arabic", serif`;
 
   const latinSize = fittedSize(NAME_LATIN, latinFont, Math.round(CANVAS_W * 0.064));
   const arabicSize = fittedSize(NAME_ARABIC, arabicFont, Math.round(latinSize * 1.1));
@@ -74,9 +82,9 @@ export function drawShadowBlobTexture(): CanvasTexture {
   if (!ctx) return new CanvasTexture(canvas);
 
   const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 180);
-  gradient.addColorStop(0, 'rgba(46,42,38,0.4)');
-  gradient.addColorStop(0.55, 'rgba(46,42,38,0.16)');
-  gradient.addColorStop(1, 'rgba(46,42,38,0)');
+  gradient.addColorStop(0, 'rgba(22,20,43,0.4)');
+  gradient.addColorStop(0.55, 'rgba(22,20,43,0.16)');
+  gradient.addColorStop(1, 'rgba(22,20,43,0)');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 

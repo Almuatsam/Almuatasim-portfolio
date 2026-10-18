@@ -37,6 +37,8 @@ export function PlainVersion() {
         </li>
       </ul>
 
+      <p className="plain__colophon">{t('plain.colophon')}</p>
+
       <Link to={`/${lang}`} className="plain__back">
         {t('plain.backToBook')}
       </Link>

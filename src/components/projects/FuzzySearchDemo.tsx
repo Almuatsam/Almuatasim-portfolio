@@ -43,7 +43,7 @@ export function FuzzySearchDemo({ t, defaultQuery }: FuzzySearchDemoProps) {
 
       {results && (
         <ul className="fuzzy-demo__results reveal-fade">
-          {results.length === 0 && <li className="fuzzy-demo__empty">—</li>}
+          {results.length === 0 && <li className="fuzzy-demo__empty">{t('projects.estudioa.demo.noResults')}</li>}
           {results.map((item) => (
             <li key={item} className="fuzzy-demo__result ltr-fragment" dir="ltr">
               {item}

@@ -16,8 +16,10 @@
   /* Reset: the book stays flat and still — no decorative tilt. */
   transition:
     --accent var(--duration-page) var(--ease-page),
-    --accent-ink var(--duration-page) var(--ease-page);
-  filter: drop-shadow(0 24px 40px rgba(46, 42, 38, 0.18));
+    --accent-ink var(--duration-page) var(--ease-page),
+    --accent-tint var(--duration-page) var(--ease-page),
+    --accent-text var(--duration-page) var(--ease-page);
+  filter: drop-shadow(0 24px 40px rgba(22, 20, 43, 0.18));
 
   /* Book contents scale with the book's own rendered size (container
      query units), not the viewport — so nothing reflows when the book

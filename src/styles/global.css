@@ -63,9 +63,11 @@ video {
   font-variant-numeric: tabular-nums;
 }
 
-/* B9 — focus ring: 2px outline in the current chapter's text-safe shade */
+/* Palette v2 — focus ring: fixed 2px indigo everywhere, not tied to the
+   chapter's own accent (cyan/yellow chapters have no text-safe accent
+   shade to borrow). */
 :focus-visible {
-  outline: 2px solid var(--accent-ink);
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
@@ -91,16 +93,31 @@ bdi,
 /* A1 / A2 — paper surfaces shared by every page of the book */
 .paper-texture {
   background-image:
-    radial-gradient(circle, rgba(46, 42, 38, 0.08) 1px, transparent 1px);
+    radial-gradient(circle, rgba(22, 20, 43, 0.08) 1px, transparent 1px);
   background-size: 18px 18px;
 }
 
+/* Display Font - Soria.md — Soria ships one style only (regular); never
+   let the browser fake a bold or italic for it. Arabic's display
+   partner (Amiri/Noto Naskh Arabic) keeps its bolder weight below,
+   since both ship a real 700/600 instance (no synthesis involved). */
 .font-display {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
   font-optical-sizing: auto;
   font-variation-settings: 'SOFT' 50;
   line-height: 1.15;
+  letter-spacing: 0.005em;
+}
+
+/* 700 matches Amiri's loaded weight (the current default partner); if
+   Noto Naskh Arabic is chosen instead, drop this to 600 to match the
+   weight actually loaded in styles/fonts/ar.ts. */
+:root[dir='rtl'] .font-display {
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
 /* Reset section 1 — the handwriting fonts (Caveat/Aref Ruqaa) are gone;

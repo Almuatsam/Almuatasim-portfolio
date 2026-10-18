@@ -1,29 +1,58 @@
 /* Design tokens — Portfolio Book Prompt, sections A3 / A4 / B6 */
 
+/* Display Font - Soria.md — one style only (regular). "Soria" reads as
+   a Reserved Font Name in its own metadata (a trademark notice), so
+   only the original, unmodified TTF is served (no WOFF2 copy). */
+@font-face {
+  font-family: 'Soria';
+  src: url('/fonts/soria/Soria-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @property --accent {
   syntax: '<color>';
   inherits: true;
-  initial-value: #c97c5d;
+  initial-value: #1c12e3;
 }
 
 @property --accent-ink {
   syntax: '<color>';
   inherits: true;
-  initial-value: #a55737;
+  initial-value: #1c12e3;
+}
+
+@property --accent-tint {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #c7c3ec;
+}
+
+@property --accent-text {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #f7f5ef;
 }
 
 :root {
-  /* A3 — fixed anchor colours */
-  --color-cream: #f7f1e8;
-  --color-paper: #fcf8f2;
-  --color-edge: #e6dccd;
-  --color-tracing: #fffdf9;
-  --color-ink: #2e2a26;
-  --color-secondary: #605c56;
+  /* Palette v2 — bold and electric (risograph-printed sketchbook):
+     flat ink colours on light paper. Replaces the old warm/muted
+     palette everywhere; see Palette v2.md. */
+  --color-cream: #f7f5ef;
+  --color-paper: #f7f5ef;
+  --color-edge: #e4e1d8;
+  --color-tracing: #f7f5ef;
+  --color-ink: #16142b;
+  --color-secondary: #4a4766;
+  --color-focus: #1c12e3;
 
-  /* A3 — chapter accent (default: terracotta, cover/contents/about) */
-  --accent: #c97c5d;
-  --accent-ink: #a55737;
+  /* The default/closing accent (cover, contents, about, screens,
+     process, skills, contact): indigo. */
+  --accent: #1c12e3;
+  --accent-ink: #1c12e3;
+  --accent-tint: #c7c3ec;
+  --accent-text: #f7f5ef;
 
   /* 8px spacing scale, 4px for fine adjustment */
   --space-half: 4px;
@@ -49,9 +78,13 @@
   --fs-label: clamp(0.75rem, 0.7327rem + 0.0704vw, 0.78125rem);
   --fs-note: clamp(1.25rem, 1.1619rem + 0.3756vw, 1.5rem);
 
-  /* A4 — fonts, default English */
+  /* A4 — fonts, default English. Display Font - Soria.md — Soria is
+     Latin-only and has no hyphen/en dash/em dash/middle dot/ellipsis/
+     multiply/percent glyphs; Fraunces Variable is kept loaded as the
+     fallback specifically so those characters still render (e.g. the
+     hyphen in "Al-Hosni") instead of showing a missing-glyph box. */
   --font-body: 'IBM Plex Sans', 'Arial', sans-serif;
-  --font-display: 'Fraunces Variable', 'Georgia', serif;
+  --font-display: 'Soria', 'Fraunces Variable', 'Georgia', serif;
   --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
 
   --lh-body: 1.6;
@@ -82,7 +115,11 @@
   --fs-note: clamp(1.375rem, 1.2781rem + 0.4132vw, 1.65rem);
 
   --font-body: 'IBM Plex Sans Arabic', 'Tahoma', sans-serif;
-  --font-display: 'Noto Naskh Arabic', 'Traditional Arabic', serif;
+  /* Display Font - Soria.md — Arabic display partner. Amiri's high
+     stroke contrast is the owner's first pick alongside Soria; see
+     the side-by-side screenshots for the final choice (swap to
+     'Noto Naskh Arabic', 'Traditional Arabic', serif if preferred). */
+  --font-display: 'Amiri', 'Noto Naskh Arabic', 'Traditional Arabic', serif;
 
   --lh-body: 1.8;
 }

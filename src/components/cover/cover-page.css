@@ -42,11 +42,23 @@
 .cover-page__name--latin {
   font-family: var(--font-display);
   font-size: var(--fs-h3);
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
+  letter-spacing: 0.005em;
 }
 
 .cover-page__name--arabic {
-  font-family: 'Noto Naskh Arabic', serif;
+  /* Both names show together regardless of the site's current
+     language, so this can't follow --font-display (that flips with
+     html[dir], which would hand Arabic text to Soria/Fraunces on the
+     EN cover). Hardcoded to the same Arabic display-partner choice as
+     the rest of the site instead (Display Font - Soria.md) — update
+     together with tokens.css's RTL --font-display if that choice
+     changes. */
+  font-family: 'Amiri', 'Noto Naskh Arabic', 'Traditional Arabic', serif;
   font-size: var(--fs-h3);
+  font-weight: 700;
 }
 
 .cover-page__band {

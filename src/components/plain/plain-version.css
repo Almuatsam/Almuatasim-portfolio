@@ -10,6 +10,16 @@
 .plain__title {
   font-size: var(--fs-display);
   font-family: var(--font-display);
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
+  letter-spacing: 0.005em;
+}
+
+:root[dir='rtl'] .plain__title,
+:root[dir='rtl'] .plain__headline {
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
 .plain__intro,
@@ -21,7 +31,17 @@
 .plain__headline {
   font-size: var(--fs-h1);
   font-family: var(--font-display);
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
+  letter-spacing: 0.005em;
   margin-block-start: var(--space-3);
+}
+
+.plain__colophon {
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+  margin-block-start: var(--space-4);
 }
 
 .plain__contact-list {

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "siteTitle": "Almuatasim Alfarsi — The Maker's Sketchbook",
+    "siteTitle": "Almuatasim Alfarsi: The Maker's Sketchbook",
     "description": "A portfolio by Almuatasim Alfarsi: interfaces, art, sewing and set work, in one open sketchbook."
   },
   "common": {
@@ -66,7 +66,7 @@
     "heading": "Contents",
     "frontMatter": { "label": "About", "chapter": "about" },
     "partOne": {
-      "heading": "Part One — Screens",
+      "heading": "Part One: Screens",
       "items": [
         { "label": "EstudioA", "chapter": "estudioa" },
         { "label": "APOS", "chapter": "apos" },
@@ -75,7 +75,7 @@
       ]
     },
     "partTwo": {
-      "heading": "Part Two — By Hand",
+      "heading": "Part Two: By Hand",
       "items": [
         { "label": "Artworks", "chapter": "art" },
         { "label": "Sewing", "chapter": "sewing" },
@@ -113,13 +113,14 @@
     "linkedin": "https://www.linkedin.com/in/almuatasimalfarsi",
     "github": "https://github.com/Almuatsam",
     "copyLabel": "Copy email",
-    "copiedNote": "copied — talk soon"
+    "copiedNote": "Copied. Talk soon."
   },
   "plain": {
     "title": "Plain version",
     "intro": "A plain-text version of this portfolio, for a quick read.",
     "backToBook": "Open the illustrated sketchbook instead",
-    "contactHeading": "Contact"
+    "contactHeading": "Contact",
+    "colophon": "Display type: Soria, by Bydani (SIL Open Font License)."
   },
   "screens": {
     "heading": "Part One: Screens",
@@ -142,7 +143,7 @@
   },
   "projects": {
     "estudioa": {
-      "problem": "Users searching for sewing patterns found keyword-only search frustrating — a typo or an unusual phrase turned up nothing.",
+      "problem": "Users searching for sewing patterns found keyword-only search frustrating: a typo or an unusual phrase turned up nothing.",
       "insight": "A pattern-discovery platform needed natural-language, typo-tolerant search, built for three different people: the person looking for a pattern, the designer who made it, and the admin who moderates the library.",
       "build": "Fuzzy search (\"summer dress for beginners\", typos allowed) and a recommendation score (category 0.3, difficulty 0.1, tags 0.3, semantic similarity 0.3), with User, Designer and Admin roles and a moderation workflow. Built solo across 6 Scrum sprints, shaped by a user survey, documented with UML, ERD and DFD.",
       "result": "186 test cases, all passing.",
@@ -155,7 +156,8 @@
       "demo": {
         "label": "Try the search",
         "query": "sumer dres beginer",
-        "hint": "Press Enter"
+        "hint": "Press Enter",
+        "noResults": "No matches."
       },
       "revealScreen": "Lift the tracing paper",
       "hideWireframe": "Lay the tracing paper back down",
@@ -163,7 +165,7 @@
       "shippedLabel": "shipped"
     },
     "apos": {
-      "problem": "At a cafe in a venue with three outlets — cafe, gift shop, ticketing — three disconnected POS systems ran side by side.",
+      "problem": "At a cafe in a venue with three outlets (cafe, gift shop and ticketing), three disconnected POS systems ran side by side.",
       "insight": "One multi-tenant platform, with screen sets tailored to each outlet, deterministic and auditable instead of black-box AI.",
       "build": "PIN clock-in, Admin and Device modes, terminal pairing with device JWTs, roaming staff, void/refund approval chains, and company-wide cash rollup.",
       "result": "Production-readiness review: 71/100. 263-case test specification.",
@@ -173,7 +175,7 @@
         "employees": "APOS employee management screen",
         "payment": "APOS payment screen"
       },
-      "liveNote": "opens the login screen — demo access on request",
+      "liveNote": "Opens the login screen. Demo access on request.",
       "merge": {
         "label": "Merge the screens",
         "cafe": "CAFE",
@@ -211,10 +213,10 @@
         "ar": "Papitoooo, the Arabic site, right-to-left",
         "final": "A finished photo strip from Papitoooo"
       },
-      "liveNote": "try it — it asks for your camera, nothing is uploaded",
+      "liveNote": "Try it: it asks for your camera, and nothing is uploaded.",
       "booth": {
         "label": "Pull the strip",
-        "note": "just for fun — and that's the point"
+        "note": "Just for fun, and that's the point."
       }
     }
   }

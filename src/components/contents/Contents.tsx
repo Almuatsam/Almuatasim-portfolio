@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useFixedT } from '../../hooks/useFixedT';
 import { chapterPath, getChapter, type ChapterId } from '../../content/chapters';
 import { contextFolio } from '../../content/navigation';
+import { ACCENTS } from '../../content/accents';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './contents.css';
 
@@ -35,6 +36,9 @@ function renderTocItem(lang: ChapterPanelProps['lang'], item: TocItem, index: nu
   const chapter = getChapter(item.chapter as ChapterId);
   // Reset section 3 — entries show just the page number, not "NN / total".
   const folio = String(contextFolio(chapter)).padStart(2, '0');
+  // Palette v2 — each entry shows its own chapter ink as a small solid
+  // square, so Contents reads as a key to the colour story.
+  const swatch = ACCENTS[chapter.accent].accent;
   const style: CSSProperties = {
     '--word-index': index,
     '--word-stagger': '70ms',
@@ -44,6 +48,7 @@ function renderTocItem(lang: ChapterPanelProps['lang'], item: TocItem, index: nu
   return (
     <li key={item.chapter} className="contents__item reveal-word" style={style}>
       <Link to={chapterPath(lang, chapter.id)} className="contents__link">
+        <span className="contents__swatch" style={{ background: swatch }} aria-hidden="true" />
         <span className="contents__label">{item.label}</span>
         <span className="contents__leader" aria-hidden="true" />
         <span className="contents__folio font-mono tabular-nums">
