@@ -18,6 +18,10 @@
       "ariaLabel": "Switch to the plain text version"
     },
     "folio": "{{current}} / {{total}}",
+    "scrollHint": "Scroll",
+    "pageRegion": "{{chapter}}, {{side}}",
+    "pageSideContext": "notes",
+    "pageSideWork": "work",
     "arrowBack": "Back to {{chapter}}",
     "arrowForward": "On to {{chapter}}",
     "openBook": "Open the sketchbook",

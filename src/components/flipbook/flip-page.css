@@ -21,8 +21,6 @@
 .flip-page__content {
   position: relative;
   height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .flip-page__folio {

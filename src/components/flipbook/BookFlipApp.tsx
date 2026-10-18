@@ -15,6 +15,7 @@ import { pageIndexForChapter, chapterForPageIndex, contextFolio, workFolio } fro
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useWebGLSupport } from '../../hooks/useWebGLSupport';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { resetScrollArea } from '../../lib/scrollRegistry';
 import './stpageflip-base.css';
 import './flipbook.css';
 
@@ -74,6 +75,10 @@ export function BookFlipApp() {
   const handleFlip = useCallback(
     (e: { data: number }) => {
       const target = chapterForPageIndex(e.data);
+      // Page Scrolling.md section 1 — the reader always arrives at a
+      // chapter scrolled to the top, however they got there.
+      resetScrollArea(`${target.id}-context`);
+      resetScrollArea(`${target.id}-work`);
       if (target.id === lastSyncedChapterId.current) return;
       lastSyncedChapterId.current = target.id;
       navigate(chapterPath(lang, target.id), { replace: true });
@@ -89,6 +94,8 @@ export function BookFlipApp() {
     }
     lastSyncedChapterId.current = chapter.id;
     flipBookRef.current?.pageFlip().flip(pageIndexForChapter(chapter.id));
+    resetScrollArea(`${chapter.id}-context`);
+    resetScrollArea(`${chapter.id}-work`);
   }, [chapter.id]);
 
   const pages = useMemo(() => {
@@ -102,6 +109,7 @@ export function BookFlipApp() {
         {!use3D && <Cover2D onOpen={handleOpen} />}
       </div>,
     );
+    const scrollHint = t('common.scrollHint');
     for (const ch of CONTENT_CHAPTERS) {
       // Each page shows its own folio — the left (context) and right
       // (work) pages of a spread are never the same number.
@@ -109,13 +117,30 @@ export function BookFlipApp() {
       const rightFolio = String(workFolio(ch)).padStart(2, '0');
       const ContextComponent = contextComponentFor(ch.id);
       const WorkComponent = workComponentFor(ch.id);
+      const chapterTitle = t(`chapters.${ch.id}.title`);
+      const contextLabel = t('common.pageRegion', { chapter: chapterTitle, side: t('common.pageSideContext') });
+      const workLabel = t('common.pageRegion', { chapter: chapterTitle, side: t('common.pageSideWork') });
       items.push(
-        <FlipPage key={`${ch.id}-context`} folio={leftFolio} mirrorContent={isRtl}>
+        <FlipPage
+          key={`${ch.id}-context`}
+          folio={leftFolio}
+          mirrorContent={isRtl}
+          scrollKey={`${ch.id}-context`}
+          scrollLabel={contextLabel}
+          scrollHint={scrollHint}
+        >
           <ContextComponent lang={lang} chapter={ch} />
         </FlipPage>,
       );
       items.push(
-        <FlipPage key={`${ch.id}-work`} folio={rightFolio} mirrorContent={isRtl}>
+        <FlipPage
+          key={`${ch.id}-work`}
+          folio={rightFolio}
+          mirrorContent={isRtl}
+          scrollKey={`${ch.id}-work`}
+          scrollLabel={workLabel}
+          scrollHint={scrollHint}
+        >
           <WorkComponent lang={lang} chapter={ch} />
         </FlipPage>,
       );
@@ -156,7 +181,10 @@ export function BookFlipApp() {
             autoSize
             maxShadowOpacity={0.35}
             showCover
-            mobileScrollSupport={false}
+            // Page Scrolling.md section 3 — let touchmove distinguish a
+            // vertical scroll from a horizontal page-turn swipe instead
+            // of always calling preventDefault on touch.
+            mobileScrollSupport
             swipeDistance={30}
             clickEventForward
             useMouseEvents={!isCover}

@@ -7,9 +7,12 @@
 }
 
 .tracing-lift__stage {
+  /* Reset section 3 — the main screenshot fills the full width of the
+     work page inside the margins (~470px at a 1160px spread); the page
+     content box already is that width, so this just stops capping it
+     short. */
   position: relative;
   width: 100%;
-  max-width: 420px;
   aspect-ratio: 16 / 10;
   overflow: hidden;
   border: 1px solid rgba(46, 42, 38, 0.1);

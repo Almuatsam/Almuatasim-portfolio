@@ -18,6 +18,10 @@
       "ariaLabel": "التحويل إلى النسخة النصية المبسطة"
     },
     "folio": "{{current}} / {{total}}",
+    "scrollHint": "مرّر",
+    "pageRegion": "{{chapter}}، {{side}}",
+    "pageSideContext": "ملاحظات",
+    "pageSideWork": "العمل",
     "arrowBack": "عودة إلى {{chapter}}",
     "arrowForward": "نحو {{chapter}}",
     "openBook": "افتح دفتر الرسم",

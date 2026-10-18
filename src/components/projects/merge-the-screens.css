@@ -7,10 +7,23 @@
 }
 
 .merge-screens__stage {
+  /* Reset section 3 — fills the work page's content width (~470px at a
+     1160px spread) instead of capping short; aspect-ratio replaces the
+     old fixed height so it still scales with the book. */
   position: relative;
   width: 100%;
-  max-width: 420px;
-  height: 280px;
+  aspect-ratio: 16 / 10;
+}
+
+.merge-screens__stage .project-screenshot {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+
+.merge-screens__stage .project-screenshot__img {
+  height: 100%;
+  object-fit: cover;
 }
 
 .merge-screens__target {
