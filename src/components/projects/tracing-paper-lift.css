@@ -2,14 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-1);
   width: 100%;
 }
 
 .tracing-lift__stage {
   position: relative;
   width: 100%;
-  max-width: 420px;
+  max-width: 260px;
   aspect-ratio: 16 / 10;
   overflow: hidden;
   border: 1px solid rgba(46, 42, 38, 0.1);
@@ -41,13 +41,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-}
-
-.tracing-lift__wireframe rect {
-  fill: none;
-  stroke: var(--color-ink);
-  stroke-width: 1.4;
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 .tracing-lift__curl {
@@ -58,17 +52,6 @@
   height: 34px;
   background: linear-gradient(135deg, transparent 50%, rgba(46, 42, 38, 0.12) 50%);
   clip-path: polygon(100% 0, 0 0, 100% 100%);
-}
-
-.tracing-lift__tape {
-  position: absolute;
-  inset-block-start: 6px;
-  inset-inline-end: 6px;
-  width: 30px;
-  height: 14px;
-  background: rgba(252, 248, 243, 0.85);
-  border: 1px solid rgba(46, 42, 38, 0.18);
-  transform: rotate(10deg);
 }
 
 .tracing-lift__guide {

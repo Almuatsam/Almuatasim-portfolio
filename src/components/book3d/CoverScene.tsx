@@ -118,7 +118,7 @@ function NameLabel() {
   const cx = -PAGE_W / 2 + (LABEL_LAYOUT.x / 100) * PAGE_W + w / 2;
   const cy = SPREAD_H / 2 - (LABEL_LAYOUT.y / 100) * SPREAD_H - h / 2;
   return (
-    <mesh position={[cx, cy, COVER_THICKNESS / 2 + 0.003]} rotation={[0, 0, (-1 * Math.PI) / 180]}>
+    <mesh position={[cx, cy, COVER_THICKNESS / 2 + 0.003]}>
       <planeGeometry args={[w, h]} />
       {/* Unlit — the paper stays true #FCF8F2 regardless of scene lighting. */}
       <meshBasicMaterial map={texture} toneMapped={false} />

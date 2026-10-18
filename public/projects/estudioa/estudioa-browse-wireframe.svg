@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" stroke="#2E2A26" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="0" y="0" width="1440" height="64" rx="0"/>
+<rect x="154" y="22" width="22" height="20" rx="6"/>
+<rect x="25" y="177" width="278" height="740" rx="12"/>
+<rect x="49" y="291" width="229" height="42" rx="12"/>
+<rect x="49" y="342" width="229" height="34" rx="16"/>
+<rect x="49" y="880" width="229" height="40" rx="16"/>
+<rect x="335" y="177" width="344" height="481" rx="12"/>
+<rect x="335" y="177" width="344" height="241" rx="12"/>
+<path d="M335 177 L679 418 M679 177 L335 418" stroke-opacity="0.45" stroke-width="1.6"/>
+<rect x="362" y="511" width="131" height="30" rx="16"/>
+<rect x="504" y="511" width="89" height="30" rx="16"/>
+<rect x="335" y="681" width="344" height="260" rx="12"/>
+<rect x="335" y="681" width="344" height="219" rx="12"/>
+<path d="M335 681 L679 900 M679 681 L335 900" stroke-opacity="0.45" stroke-width="1.6"/>
+<rect x="703" y="177" width="344" height="481" rx="12"/>
+<rect x="703" y="177" width="344" height="241" rx="12"/>
+<path d="M703 177 L1047 418 M1047 177 L703 418" stroke-opacity="0.45" stroke-width="1.6"/>
+<rect x="730" y="511" width="85" height="30" rx="16"/>
+<rect x="826" y="511" width="88" height="30" rx="16"/>
+<rect x="703" y="681" width="344" height="260" rx="12"/>
+<rect x="703" y="681" width="344" height="219" rx="12"/>
+<path d="M703 681 L1047 900 M1047 681 L703 900" stroke-opacity="0.45" stroke-width="1.6"/>
+<rect x="1072" y="177" width="344" height="481" rx="12"/>
+<rect x="1072" y="177" width="344" height="241" rx="12"/>
+<path d="M1072 177 L1416 418 M1416 177 L1072 418" stroke-opacity="0.45" stroke-width="1.6"/>
+<rect x="1098" y="511" width="105" height="30" rx="16"/>
+<rect x="1213" y="511" width="65" height="30" rx="16"/>
+<rect x="1072" y="681" width="344" height="260" rx="12"/>
+<rect x="1072" y="681" width="344" height="219" rx="12"/>
+<path d="M1072 681 L1416 900 M1416 681 L1072 900" stroke-opacity="0.45" stroke-width="1.6"/>
+<path d="M184 32 L254 32" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M722 32 L766 32" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M722 46 L766 46" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M1240 32 L1280 32" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M25 122 L215 122" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M1341 121 L1417 121" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M49 220 L129 220" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M49 271 L99 271" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M49 414 L119 414" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M78 452.0 L150 452.0" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M78 499.1 L178 499.1" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M78 546.2 L150 546.2" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M78 593.3 L162 593.3" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M78 640.4 L154 640.4" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M78 687.5 L154 687.5" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M78 734.6 L150 734.6" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M78 781.7 L186 781.7" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M49 837 L119 837" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M361 455 L463 455" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M361 620 L387 620" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M397 620 L423 620" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M729 455 L896 455" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M729 620 L755 620" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M765 620 L791 620" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M1098 455 L1210 455" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M1098 620 L1124 620" stroke-width="6" stroke-opacity="0.55"/>
+<path d="M1134 620 L1160 620" stroke-width="6" stroke-opacity="0.55"/>
+<circle cx="63" cy="452.0" r="6"/>
+<circle cx="63" cy="499.1" r="6"/>
+<circle cx="63" cy="546.2" r="6"/>
+<circle cx="63" cy="593.3" r="6"/>
+<circle cx="63" cy="640.4" r="6"/>
+<circle cx="63" cy="687.5" r="6"/>
+<circle cx="63" cy="734.6" r="6"/>
+<circle cx="63" cy="781.7" r="6"/>
+</svg>

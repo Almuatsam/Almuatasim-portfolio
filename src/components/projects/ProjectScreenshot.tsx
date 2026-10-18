@@ -1,23 +1,30 @@
-import type { CSSProperties } from 'react';
 import './project-screenshot.css';
 
 interface ProjectScreenshotProps {
   src: string;
+  srcSet?: string;
   alt: string;
-  rotateDeg?: number;
   className?: string;
+  onOpen?: () => void;
 }
 
-/** A screenshot held down with a strip of masking tape (A2), the way
- * every printed screen sits on the page throughout the book. */
-export function ProjectScreenshot({ src, alt, rotateDeg = -1.5, className }: ProjectScreenshotProps) {
+/** Reset section 3 — the main screenshot, flat and sharp: full width
+ * inside the page margins, 0deg, a 1px edge border and a soft shadow.
+ * No frame, no tape. Opens the full-screen viewer on click. */
+export function ProjectScreenshot({ src, srcSet, alt, className, onOpen }: ProjectScreenshotProps) {
+  const image = (
+    <img src={src} srcSet={srcSet} alt={alt} className="project-screenshot__img" loading="lazy" />
+  );
+
   return (
-    <figure
-      className={`project-screenshot reveal-fade${className ? ` ${className}` : ''}`}
-      style={{ '--rotate': `${rotateDeg}deg` } as CSSProperties}
-    >
-      <span className="project-screenshot__tape" aria-hidden="true" />
-      <img src={src} alt={alt} className="project-screenshot__img" loading="lazy" />
+    <figure className={`project-screenshot reveal-fade${className ? ` ${className}` : ''}`}>
+      {onOpen ? (
+        <button type="button" className="project-screenshot__button" onClick={onOpen}>
+          {image}
+        </button>
+      ) : (
+        image
+      )}
     </figure>
   );
 }

@@ -12,7 +12,6 @@ export function AboutContext({ lang }: ChapterPanelProps) {
     <div className="about__context">
       <div className="about__portrait-frame reveal-fade">
         <img src="/about/portrait.jpg" alt={t('about.portraitAlt')} className="about__portrait" />
-        <span className="about__tape" aria-hidden="true" />
       </div>
       <ul className="about__notes">
         {marginNotes.map((note, index) => {

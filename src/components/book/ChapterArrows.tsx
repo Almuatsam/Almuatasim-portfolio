@@ -31,8 +31,10 @@ export function ChapterArrows({ lang, chapter }: ChapterArrowsProps) {
           className="chapter-arrows__button chapter-arrows__button--back"
           aria-label={t('common.arrowBack', { chapter: t(`chapters.${prev.id}.title`) })}
         >
-          <PencilArrow pointing="back" isRtl={isRtl} color={ACCENTS[prev.accent].ink} />
-          <span className="chapter-arrows__label font-hand">{destinationLabel(prev.id)}</span>
+          <span className="chapter-arrows__icon" style={{ borderColor: ACCENTS[prev.accent].ink }}>
+            <PencilArrow pointing="back" isRtl={isRtl} color={ACCENTS[prev.accent].ink} />
+          </span>
+          <span className="chapter-arrows__label">{destinationLabel(prev.id)}</span>
         </Link>
       )}
       {next && (
@@ -41,8 +43,10 @@ export function ChapterArrows({ lang, chapter }: ChapterArrowsProps) {
           className="chapter-arrows__button chapter-arrows__button--forward"
           aria-label={t('common.arrowForward', { chapter: t(`chapters.${next.id}.title`) })}
         >
-          <PencilArrow pointing="forward" isRtl={isRtl} color={ACCENTS[next.accent].ink} />
-          <span className="chapter-arrows__label font-hand">{destinationLabel(next.id)}</span>
+          <span className="chapter-arrows__icon" style={{ borderColor: ACCENTS[next.accent].ink }}>
+            <PencilArrow pointing="forward" isRtl={isRtl} color={ACCENTS[next.accent].ink} />
+          </span>
+          <span className="chapter-arrows__label">{destinationLabel(next.id)}</span>
         </Link>
       )}
     </nav>

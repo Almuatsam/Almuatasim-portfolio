@@ -9,45 +9,39 @@
   z-index: 20;
 }
 
+/* Reset section 7 — flat paper tabs, straight edges, 6px radius on the
+   outer corners only. Inactive fill is a faint accent tint on cream;
+   active is the full accent with a charcoal label. No zig-zag/fabric
+   edge, no material distinction. */
 .index-tabs__tab {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 34px;
   flex: 1 1 0;
-  background: var(--tab-accent);
-  box-shadow: 2px 2px 6px rgba(46, 42, 38, 0.22);
-  border-start-end-radius: 4px;
-  border-end-end-radius: 4px;
+  background: color-mix(in srgb, var(--tab-accent) 22%, var(--color-cream));
+  border-start-end-radius: 6px;
+  border-end-end-radius: 6px;
   text-decoration: none;
   transition:
     transform var(--duration-micro) var(--ease-ui),
     background-color var(--duration-page) var(--ease-page);
 }
 
-.index-tabs__tab--fabric {
-  clip-path: polygon(
-    0 0,
-    85% 0,
-    100% 8%,
-    85% 16%,
-    100% 24%,
-    85% 32%,
-    100% 40%,
-    85% 48%,
-    100% 56%,
-    85% 64%,
-    100% 72%,
-    85% 80%,
-    100% 88%,
-    85% 96%,
-    100% 100%,
-    0 100%
-  );
+.index-tabs__tab:hover {
+  transform: translateX(4px);
+}
+
+:root[dir='rtl'] .index-tabs__tab:hover {
+  transform: translateX(-4px);
 }
 
 .index-tabs__tab--active {
-  background: var(--color-paper);
+  background: var(--tab-accent);
+  transform: translateX(6px);
+}
+
+.index-tabs__tab--active:hover {
   transform: translateX(6px);
 }
 
@@ -55,17 +49,24 @@
   transform: translateX(-6px);
 }
 
+:root[dir='rtl'] .index-tabs__tab--active:hover {
+  transform: translateX(-6px);
+}
+
 .index-tabs__label {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  font-size: var(--fs-label);
-  letter-spacing: 0.05em;
-  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tab-ink);
   white-space: nowrap;
 }
 
 .index-tabs__tab--active .index-tabs__label {
-  color: var(--tab-ink);
+  color: var(--color-ink);
 }
 
 @media (max-width: 900px) {
@@ -88,10 +89,6 @@
     min-width: 0;
     padding-inline: 2px;
     border-radius: 6px;
-  }
-
-  .index-tabs__tab--fabric {
-    clip-path: none;
   }
 
   .index-tabs__tab--active {

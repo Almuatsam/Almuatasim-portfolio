@@ -143,6 +143,7 @@
       "build": "Fuzzy search (\"summer dress for beginners\", typos allowed) and a recommendation score (category 0.3, difficulty 0.1, tags 0.3, semantic similarity 0.3), with User, Designer and Admin roles and a moderation workflow. Built solo across 6 Scrum sprints, shaped by a user survey, documented with UML, ERD and DFD.",
       "result": "186 test cases, all passing.",
       "images": {
+        "browse": "EstudioA pattern browse screen, with the search panel and the card grid",
         "home": "EstudioA home page, showing the pattern search and results grid",
         "admin": "EstudioA admin screen for moderating submitted patterns",
         "cardflip": "A pattern card on EstudioA flipping to show its details"
@@ -183,25 +184,27 @@
       "build": "Smart random court allocation, tiered pricing, pay on arrival or online via Thawani, QR confirmations, an analytics dashboard, full Arabic and English.",
       "result": "Placed 2nd in the Nahj programme, built in 4 days.",
       "images": {
-        "landing": "PadelAura landing page",
+        "en": "PadelAura, the English site",
+        "ar": "PadelAura, the Arabic site, right-to-left",
         "booking": "PadelAura court booking screen",
         "thawani": "PadelAura Thawani payment screen",
-        "confirmation": "PadelAura booking confirmation screen with QR code",
-        "admin": "PadelAura analytics dashboard"
+        "confirmation": "PadelAura booking confirmation screen with QR code"
       },
-      "flip": {
-        "label": "EN",
-        "labelAr": "ع",
-        "allocationNote": "smart allocation"
+      "facts": {
+        "days": "4 days",
+        "place": "2nd place",
+        "noSignup": "No-signup booking",
+        "allocation": "Smart court allocation",
+        "payment": "Thawani",
+        "languages": "Arabic / English"
       }
     },
     "papitoooo": {
       "insight": "Not every project has to solve a problem. A browser photo booth for friends and family, for happy, unfiltered moments. Nothing leaves the device.",
       "build": "Themed frames (boarding pass, thermal receipt, music card, and original hand-drawn leopard-scallop and glitter-star frames) fit nine layouts using 9-slice compositing. Mobile Safari download and filter bugs solved. Arabic and English with RTL.",
       "images": {
-        "booth": "The Papitoooo photo booth start screen",
-        "shot": "Taking a shot in the Papitoooo photo booth",
-        "edit": "Choosing a frame in the Papitoooo edit screen",
+        "en": "Papitoooo, the English site",
+        "ar": "Papitoooo, the Arabic site, right-to-left",
         "final": "A finished photo strip from Papitoooo"
       },
       "liveNote": "try it — it asks for your camera, nothing is uploaded",

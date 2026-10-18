@@ -2,7 +2,10 @@ import type { AccentKey } from './accents';
 
 export interface ProjectImage {
   key: string;
+  /** 1x fallback (also the `src` for browsers that ignore srcSet). */
   src: string;
+  /** `"<1x-url> 1x, <2x-url> 2x"`, when a sharper capture exists. */
+  srcSet?: string;
 }
 
 export interface ProjectDef {
@@ -24,7 +27,16 @@ export const PROJECTS: ProjectDef[] = [
     liveUrl: 'https://estudioa.vercel.app',
     liveDomain: 'estudioa.vercel.app',
     images: [
-      { key: 'home', src: '/projects/estudioa/home-page.png' },
+      {
+        key: 'browse',
+        src: '/projects/estudioa/estudioa-browse.jpg',
+        srcSet: '/projects/estudioa/estudioa-browse.jpg 1x, /projects/estudioa/estudioa-browse@2x.jpg 2x',
+      },
+      {
+        key: 'home',
+        src: '/projects/estudioa/estudioa-en.jpg',
+        srcSet: '/projects/estudioa/estudioa-en.jpg 1x, /projects/estudioa/estudioa-en@2x.jpg 2x',
+      },
       { key: 'admin', src: '/projects/estudioa/admin.png' },
       { key: 'cardflip', src: '/projects/estudioa/cardflip.png' },
     ],
@@ -37,10 +49,10 @@ export const PROJECTS: ProjectDef[] = [
     liveUrl: 'https://apos-three.vercel.app/login',
     liveDomain: 'apos-three.vercel.app',
     images: [
-      { key: 'cafe', src: '/projects/apos/cafe-pos.png' },
-      { key: 'admin', src: '/projects/apos/admin.png' },
-      { key: 'employees', src: '/projects/apos/employees.png' },
-      { key: 'payment', src: '/projects/apos/payment.png' },
+      { key: 'cafe', src: '/projects/apos/cafe-pos-hd.jpg' },
+      { key: 'admin', src: '/projects/apos/admin-hd.jpg' },
+      { key: 'employees', src: '/projects/apos/employees-hd.jpg' },
+      { key: 'payment', src: '/projects/apos/payment-hd.jpg' },
     ],
   },
   {
@@ -51,11 +63,19 @@ export const PROJECTS: ProjectDef[] = [
     liveUrl: 'https://padelaura.vercel.app',
     liveDomain: 'padelaura.vercel.app',
     images: [
-      { key: 'landing', src: '/projects/padelaura/landing-page.png' },
-      { key: 'booking', src: '/projects/padelaura/booking-page.png' },
-      { key: 'thawani', src: '/projects/padelaura/thawani-page.png' },
-      { key: 'confirmation', src: '/projects/padelaura/confirmation-page.png' },
-      { key: 'admin', src: '/projects/padelaura/admin-page.png' },
+      {
+        key: 'en',
+        src: '/projects/padelaura/padelaura-en.jpg',
+        srcSet: '/projects/padelaura/padelaura-en.jpg 1x, /projects/padelaura/padelaura-en@2x.jpg 2x',
+      },
+      {
+        key: 'ar',
+        src: '/projects/padelaura/padelaura-ar.jpg',
+        srcSet: '/projects/padelaura/padelaura-ar.jpg 1x, /projects/padelaura/padelaura-ar@2x.jpg 2x',
+      },
+      { key: 'booking', src: '/projects/padelaura/booking-page-hd.jpg' },
+      { key: 'thawani', src: '/projects/padelaura/thawani-page-hd.jpg' },
+      { key: 'confirmation', src: '/projects/padelaura/confirmation-page-hd.jpg' },
     ],
   },
   {
@@ -66,9 +86,16 @@ export const PROJECTS: ProjectDef[] = [
     liveUrl: 'https://photo-booth-xi-fawn.vercel.app',
     liveDomain: 'photo-booth-xi-fawn.vercel.app',
     images: [
-      { key: 'booth', src: '/projects/papitoooo/the-photo-booth.png' },
-      { key: 'shot', src: '/projects/papitoooo/shot.png' },
-      { key: 'edit', src: '/projects/papitoooo/edit-page.png' },
+      {
+        key: 'en',
+        src: '/projects/papitoooo/papitoooo-en.jpg',
+        srcSet: '/projects/papitoooo/papitoooo-en.jpg 1x, /projects/papitoooo/papitoooo-en@2x.jpg 2x',
+      },
+      {
+        key: 'ar',
+        src: '/projects/papitoooo/papitoooo-ar.jpg',
+        srcSet: '/projects/papitoooo/papitoooo-ar.jpg 1x, /projects/papitoooo/papitoooo-ar@2x.jpg 2x',
+      },
       { key: 'final', src: '/projects/papitoooo/final-photo.jpg' },
     ],
   },

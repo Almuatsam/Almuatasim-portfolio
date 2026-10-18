@@ -10,7 +10,7 @@
   position: relative;
   width: 100%;
   max-width: 420px;
-  height: 280px;
+  height: 180px;
 }
 
 .merge-screens__target {
@@ -59,21 +59,18 @@
 .merge-screens__card--cafe {
   inset-inline-start: 4%;
   inset-block-start: 6%;
-  transform: rotate(-6deg);
   border-radius: 10px;
 }
 
 .merge-screens__card--gift {
   inset-inline-end: 6%;
   inset-block-start: 10%;
-  transform: rotate(4deg);
   border-style: dashed;
 }
 
 .merge-screens__card--tickets {
   inset-inline-start: 30%;
   inset-block-end: 4%;
-  transform: rotate(-2deg);
   border-radius: 0;
 }
 

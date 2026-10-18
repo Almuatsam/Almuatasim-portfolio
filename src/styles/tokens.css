@@ -35,21 +35,24 @@
   --space-6: 64px;
   --space-7: 96px;
 
-  /* A4 — type scale, fluid 375 -> 1440, EN values */
-  --fs-display: clamp(2.5rem, 2.1479rem + 1.5023vw, 3.5rem);
+  /* A4 — type scale, fluid 375 -> 1440, EN values. Reset: smaller and
+     calmer — display/title/body/label are pinned close to the Reset
+     doc's section 2 targets at a 1160px-wide spread (see book.css for
+     the container-query versions actually used on book pages). */
+  --fs-display: clamp(2rem, 1.8239rem + 0.7512vw, 2.5rem);
+  --fs-title: clamp(1.5rem, 1.3761rem + 0.5267vw, 1.875rem);
   --fs-h1: clamp(2rem, 1.8239rem + 0.7512vw, 2.5rem);
   --fs-h2: clamp(1.5rem, 1.4119rem + 0.3756vw, 1.75rem);
   --fs-h3: clamp(1.25rem, 1.206rem + 0.1878vw, 1.375rem);
-  --fs-body: clamp(1.0625rem, 1.0405rem + 0.0939vw, 1.125rem);
-  --fs-small: clamp(0.9375rem, 0.9155rem + 0.0939vw, 1rem);
-  --fs-label: clamp(0.8125rem, 0.7905rem + 0.0939vw, 0.875rem);
+  --fs-body: clamp(1rem, 0.9834rem + 0.0704vw, 1.0625rem);
+  --fs-small: clamp(0.875rem, 0.858rem + 0.0704vw, 0.9375rem);
+  --fs-label: clamp(0.75rem, 0.7327rem + 0.0704vw, 0.78125rem);
   --fs-note: clamp(1.25rem, 1.1619rem + 0.3756vw, 1.5rem);
 
   /* A4 — fonts, default English */
   --font-body: 'IBM Plex Sans', 'Arial', sans-serif;
   --font-display: 'Fraunces Variable', 'Georgia', serif;
   --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
-  --font-hand: 'Caveat', cursive;
 
   --lh-body: 1.6;
   --lh-title: 1.2;
@@ -65,21 +68,21 @@
   --book-max-width: 1400px;
 }
 
-/* A4 — Arabic: each size scaled by 1.1, Naskh / Plex Sans Arabic / Aref Ruqaa,
+/* A4 — Arabic: each size scaled by 1.1, Naskh / Plex Sans Arabic,
    generous line height, no letter-spacing */
 :root[dir='rtl'] {
-  --fs-display: clamp(2.75rem, 2.3627rem + 1.6525vw, 3.85rem);
+  --fs-display: clamp(2.2rem, 2.0063rem + 0.8263vw, 2.75rem);
+  --fs-title: clamp(1.65rem, 1.5137rem + 0.5794vw, 2.0625rem);
   --fs-h1: clamp(2.2rem, 2.0063rem + 0.8263vw, 2.75rem);
   --fs-h2: clamp(1.65rem, 1.5531rem + 0.4132vw, 1.925rem);
   --fs-h3: clamp(1.375rem, 1.3266rem + 0.2066vw, 1.5125rem);
-  --fs-body: clamp(1.16875rem, 1.1446rem + 0.1033vw, 1.2375rem);
-  --fs-small: clamp(1.03125rem, 1.0071rem + 0.1033vw, 1.1rem);
-  --fs-label: clamp(0.89375rem, 0.8696rem + 0.1033vw, 0.9625rem);
+  --fs-body: clamp(1.1rem, 1.0817rem + 0.0774vw, 1.15625rem);
+  --fs-small: clamp(0.9625rem, 0.9438rem + 0.0774vw, 1.03125rem);
+  --fs-label: clamp(0.825rem, 0.806rem + 0.0774vw, 0.859375rem);
   --fs-note: clamp(1.375rem, 1.2781rem + 0.4132vw, 1.65rem);
 
   --font-body: 'IBM Plex Sans Arabic', 'Tahoma', sans-serif;
   --font-display: 'Noto Naskh Arabic', 'Traditional Arabic', serif;
-  --font-hand: 'Aref Ruqaa', cursive;
 
   --lh-body: 1.8;
 }

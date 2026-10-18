@@ -65,29 +65,6 @@ export function ContentsContext({ lang }: ChapterPanelProps) {
       <ul className="contents__list">{renderItem(items[0], 0)}</ul>
       <h2 className="font-display contents__part-heading reveal-fade">{partOne.heading}</h2>
       <ul className="contents__list">{items.slice(1).map((item, i) => renderItem(item, i + 1))}</ul>
-
-      <svg className="contents__sketch contents__sketch--phone" viewBox="0 0 90 90" aria-hidden="true">
-        <rect
-          className="reveal-sketch"
-          x="28"
-          y="8"
-          width="34"
-          height="60"
-          rx="6"
-          fill="none"
-          stroke="var(--color-secondary)"
-          strokeWidth="1.4"
-          style={{ '--draw-length': 190 } as CSSProperties}
-        />
-        <path
-          className="reveal-sketch"
-          d="M34 20h22M34 28h22M34 36h14"
-          stroke="var(--color-secondary)"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-          style={{ '--draw-length': 70 } as CSSProperties}
-        />
-      </svg>
     </div>
   );
 }
@@ -104,36 +81,6 @@ export function ContentsWork({ lang }: ChapterPanelProps) {
       <ul className="contents__list">
         {items.slice(partTwo.items.length).map((item, i) => renderItem(item, i + partTwo.items.length))}
       </ul>
-
-      <svg className="contents__sketch contents__sketch--thread" viewBox="0 0 90 90" aria-hidden="true">
-        <circle
-          className="reveal-sketch"
-          cx="45"
-          cy="45"
-          r="22"
-          fill="none"
-          stroke="var(--color-secondary)"
-          strokeWidth="1.4"
-          style={{ '--draw-length': 140 } as CSSProperties}
-        />
-        <path
-          className="reveal-sketch"
-          d="M45 23c-9 6-9 34 0 44M45 23c9 6 9 34 0 44"
-          fill="none"
-          stroke="var(--color-secondary)"
-          strokeWidth="1.1"
-          style={{ '--draw-length': 100 } as CSSProperties}
-        />
-        <path
-          className="reveal-sketch"
-          d="M60 60c6 4 10 10 10 18"
-          fill="none"
-          stroke="var(--accent-ink)"
-          strokeWidth="1.3"
-          strokeLinecap="round"
-          style={{ '--draw-length': 24 } as CSSProperties}
-        />
-      </svg>
     </div>
   );
 }

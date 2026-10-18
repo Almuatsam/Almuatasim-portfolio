@@ -32,11 +32,11 @@ export function IndexTabs({ lang, chapter }: IndexTabsProps) {
           <Link
             key={tab.chapterId}
             to={chapterPath(lang, tab.chapterId)}
-            className={`index-tabs__tab index-tabs__tab--${tab.material}${active ? ' index-tabs__tab--active' : ''}`}
+            className={`index-tabs__tab${active ? ' index-tabs__tab--active' : ''}`}
             style={style}
             aria-current={active ? 'page' : undefined}
           >
-            <span className="index-tabs__label font-mono">{t(`chapters.${tab.chapterId}.tabLabel`)}</span>
+            <span className="index-tabs__label">{t(`chapters.${tab.chapterId}.tabLabel`)}</span>
           </Link>
         );
       })}

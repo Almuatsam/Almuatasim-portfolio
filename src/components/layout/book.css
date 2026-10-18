@@ -13,7 +13,7 @@
   min-width: 0;
   min-height: 0;
   container-type: inline-size;
-  transform: rotate(-1.5deg);
+  /* Reset: the book stays flat and still — no decorative tilt. */
   transition:
     --accent var(--duration-page) var(--ease-page),
     --accent-ink var(--duration-page) var(--ease-page);
@@ -22,25 +22,34 @@
   /* Book contents scale with the book's own rendered size (container
      query units), not the viewport — so nothing reflows when the book
      shrinks to fit a short viewport. Reference size: 1160px (desktop
-     maximum) down to 400px (a small, short-viewport book). */
-  --fs-display: clamp(2.5rem, 1.9737rem + 2.1053cqi, 3.5rem);
+     maximum) down to 400px (a small, short-viewport book). Reset
+     section 2 — smaller and calmer: chapter/part titles 40px, project
+     titles/about headline 34px (--fs-title), body 17px, labels 12.5px,
+     all at the 1160px reference. */
+  --fs-display: clamp(1.75rem, 1.3553rem + 1.579cqi, 2.5rem);
+  --fs-title: clamp(1.5rem, 1.1711rem + 1.3158cqi, 2.125rem);
   --fs-h1: clamp(2rem, 1.7368rem + 1.0526cqi, 2.5rem);
   --fs-h2: clamp(1.5rem, 1.3684rem + 0.5263cqi, 1.75rem);
   --fs-h3: clamp(1.25rem, 1.1842rem + 0.2632cqi, 1.375rem);
-  --fs-body: clamp(1.0625rem, 1.0296rem + 0.1316cqi, 1.125rem);
-  --fs-small: clamp(0.9375rem, 0.9046rem + 0.1316cqi, 1rem);
-  --fs-label: clamp(0.8125rem, 0.7796rem + 0.1316cqi, 0.875rem);
+  --fs-body: clamp(1rem, 0.9671rem + 0.1316cqi, 1.0625rem);
+  --fs-small: clamp(0.875rem, 0.8421rem + 0.1316cqi, 0.9375rem);
+  --fs-label: clamp(0.725rem, 0.6954rem + 0.1184cqi, 0.78125rem);
   --fs-note: clamp(1.25rem, 1.1184rem + 0.5263cqi, 1.5rem);
+
+  /* Reset section 2 — fixed 56px page margins, scaling with the book
+     via container query units (56px at the 1160px reference). */
+  --page-margin: clamp(2rem, 4.8276cqi, 3.5rem);
 }
 
 :root[dir='rtl'] .book {
-  --fs-display: clamp(2.75rem, 2.1711rem + 2.3158cqi, 3.85rem);
+  --fs-display: clamp(1.925rem, 1.4908rem + 1.7368cqi, 2.75rem);
+  --fs-title: clamp(1.65rem, 1.2882rem + 1.4474cqi, 2.3375rem);
   --fs-h1: clamp(2.2rem, 1.9105rem + 1.1579cqi, 2.75rem);
   --fs-h2: clamp(1.65rem, 1.5053rem + 0.5789cqi, 1.925rem);
   --fs-h3: clamp(1.375rem, 1.3026rem + 0.2895cqi, 1.5125rem);
-  --fs-body: clamp(1.16875rem, 1.1326rem + 0.1447cqi, 1.2375rem);
-  --fs-small: clamp(1.03125rem, 0.9951rem + 0.1447cqi, 1.1rem);
-  --fs-label: clamp(0.89375rem, 0.8576rem + 0.1447cqi, 0.9625rem);
+  --fs-body: clamp(1.1rem, 1.0704rem + 0.1184cqi, 1.15625rem);
+  --fs-small: clamp(0.9625rem, 0.9263rem + 0.1447cqi, 1.03125rem);
+  --fs-label: clamp(0.7975rem, 0.7649rem + 0.1303cqi, 0.859375rem);
   --fs-note: clamp(1.375rem, 1.2303rem + 0.5789cqi, 1.65rem);
 }
 
@@ -52,6 +61,5 @@
        positioned faces have something real to resolve their own 100%
        height against. */
     height: 100dvh;
-    transform: none;
   }
 }

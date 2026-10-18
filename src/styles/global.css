@@ -97,14 +97,19 @@ bdi,
 
 .font-display {
   font-family: var(--font-display);
+  font-weight: 600;
   font-optical-sizing: auto;
   font-variation-settings: 'SOFT' 50;
-  line-height: var(--lh-title);
+  line-height: 1.15;
 }
 
+/* Reset section 1 — the handwriting fonts (Caveat/Aref Ruqaa) are gone;
+   this class now just means "small note", in the regular body font. Kept
+   under its old name so call sites didn't need to be renamed. */
 .font-hand {
-  font-family: var(--font-hand);
-  line-height: 1.3;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  line-height: 1.4;
 }
 
 .font-mono {

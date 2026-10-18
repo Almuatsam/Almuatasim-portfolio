@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { TFunction } from 'i18next';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
@@ -8,14 +8,18 @@ import './tracing-paper-lift.css';
 interface TracingPaperLiftProps {
   t: TFunction;
   screenshotSrc: string;
+  screenshotSrcSet?: string;
   screenshotAlt: string;
   isRtl: boolean;
 }
 
-/** B5 #1 — a tracing-paper sheet with a pencil wireframe lies over the
- * real screenshot. Dragging peels it back to reveal the shipped UI.
- * Keyboard/reduced-motion users get a button that does the same thing. */
-export function TracingPaperLift({ t, screenshotSrc, screenshotAlt, isRtl }: TracingPaperLiftProps) {
+/** B5 #1 / Reset section 4 — a tracing-paper sheet with a pencil
+ * wireframe lies over the real screenshot. The wireframe is traced from
+ * `estudioa-browse.png` in the same 1440x900 (16:10) coordinate space as
+ * the screenshot underneath, so every line sits on the real UI at any
+ * size. Dragging peels it back to reveal the shipped screen; keyboard/
+ * reduced-motion users get a button that does the same thing. */
+export function TracingPaperLift({ t, screenshotSrc, screenshotSrcSet, screenshotAlt, isRtl }: TracingPaperLiftProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [revealed, setRevealed] = useState(false);
   const dragSign = isRtl ? 1 : -1;
@@ -23,7 +27,7 @@ export function TracingPaperLift({ t, screenshotSrc, screenshotAlt, isRtl }: Tra
   return (
     <div className="tracing-lift">
       <div className="tracing-lift__stage">
-        <img src={screenshotSrc} alt={screenshotAlt} className="tracing-lift__screenshot" />
+        <img src={screenshotSrc} srcSet={screenshotSrcSet} alt={screenshotAlt} className="tracing-lift__screenshot" />
 
         {!prefersReducedMotion && (
           <motion.div
@@ -38,14 +42,13 @@ export function TracingPaperLift({ t, screenshotSrc, screenshotAlt, isRtl }: Tra
             }}
             aria-hidden="true"
           >
-            <svg viewBox="0 0 320 200" className="tracing-lift__wireframe reveal-sketch" style={{ '--draw-length': 900 } as CSSProperties}>
-              <rect x="10" y="10" width="300" height="34" rx="3" />
-              <rect x="10" y="56" width="140" height="134" rx="3" />
-              <rect x="162" y="56" width="148" height="62" rx="3" />
-              <rect x="162" y="128" width="148" height="62" rx="3" />
-            </svg>
+            <img
+              src="/projects/estudioa/estudioa-browse-wireframe.svg"
+              alt=""
+              className="tracing-lift__wireframe reveal-fade"
+              aria-hidden="true"
+            />
             <span className="tracing-lift__curl" />
-            <span className="tracing-lift__tape" />
             <svg className="tracing-lift__guide" viewBox="0 0 80 24" aria-hidden="true">
               <path
                 d={isRtl ? 'M70 12 L10 12' : 'M10 12 L70 12'}
@@ -70,7 +73,7 @@ export function TracingPaperLift({ t, screenshotSrc, screenshotAlt, isRtl }: Tra
           {revealed ? t('projects.estudioa.hideWireframe') : t('projects.estudioa.revealScreen')}
         </button>
         {revealed && (
-          <p className="tracing-lift__reward font-hand reveal-fade">
+          <p className="tracing-lift__reward reveal-fade">
             {t('projects.estudioa.wireframeLabel')}
             <PencilArrow pointing="forward" isRtl={isRtl} color="var(--accent-ink)" />
             {t('projects.estudioa.shippedLabel')}

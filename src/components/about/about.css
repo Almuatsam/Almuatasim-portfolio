@@ -1,21 +1,19 @@
 .about__context {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
   height: 100%;
-  padding-block-start: var(--space-2);
+  overflow: hidden;
 }
 
 .about__portrait-frame {
   position: relative;
-  width: min(80%, 220px);
+  flex: 0 0 auto;
+  height: min(100%, 230px);
   aspect-ratio: 3 / 4;
-  padding: 6px;
-  border: 1.5px solid var(--color-ink);
-  background: var(--color-cream);
+  border: 1px solid var(--color-edge);
   box-shadow: 0 10px 20px rgba(46, 42, 38, 0.16);
-  transform: rotate(-1.5deg);
 }
 
 .about__portrait {
@@ -23,18 +21,6 @@
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  filter: grayscale(0.1) sepia(0.06);
-}
-
-.about__tape {
-  position: absolute;
-  inset-block-start: -14px;
-  inset-inline-start: 50%;
-  transform: translateX(-50%) rotate(-3deg);
-  width: 70px;
-  height: 26px;
-  background: rgba(252, 248, 243, 0.78);
-  border: 1px solid rgba(46, 42, 38, 0.18);
 }
 
 .about__notes {
@@ -43,39 +29,47 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  max-width: 90%;
+  gap: var(--space-1);
+  min-width: 0;
 }
 
 .about__note {
-  font-size: var(--fs-note);
+  font-size: var(--fs-small);
   color: var(--accent-ink);
-  text-align: center;
 }
 
 .about__work {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-half);
   justify-content: flex-start;
   height: 100%;
   overflow: hidden;
 }
 
 .about__headline {
-  font-size: var(--fs-display);
-  margin-block-end: var(--space-half);
+  font-size: var(--fs-title);
+  line-height: 1.1;
+  margin-block-end: 0;
 }
 
 .about__paragraph {
-  font-size: var(--fs-body);
-  max-width: 66ch;
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  max-width: 52ch;
   color: var(--color-ink);
 }
 
 @media (max-width: 900px) {
   .about__context {
+    flex-direction: column;
     padding-block: var(--space-3);
+    height: auto;
+    overflow: visible;
+  }
+
+  .about__portrait-frame {
+    height: auto;
+    width: min(80%, 240px);
   }
 }

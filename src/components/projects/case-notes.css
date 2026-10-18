@@ -12,7 +12,9 @@
 }
 
 .case-notes__label {
-  font-size: var(--fs-label);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--accent-ink);
@@ -27,5 +29,5 @@
   margin: 0;
   font-size: var(--fs-body);
   color: var(--color-ink);
-  max-width: 60ch;
+  max-width: 52ch;
 }

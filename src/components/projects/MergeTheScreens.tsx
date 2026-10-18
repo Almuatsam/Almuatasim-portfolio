@@ -9,6 +9,7 @@ interface MergeTheScreensProps {
   t: TFunction;
   unifiedScreenshotSrc: string;
   unifiedScreenshotAlt: string;
+  onOpenScreenshot?: () => void;
 }
 
 type CardId = 'cafe' | 'gift' | 'tickets';
@@ -17,7 +18,7 @@ const CARD_IDS: CardId[] = ['cafe', 'gift', 'tickets'];
 /** B5 #2 — three mismatched terminal cards sit apart; dragging each into
  * the dashed frame snaps it in, and once all three land, they cross-fade
  * into the single APOS screen with a printed receipt reward. */
-export function MergeTheScreens({ t, unifiedScreenshotSrc, unifiedScreenshotAlt }: MergeTheScreensProps) {
+export function MergeTheScreens({ t, unifiedScreenshotSrc, unifiedScreenshotAlt, onOpenScreenshot }: MergeTheScreensProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
@@ -48,7 +49,7 @@ export function MergeTheScreens({ t, unifiedScreenshotSrc, unifiedScreenshotAlt 
         )}
 
         {allMerged ? (
-          <ProjectScreenshot src={unifiedScreenshotSrc} alt={unifiedScreenshotAlt} rotateDeg={0} />
+          <ProjectScreenshot src={unifiedScreenshotSrc} alt={unifiedScreenshotAlt} onOpen={onOpenScreenshot} />
         ) : (
           CARD_IDS.map((id, index) => {
             if (merged.has(id)) return null;

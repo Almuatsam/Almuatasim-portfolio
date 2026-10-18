@@ -12,7 +12,10 @@
   height: 100%;
   background-image: radial-gradient(circle, rgba(46, 42, 38, 0.09) 1px, transparent 1px);
   background-size: 20px 20px;
-  padding: 7% 6%;
+  /* Reset section 2 — fixed 56px margins (scaled via container units,
+     see --page-margin in book.css), not a percentage that balloons on
+     a wide book. */
+  padding: var(--page-margin);
 }
 
 .flip-page__content {
@@ -24,8 +27,9 @@
 
 .flip-page__folio {
   position: absolute;
-  inset-block-end: var(--space-2);
-  inset-inline-end: var(--space-2);
+  /* Inside the margin, never overlapping the content box above. */
+  inset-block-end: calc(var(--page-margin) * 0.35);
+  inset-inline-end: calc(var(--page-margin) * 0.35);
   margin: 0;
   font-size: var(--fs-label);
   color: var(--color-secondary);

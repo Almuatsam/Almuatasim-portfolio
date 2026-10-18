@@ -43,13 +43,12 @@ export function ScreensWork({ lang }: ChapterPanelProps) {
           const chapter = getChapter(id);
           const project = getProject(id as 'estudioa' | 'apos' | 'padelaura' | 'papitoooo');
           const accent = ACCENTS[chapter.accent];
-          const style: CSSProperties = { '--tape-accent': accent.accent } as CSSProperties;
+          const style: CSSProperties = { '--card-accent': accent.accent } as CSSProperties;
 
           return (
             <Link key={id} to={chapterPath(lang, id)} className="screens__card reveal-fade" style={style}>
-              <span className="screens__card-tape" aria-hidden="true" />
               <img src={project.images[0].src} alt={t(`chapters.${id}.title`)} className="screens__card-img" />
-              <span className="screens__card-title font-hand">{t(`chapters.${id}.title`)}</span>
+              <span className="screens__card-title">{t(`chapters.${id}.title`)}</span>
             </Link>
           );
         })}

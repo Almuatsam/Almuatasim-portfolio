@@ -1,0 +1,27 @@
+.facts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  margin-block-start: var(--space-2);
+}
+
+.facts-list__item {
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+  padding-inline-start: var(--space-2);
+  position: relative;
+}
+
+.facts-list__item::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}

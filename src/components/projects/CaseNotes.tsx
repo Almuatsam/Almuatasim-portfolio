@@ -34,7 +34,7 @@ export function CaseNotes({ t, isRtl, notes }: CaseNotesProps) {
 
         return (
           <div className="case-notes__row" key={key}>
-            <dt className="case-notes__label font-mono reveal-word" style={style}>
+            <dt className="case-notes__label reveal-word" style={style}>
               {t(`projectLabels.${key}`)}
             </dt>
             <RevealText as="dd" text={text} isRtl={isRtl} className="case-notes__text" baseDelayMs={baseDelay} />

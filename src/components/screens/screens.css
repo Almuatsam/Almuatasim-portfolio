@@ -7,6 +7,7 @@
 
 .screens__heading {
   font-size: var(--fs-display);
+  line-height: 1.15;
 }
 
 .screens__intro {
@@ -63,34 +64,24 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-1);
   width: 170px;
   padding: var(--space-1);
+  padding-block-start: calc(var(--space-1) + 3px);
   background: var(--color-paper);
-  box-shadow: 0 10px 20px rgba(46, 42, 38, 0.2);
+  box-shadow: 0 8px 16px rgba(46, 42, 38, 0.14);
+  border: 1px solid var(--color-edge);
+  border-block-start: 3px solid var(--card-accent);
   text-decoration: none;
-  transform: rotate(-1.5deg);
-  transition: transform var(--duration-micro) var(--ease-ui);
-}
-
-.screens__card:nth-child(2n) {
-  transform: rotate(1.5deg);
+  transition:
+    transform var(--duration-micro) var(--ease-ui),
+    box-shadow var(--duration-micro) var(--ease-ui);
 }
 
 .screens__card:hover {
-  transform: rotate(0deg) translateY(-3px);
-}
-
-.screens__card-tape {
-  position: absolute;
-  inset-block-start: -10px;
-  inset-inline-start: 50%;
-  transform: translateX(-50%) rotate(-3deg);
-  width: 56px;
-  height: 18px;
-  background: var(--tape-accent);
-  opacity: 0.8;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px rgba(46, 42, 38, 0.18);
 }
 
 .screens__card-img {
@@ -98,11 +89,12 @@
   height: 100px;
   object-fit: cover;
   object-position: top;
-  border: 1px solid rgba(46, 42, 38, 0.1);
+  border: 1px solid var(--color-edge);
 }
 
 .screens__card-title {
-  font-size: var(--fs-note);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
   color: var(--color-ink);
 }
 

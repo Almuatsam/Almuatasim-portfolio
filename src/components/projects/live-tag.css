@@ -23,16 +23,16 @@
   border-radius: 3px;
   text-decoration: none;
   color: var(--color-ink);
-  transform: rotate(-2deg);
   transition: transform var(--duration-micro) var(--ease-ui);
 }
 
 .live-tag__link:hover {
-  transform: rotate(0deg) translateY(2px);
+  transform: translateY(2px);
 }
 
 .live-tag__label {
-  font-size: var(--fs-note);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
 }
 
 .live-tag__arrow {

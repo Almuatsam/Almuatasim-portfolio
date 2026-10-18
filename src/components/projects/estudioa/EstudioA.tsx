@@ -2,11 +2,14 @@ import { Link } from 'react-router-dom';
 import { useFixedT } from '../../../hooks/useFixedT';
 import { chapterPath } from '../../../content/chapters';
 import { getProject } from '../../../content/projects';
+import { useScreenViewer } from '../../../hooks/useScreenViewer';
 import { CaseNotes } from '../CaseNotes';
 import { StackList } from '../StackList';
 import { LiveTag } from '../LiveTag';
 import { TracingPaperLift } from '../TracingPaperLift';
 import { FuzzySearchDemo } from '../FuzzySearchDemo';
+import { ScreenshotThumbnails } from '../ScreenshotThumbnails';
+import { FullscreenViewer } from '../FullscreenViewer';
 import type { ChapterPanelProps } from '../../../routes/chapterContent';
 import '../project-spread.css';
 
@@ -22,7 +25,7 @@ export function EstudioAContext({ lang }: ChapterPanelProps) {
         {t('projectLabels.backToScreens')}
       </Link>
       <h1 className="font-display project-spread__title reveal-fade-slow">{t('chapters.estudioa.title')}</h1>
-      <p className="project-spread__descriptor font-mono reveal-fade">{project.descriptor}</p>
+      <p className="project-spread__descriptor reveal-fade">{project.descriptor}</p>
       <CaseNotes
         t={t}
         isRtl={isRtl}
@@ -41,6 +44,11 @@ export function EstudioAContext({ lang }: ChapterPanelProps) {
 
 export function EstudioAWork({ lang }: ChapterPanelProps) {
   const t = useFixedT(lang);
+  const viewer = useScreenViewer(project.images.length);
+
+  function altFor(key: string): string {
+    return t(`projects.estudioa.images.${key}`);
+  }
 
   return (
     <div className="project-spread__work">
@@ -48,9 +56,24 @@ export function EstudioAWork({ lang }: ChapterPanelProps) {
         t={t}
         isRtl={lang === 'ar'}
         screenshotSrc={project.images[0].src}
-        screenshotAlt={t('projects.estudioa.images.home')}
+        screenshotSrcSet={project.images[0].srcSet}
+        screenshotAlt={altFor('browse')}
       />
       <FuzzySearchDemo t={t} defaultQuery={t('projects.estudioa.demo.query')} />
+      <ScreenshotThumbnails
+        images={project.images.slice(1)}
+        altFor={altFor}
+        onOpen={(i) => viewer.open(i + 1)}
+        label={t('chapters.estudioa.title')}
+      />
+      <FullscreenViewer
+        images={project.images}
+        altFor={altFor}
+        openIndex={viewer.openIndex}
+        onClose={viewer.close}
+        onNavigate={viewer.navigate}
+        label={t('chapters.estudioa.title')}
+      />
     </div>
   );
 }

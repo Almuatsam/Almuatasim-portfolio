@@ -11,7 +11,7 @@ export function StackList({ t, stack }: StackListProps) {
 
   return (
     <div className="stack-list reveal-fade">
-      <span className="stack-list__label font-mono">{t('projectLabels.stack')}</span>
+      <span className="stack-list__label">{t('projectLabels.stack')}</span>
       <ul className="stack-list__items">
         {stack.map((item) => (
           <li key={item} className="stack-list__item font-mono ltr-fragment">
