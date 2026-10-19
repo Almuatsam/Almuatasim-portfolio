@@ -50,6 +50,9 @@ export const PROJECTS: ProjectDef[] = [
       { key: 'admin', src: '/projects/apos/admin-hd.jpg' },
       { key: 'employees', src: '/projects/apos/employees-hd.jpg' },
       { key: 'payment', src: '/projects/apos/payment-hd.jpg' },
+      { key: 'posCafe', src: '/projects/apos/pos-cafe-hd.jpg' },
+      { key: 'giftShop', src: '/projects/apos/pos-gift-shop-hd.jpg' },
+      { key: 'tickets', src: '/projects/apos/pos-tickets-hd.jpg' },
     ],
   },
   {

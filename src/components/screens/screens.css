@@ -51,13 +51,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   min-height: 100%;
 }
 
 .screens__cards {
+  /* Fit entirely inside the work page's content box: each card's width
+     is (content width - gap) / 2 via the 1fr tracks below, never a
+     fixed pixel width that can outgrow the page margins. */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-4);
+  gap: var(--space-3);
+  width: 100%;
 }
 
 .screens__card {
@@ -66,7 +71,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-1);
-  width: 170px;
+  width: 100%;
+  min-width: 0;
   padding: var(--space-1);
   padding-block-start: calc(var(--space-1) + 3px);
   background: var(--color-paper);
@@ -86,7 +92,8 @@
 
 .screens__card-img {
   width: 100%;
-  height: 100px;
+  aspect-ratio: 16 / 10;
+  height: auto;
   object-fit: cover;
   object-position: top;
   border: 1px solid var(--color-edge);
@@ -100,11 +107,6 @@
 
 @media (max-width: 900px) {
   .screens__cards {
-    grid-template-columns: 1fr 1fr;
     gap: var(--space-2);
-  }
-
-  .screens__card {
-    width: 100%;
   }
 }

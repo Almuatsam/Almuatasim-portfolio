@@ -58,6 +58,7 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
   const viewerOpen = useViewerOpen();
   const lenisRef = useRef<Lenis | null>(null);
   const revealRef = useRef<RevealController | null>(null);
+  const scrollAreaRef = useRef<HTMLDivElement | null>(null);
   const [hints, setHints] = useState<HintState>(DEFAULT_HINTS);
 
   useEffect(
@@ -75,6 +76,35 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
     },
     [scrollKey],
   );
+
+  // Page Scrolling.md section 3 — StPageFlip (page-flip.js) attaches its
+  // own native mousedown/touchstart listener to an ancestor of this node
+  // (outside React), which fires during the native bubble phase before
+  // the event ever reaches React's root-delegated listeners. A React
+  // onMouseDown/onTouchStart prop here — even one calling
+  // stopPropagation() — can't pre-empt that: React only runs its handler
+  // once bubbling reaches the root, by which point page-flip.js's own
+  // listener, sitting lower in the real DOM, has already fired. A plain
+  // addEventListener on the actual node fires at the right point in that
+  // native bubble, before it reaches page-flip.js's ancestor listener.
+  //
+  // This also covers a case page-flip.js's own click exemption
+  // (`checkTarget`, matching only `<a>`/`<button>` tag names) misses:
+  // any button or link here whose clickable area is filled by a plain
+  // child element (an <img>, say) reports that child as `event.target`,
+  // not the link/button itself, so the exemption doesn't apply and a
+  // stray page-turn fires alongside the intended click.
+  useEffect(() => {
+    const el = scrollAreaRef.current;
+    if (!el) return;
+    const stop = (event: Event) => event.stopPropagation();
+    el.addEventListener('mousedown', stop);
+    el.addEventListener('touchstart', stop);
+    return () => {
+      el.removeEventListener('mousedown', stop);
+      el.removeEventListener('touchstart', stop);
+    };
+  }, []);
 
   function updateHints(instance: OverlayScrollbars): void {
     const { viewport } = instance.elements();
@@ -128,18 +158,8 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
     updateHints(instance);
   }
 
-  // Page Scrolling.md section 3 — StPageFlip starts a page-flip drag
-  // from a `mousedown`/`touchstart` it catches on its own page element.
-  // Stopping those two events here, before they bubble that far, means
-  // a drag or swipe that starts inside the scroll area only scrolls —
-  // native wheel/touch scrolling and element drags (framer-motion, which
-  // binds its own listener directly on the dragged node) are untouched.
-  function stopForPageFlip(event: { stopPropagation: () => void }): void {
-    event.stopPropagation();
-  }
-
   return (
-    <div className="scroll-area" onMouseDown={stopForPageFlip} onTouchStart={stopForPageFlip}>
+    <div className="scroll-area" ref={scrollAreaRef}>
       <OverlayScrollbarsComponent
         element="div"
         className="scroll-area__os"

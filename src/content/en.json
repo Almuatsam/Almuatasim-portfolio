@@ -132,6 +132,67 @@
       "papitoooo": "fun and nostalgia"
     }
   },
+  "byhand": {
+    "intro": "Paintings, sewing and sets. Pick one to open its spread.",
+    "cards": {
+      "art": "three paintings",
+      "sewing": "fashion sketches, a tie, a ruffle",
+      "onset": "collaborations with Abdulaziz Al-Hosni"
+    },
+    "back": "Back to By Hand"
+  },
+  "art": {
+    "openingNote": "the thread runs through the paintings too",
+    "turnHint": "turn it over",
+    "seeBack": "See the back",
+    "seeFront": "See the front",
+    "threadCallout": "two voices, sewn together",
+    "closingCaption": "Showing my work at an event by Omani Archives",
+    "closingAlt": "The owner's work on show at an event organised by Omani Archives, including the stamp-sticker series on the wall",
+    "paintings": {
+      "painful-experience": {
+        "title": "Painful Experience",
+        "medium": "Mixed media (acrylic, denim, thread)",
+        "year": "2025",
+        "story": [
+          "A piece that screams with silence.",
+          "Layered with emotions. Flooded with thoughts.",
+          "It's not one story, it's two.",
+          "Two voices. Two paths.",
+          "Both trapped in one mind."
+        ],
+        "inSituCaption": "Shown at the college exhibition Hayat",
+        "alt": "Painful Experience, a mixed-media painting of two faces in blue and orange joined by thread, with a denim patch stitched into the canvas",
+        "inSituAlt": "The owner standing beside Painful Experience at the Hayat exhibition"
+      },
+      "choice": {
+        "title": "Choice",
+        "medium": "Mixed media (acrylic, denim, embroidery thread)",
+        "year": "2025",
+        "story": [
+          "A reflection on decisions made.",
+          "Each one leaves a mark.",
+          "Some hurt.",
+          "Some heal.",
+          "All shape what remains."
+        ],
+        "alt": "Choice, a mixed-media portrait split into four coloured quadrants, with denim and embroidery stitched into the canvas",
+        "inSituAlt": "Choice shown on the wall"
+      },
+      "guidance": {
+        "title": "Guidance",
+        "medium": "Acrylic on canvas",
+        "year": "2024",
+        "story": [
+          "Lost in memories that overwhelm you.",
+          "Then comes your guidance:",
+          "a person who helps you become your best."
+        ],
+        "alt": "Guidance, an acrylic painting of two faces close together in warm and cool tones",
+        "inSituAlt": "Guidance shown on the wall"
+      }
+    }
+  },
   "projectLabels": {
     "problem": "Problem",
     "insight": "Insight",
@@ -175,7 +236,9 @@
         "cafe": "APOS cafe point-of-sale screen",
         "admin": "APOS admin dashboard",
         "employees": "APOS employee management screen",
-        "payment": "APOS payment screen"
+        "payment": "APOS payment screen",
+        "giftShop": "APOS gift shop point-of-sale screen",
+        "tickets": "APOS ticketing point-of-sale screen"
       },
       "liveNote": "Opens the login screen. Demo access on request.",
       "merge": {

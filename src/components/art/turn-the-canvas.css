@@ -1,0 +1,173 @@
+.turn-canvas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.turn-canvas__button {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.turn-canvas__stage {
+  perspective: 1600px;
+  width: 100%;
+  /* page-flip.js only skips its own click-to-turn handling when
+     event.target's tagName is literally "a" or "button" (checkTarget in
+     page-flip's PageFlip core). Any full-bleed child here — the <img>,
+     the back face — would otherwise BE that target and defeat the
+     check, so every descendant is pointer-events: none and the click
+     always resolves to .turn-canvas__button itself. The thread-callout
+     dot opts back in below, since hover/focus never reach page-flip
+     (it only listens for mousedown/touchstart). */
+  pointer-events: none;
+}
+
+.turn-canvas__inner {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 22px rgba(22, 20, 43, 0.16);
+}
+
+.turn-canvas__face {
+  backface-visibility: hidden;
+  width: 100%;
+}
+
+.turn-canvas__face--front {
+  position: relative;
+}
+
+.turn-canvas__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-edge);
+}
+
+.turn-canvas__face--back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  background: var(--color-paper);
+  border: 1px solid var(--color-edge);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+}
+
+/* A plain cross-hatch standing in for wooden stretcher bars — the back
+ * of the canvas, per B5 #5. */
+.turn-canvas__bars {
+  position: absolute;
+  inset: var(--space-2);
+  border: 6px solid var(--color-edge);
+  pointer-events: none;
+}
+
+.turn-canvas__bars::before,
+.turn-canvas__bars::after {
+  content: '';
+  position: absolute;
+  background: var(--color-edge);
+}
+
+.turn-canvas__bars::before {
+  inset-inline-start: 50%;
+  inset-block: 0;
+  width: 6px;
+  transform: translateX(-50%);
+}
+
+.turn-canvas__bars::after {
+  inset-block-start: 50%;
+  inset-inline: 0;
+  height: 6px;
+  transform: translateY(-50%);
+}
+
+.turn-canvas__back-text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+}
+
+.turn-canvas__back-line {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+}
+
+.turn-canvas__label {
+  position: relative;
+  align-self: center;
+  background: var(--color-paper);
+  border: 1px solid var(--color-edge);
+  padding: var(--space-half) var(--space-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(22, 20, 43, 0.12);
+}
+
+.turn-canvas__label-title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label);
+  color: var(--color-ink);
+}
+
+.turn-canvas__label-meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--color-secondary);
+}
+
+.turn-canvas__hint {
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+}
+
+.turn-canvas__thread-dot {
+  pointer-events: auto;
+  position: absolute;
+  inset-block-start: 48%;
+  inset-inline-start: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border: 1.5px solid var(--color-paper);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent-ink) 60%, transparent);
+  cursor: help;
+}
+
+.turn-canvas__thread-label {
+  position: absolute;
+  inset-block-end: calc(100% + var(--space-1));
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-size: var(--fs-label);
+  padding: var(--space-half) var(--space-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turn-canvas__inner {
+    transition: none;
+  }
+}

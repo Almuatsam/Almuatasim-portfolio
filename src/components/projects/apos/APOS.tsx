@@ -39,9 +39,16 @@ export function APOSContext({ lang }: ChapterPanelProps) {
   );
 }
 
+// project.images order: [cafe, admin, employees, payment, posCafe, giftShop, tickets].
+// The last three only feed the merge-cards below; the viewer and thumbnail
+// row stick to the original four so flipping through them never surfaces
+// the pre-merge mismatched-outlet screens.
+const VIEWER_IMAGES = project.images.slice(0, 4);
+const THUMBNAIL_INDICES = [0, 2, 3]; // cafe, employees, payment (admin is now the merged hero shot)
+
 export function APOSWork({ lang }: ChapterPanelProps) {
   const t = useFixedT(lang);
-  const viewer = useScreenViewer(project.images.length);
+  const viewer = useScreenViewer(VIEWER_IMAGES.length);
 
   function altFor(key: string): string {
     return t(`projects.apos.images.${key}`);
@@ -52,22 +59,22 @@ export function APOSWork({ lang }: ChapterPanelProps) {
       <MergeTheScreens
         t={t}
         cards={{
-          cafe: { src: project.images[0].src, alt: altFor('cafe') },
-          gift: { src: project.images[2].src, alt: altFor('employees') },
-          tickets: { src: project.images[3].src, alt: altFor('payment') },
+          cafe: { src: project.images[4].src, alt: altFor('cafe') },
+          gift: { src: project.images[5].src, alt: altFor('giftShop') },
+          tickets: { src: project.images[6].src, alt: altFor('tickets') },
         }}
-        unifiedScreenshotSrc={project.images[0].src}
-        unifiedScreenshotAlt={altFor('cafe')}
-        onOpenScreenshot={() => viewer.open(0)}
+        unifiedScreenshotSrc={project.images[1].src}
+        unifiedScreenshotAlt={altFor('admin')}
+        onOpenScreenshot={() => viewer.open(1)}
       />
       <ScreenshotThumbnails
-        images={project.images.slice(1)}
+        images={THUMBNAIL_INDICES.map((i) => project.images[i])}
         altFor={altFor}
-        onOpen={(i) => viewer.open(i + 1)}
-        label={t('projects.apos.images.cafe')}
+        onOpen={(i) => viewer.open(THUMBNAIL_INDICES[i])}
+        label={t('projects.apos.images.admin')}
       />
       <FullscreenViewer
-        images={project.images}
+        images={VIEWER_IMAGES}
         altFor={altFor}
         openIndex={viewer.openIndex}
         onClose={viewer.close}

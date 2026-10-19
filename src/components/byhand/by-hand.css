@@ -1,0 +1,129 @@
+.by-hand__context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.by-hand__heading {
+  font-size: var(--fs-display);
+  line-height: 1.15;
+}
+
+.by-hand__intro {
+  color: var(--color-secondary);
+  font-size: var(--fs-body);
+}
+
+.by-hand__list {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.by-hand__link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  text-decoration: none;
+  color: var(--color-ink);
+  padding-block: var(--space-1);
+  border-block-end: 1px dotted var(--color-edge);
+}
+
+/* Palette v2 — Contents and the part indexes show each entry's own
+   chapter ink as a small solid square, not a full accent treatment. */
+.by-hand__swatch {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  align-self: center;
+}
+
+.by-hand__link-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.by-hand__link-title {
+  font-size: var(--fs-h3);
+  font-family: var(--font-display);
+}
+
+.by-hand__link:hover .by-hand__link-title {
+  color: var(--accent-ink);
+}
+
+.by-hand__link-desc {
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+}
+
+.by-hand__work {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.by-hand__cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.by-hand__card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 280px;
+  padding: var(--space-1);
+  background: var(--color-paper);
+  box-shadow: 0 8px 16px rgba(22, 20, 43, 0.14);
+  border: 1px solid var(--color-edge);
+  text-decoration: none;
+  transition:
+    transform var(--duration-micro) var(--ease-ui),
+    box-shadow var(--duration-micro) var(--ease-ui);
+}
+
+.by-hand__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px rgba(22, 20, 43, 0.18);
+}
+
+.by-hand__card-img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border: 1px solid var(--color-edge);
+}
+
+.by-hand__card-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.by-hand__card-swatch {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  background: var(--card-accent);
+}
+
+.by-hand__card-title {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-ink);
+}
+
+@media (max-width: 900px) {
+  .by-hand__card {
+    width: 100%;
+  }
+}
