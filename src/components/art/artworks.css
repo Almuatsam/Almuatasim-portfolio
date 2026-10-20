@@ -81,7 +81,11 @@
   background: var(--color-paper);
   box-shadow: 0 8px 16px rgba(22, 20, 43, 0.14);
   border: 1px solid var(--color-edge);
-  border-block-start: 3px solid var(--accent-ink);
+  /* --accent-ink is deliberately near-black for yellow/cyan (Palette v2:
+     not enough contrast for text) — that's right for text, wrong for a
+     solid colour bar. This is a swatch, like the Screens cards' top
+     border, so it takes the raw --accent instead. */
+  border-block-start: 3px solid var(--accent);
   text-decoration: none;
   transition:
     transform var(--duration-micro) var(--ease-ui),
@@ -204,7 +208,11 @@
   border: none;
   background: none;
   cursor: zoom-in;
-  width: 280px;
+  /* Both context photos are tall portraits; at 280px wide their caption
+     landed flush against the page's bottom margin with no breathing
+     room once scrolled all the way down (owner review). Narrower keeps
+     the caption clear of the edge. */
+  width: 230px;
   max-width: 100%;
 }
 
