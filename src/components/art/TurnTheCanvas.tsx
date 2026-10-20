@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
@@ -21,6 +22,12 @@ interface TurnTheCanvasProps {
    * the two faces, always visible (not hidden behind hover), per the
    * owner's review (Phase 3 Kickoff.md #2). */
   threadCallout?: string;
+  /** Physical (left/top, not inset-inline-start/inset-block-start)
+   * percent coordinates for the thread dot, calibrated to the actual
+   * thread crossing in the source image. Physical properties ignore the
+   * page's `dir`, so the dot stays on the thread in both EN and AR
+   * instead of sliding to the mirrored side under RTL. */
+  threadPosition?: { left: string; top: string };
 }
 
 /** B5 #5 — the painting turns around (rotateY 180deg) to show wooden
@@ -29,9 +36,22 @@ interface TurnTheCanvasProps {
  * tilt or rotation anywhere except the cover stickers, no handwriting
  * font). The turn is a flat button, not a drag, so it has a built-in
  * keyboard/reduced-motion alternative. */
-export function TurnTheCanvas({ src, alt, title, medium, year, backLines, turnHint, seeBack, seeFront, threadCallout }: TurnTheCanvasProps) {
+export function TurnTheCanvas({
+  src,
+  alt,
+  title,
+  medium,
+  year,
+  backLines,
+  turnHint,
+  seeBack,
+  seeFront,
+  threadCallout,
+  threadPosition,
+}: TurnTheCanvasProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [flipped, setFlipped] = useState(false);
+  const dotStyle = threadPosition as CSSProperties | undefined;
 
   return (
     <div className="turn-canvas">
@@ -51,7 +71,7 @@ export function TurnTheCanvas({ src, alt, title, medium, year, backLines, turnHi
             <div className="turn-canvas__face turn-canvas__face--front">
               <img src={src} alt={alt} className="turn-canvas__img" />
               {threadCallout && (
-                <span className="turn-canvas__thread-dot" role="note" aria-label={threadCallout}>
+                <span className="turn-canvas__thread-dot" style={dotStyle} role="note" aria-label={threadCallout}>
                   <span className="turn-canvas__thread-label">{threadCallout}</span>
                 </span>
               )}

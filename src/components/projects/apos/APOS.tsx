@@ -39,12 +39,13 @@ export function APOSContext({ lang }: ChapterPanelProps) {
   );
 }
 
-// project.images order: [cafe, admin, employees, payment, posCafe, giftShop, tickets].
+// project.images order: [admin, cafe, employees, payment, posCafe, giftShop, tickets].
 // The last three only feed the merge-cards below; the viewer and thumbnail
 // row stick to the original four so flipping through them never surfaces
-// the pre-merge mismatched-outlet screens.
+// the pre-merge mismatched-outlet screens. The clean admin dashboard sits
+// first, as the merge's hero shot.
 const VIEWER_IMAGES = project.images.slice(0, 4);
-const THUMBNAIL_INDICES = [0, 2, 3]; // cafe, employees, payment (admin is now the merged hero shot)
+const THUMBNAIL_INDICES = [1, 2, 3]; // cafe, employees, payment (admin is the merged hero shot)
 
 export function APOSWork({ lang }: ChapterPanelProps) {
   const t = useFixedT(lang);
@@ -63,9 +64,9 @@ export function APOSWork({ lang }: ChapterPanelProps) {
           gift: { src: project.images[5].src, alt: altFor('giftShop') },
           tickets: { src: project.images[6].src, alt: altFor('tickets') },
         }}
-        unifiedScreenshotSrc={project.images[1].src}
+        unifiedScreenshotSrc={project.images[0].src}
         unifiedScreenshotAlt={altFor('admin')}
-        onOpenScreenshot={() => viewer.open(1)}
+        onOpenScreenshot={() => viewer.open(0)}
       />
       <ScreenshotThumbnails
         images={THUMBNAIL_INDICES.map((i) => project.images[i])}

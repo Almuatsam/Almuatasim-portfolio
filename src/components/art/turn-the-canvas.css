@@ -9,7 +9,6 @@
 .turn-canvas__button {
   display: block;
   width: 100%;
-  max-width: 360px;
   padding: 0;
   border: none;
   background: none;
@@ -152,11 +151,21 @@
 /* Always visible (not a hover tooltip) — the owner's review called out
  * the hover-only version as easy to miss (Phase 3 Kickoff.md #2). No
  * pointer interaction left, so this stays pointer-events: none like its
- * siblings in .turn-canvas__stage. */
+ * siblings in .turn-canvas__stage.
+ *
+ * Positioned with physical `left`/`top` (set inline from
+ * threadPosition), not `inset-inline-start`/`inset-block-start`: this
+ * page's whole content is unmirrored back to normal for RTL (see
+ * FlipPage's mirrorContent), but `dir="rtl"` on the document still
+ * flips what "inline-start" resolves to. A logical property at a
+ * non-centered percentage would land on the wrong side of the thread
+ * in Arabic; a physical one stays put in both languages (owner review,
+ * Phase 3 Kickoff.md #2 follow-up). Falls back to the stage centre if
+ * no threadPosition is supplied. */
 .turn-canvas__thread-dot {
   position: absolute;
-  inset-block-start: 48%;
-  inset-inline-start: 50%;
+  left: 50%;
+  top: 50%;
   width: 14px;
   height: 14px;
   transform: translate(-50%, -50%);
@@ -167,14 +176,18 @@
 
 .turn-canvas__thread-label {
   position: absolute;
-  inset-block-end: calc(100% + var(--space-1));
-  inset-inline-start: 50%;
+  bottom: calc(100% + var(--space-1));
+  left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
   background: var(--color-ink);
   color: var(--color-paper);
   font-size: var(--fs-label);
   padding: var(--space-half) var(--space-1);
+}
+
+:root[dir='rtl'] .turn-canvas__thread-label {
+  direction: rtl;
 }
 
 @media (prefers-reduced-motion: reduce) {

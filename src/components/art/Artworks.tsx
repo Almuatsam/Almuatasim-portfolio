@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { useFixedT } from '../../hooks/useFixedT';
 import { chapterPath } from '../../content/chapters';
-import { PAINTINGS, CHAPTER_FOR_PAINTING } from '../../content/artworks';
+import { PAINTINGS, CHAPTER_FOR_PAINTING, CLOSING_IMAGE_SRC } from '../../content/artworks';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './artworks.css';
 
@@ -37,6 +37,9 @@ export function ArtContext({ lang }: ChapterPanelProps) {
   );
 }
 
+/** The 2x2 grid: three paintings plus a fourth card for the closing
+ * Omani Archives photo (also shown on Guidance's own context page,
+ * which is where that photo's caption lives — B4/B5). */
 export function ArtWork({ lang }: ChapterPanelProps) {
   const t = useFixedT(lang);
 
@@ -51,8 +54,15 @@ export function ArtWork({ lang }: ChapterPanelProps) {
           >
             <img src={painting.src} alt={t(`art.paintings.${painting.id}.title`)} className="artworks__index-card-img" />
             <span className="artworks__index-card-title">{t(`art.paintings.${painting.id}.title`)}</span>
+            <span className="artworks__index-card-meta">
+              {t(`art.paintings.${painting.id}.medium`)}, {t(`art.paintings.${painting.id}.year`)}
+            </span>
           </Link>
         ))}
+        <Link to={chapterPath(lang, 'guidance')} className="artworks__index-card reveal-fade">
+          <img src={CLOSING_IMAGE_SRC} alt={t('art.closingAlt')} className="artworks__index-card-img" />
+          <span className="artworks__index-card-title">{t('art.closingCaption')}</span>
+        </Link>
       </div>
     </div>
   );

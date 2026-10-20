@@ -47,12 +47,20 @@ const DEFAULT_HINTS: HintState = {
  * are `pointer-events: none` (the page-flip.js click-exemption fix in
  * this file's own comment below), which makes `elementFromPoint` skip
  * straight past them to whatever's behind. A plain rect test still
- * catches them. */
-function isOverImage(container: Element, x: number, y: number): boolean {
+ * catches them.
+ *
+ * Tests the whole fade band against each image's rect, not a single
+ * sample point: the hint must only ever sit over bare paper, and a
+ * point sample can miss an image that only partially spans the band's
+ * width (an image narrower than the page, say) while the fade itself
+ * — which spans the full width — still visibly overlaps it. */
+function bandOverlapsImage(container: Element, bandTop: number, bandBottom: number, left: number, right: number): boolean {
   const media = container.querySelectorAll('img, picture, video, canvas');
   for (const el of media) {
     const rect = el.getBoundingClientRect();
-    if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) return true;
+    const overlapsVertically = rect.bottom > bandTop && rect.top < bandBottom;
+    const overlapsHorizontally = rect.right > left && rect.left < right;
+    if (overlapsVertically && overlapsHorizontally) return true;
   }
   return false;
 }
@@ -119,13 +127,12 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
     const { viewport, content } = instance.elements();
     const overflow = viewport.scrollHeight - viewport.clientHeight;
     const rect = viewport.getBoundingClientRect();
-    const x = rect.left + rect.width / 2;
     setHints({
       isScrollable: overflow > EDGE_EPSILON,
       atTop: viewport.scrollTop <= EDGE_EPSILON,
       atBottom: viewport.scrollTop >= overflow - EDGE_EPSILON,
-      topOverImage: isOverImage(content, x, rect.top + FADE_BAND),
-      bottomOverImage: isOverImage(content, x, rect.bottom - FADE_BAND),
+      topOverImage: bandOverlapsImage(content, rect.top, rect.top + FADE_BAND, rect.left, rect.right),
+      bottomOverImage: bandOverlapsImage(content, rect.bottom - FADE_BAND, rect.bottom, rect.left, rect.right),
     });
   }
 
@@ -186,16 +193,15 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
         {children}
       </OverlayScrollbarsComponent>
 
-      {/* Full-screen viewer fix item 3 — no hints at all while the
-          viewer is open; the fade never sits over an image. */}
+      {/* The hint must only ever sit over bare paper (owner review) — no
+          hints at all while the viewer is open, and neither edge renders
+          when its own band overlaps an image, full stop (no drop-shadow
+          fallback shown over the image). */}
       {!viewerOpen && hints.isScrollable && !hints.atTop && !hints.topOverImage && (
         <div className="scroll-area__hint scroll-area__hint--top" aria-hidden="true" />
       )}
-      {!viewerOpen && hints.isScrollable && !hints.atBottom && (
-        <div
-          className={`scroll-area__hint scroll-area__hint--bottom${hints.bottomOverImage ? ' scroll-area__hint--bottom-no-fade' : ''}`}
-          aria-hidden="true"
-        >
+      {!viewerOpen && hints.isScrollable && !hints.atBottom && !hints.bottomOverImage && (
+        <div className="scroll-area__hint scroll-area__hint--bottom" aria-hidden="true">
           <svg className="scroll-area__hint-chevron" viewBox="0 0 10 7" aria-hidden="true">
             <path d="M1 1 L5 6 L9 1" fill="none" stroke="var(--accent-ink)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>

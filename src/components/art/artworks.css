@@ -61,10 +61,13 @@
   min-height: 100%;
 }
 
+/* 2x2 grid — three paintings plus the closing Omani Archives photo, each
+ * cell's width tied to the actual content box (never a fixed px width),
+ * so all four stay inside the page margins with no scrolling. */
 .artworks__index-cards {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
   width: 100%;
 }
 
@@ -72,7 +75,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: 4px;
+  min-width: 0;
   padding: var(--space-1);
   background: var(--color-paper);
   box-shadow: 0 8px 16px rgba(22, 20, 43, 0.14);
@@ -89,11 +93,14 @@
   box-shadow: 0 12px 22px rgba(22, 20, 43, 0.18);
 }
 
+/* object-fit: contain, not cover — these are paintings, not screenshots;
+ * cropping one would cut off part of the artwork. The tinted frame fills
+ * the letterboxing so a non-square image doesn't look like empty space. */
 .artworks__index-card-img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  object-position: top;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background: var(--color-tint, color-mix(in srgb, var(--color-edge) 20%, var(--color-paper)));
   border: 1px solid var(--color-edge);
 }
 
@@ -101,6 +108,20 @@
   font-family: var(--font-body);
   font-size: var(--fs-small);
   color: var(--color-ink);
+}
+
+.artworks__index-card-meta {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+:root[dir='rtl'] .artworks__index-card-meta {
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 /* --- One painting's spread --- */
@@ -142,88 +163,65 @@
 .artworks__story {
   display: flex;
   flex-direction: column;
-  gap: var(--space-half);
+  gap: var(--space-1);
   margin-block-start: var(--space-1);
 }
 
+/* Poetry, not prose — set larger with generous line-height to give the
+ * short lines room to breathe (owner review). */
 .artworks__story-line {
   margin: 0;
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
+  font-size: 19px;
+  line-height: 1.8;
   color: var(--color-ink);
   max-width: 40ch;
 }
 
+/* --- Work page: the painting alone, nothing else competing for the
+ * page (owner review) --- */
 .artworks__work {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
-  min-height: 100%;
   justify-content: center;
+  min-height: 100%;
 }
 
-.artworks__in-situ {
+/* --- Context page: the context photo (Painful Experience's Hayat shot,
+ * or Guidance's Omani Archives closing shot), below the story --- */
+.artworks__photo {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-half);
-  width: 140px;
+  margin-block-start: var(--space-1);
+  padding-block-start: var(--space-2);
+  border-block-start: 1px dotted var(--color-edge);
+}
+
+.artworks__photo-button {
   padding: 0;
   border: none;
   background: none;
   cursor: zoom-in;
+  width: 280px;
+  max-width: 100%;
 }
 
 /* page-flip.js's click-to-turn only backs off when event.target is
    literally an <a> or <button> (see turn-the-canvas.css); without this,
    the <img> would be the real target and a tap here would also flip the
    page instead of opening the viewer. */
-.artworks__in-situ-img,
-.artworks__in-situ-caption {
+.artworks__photo-img {
   pointer-events: none;
-}
-
-.artworks__in-situ-img {
+  display: block;
   width: 100%;
-  height: 108px;
-  object-fit: cover;
-  border: 1px solid var(--color-edge);
-  box-shadow: 0 6px 14px rgba(22, 20, 43, 0.14);
-}
-
-.artworks__in-situ-caption {
-  font-size: var(--fs-label);
-  color: var(--color-secondary);
-  text-align: center;
-}
-
-.artworks__closing {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-1);
-  padding-block-start: var(--space-2);
-  border-block-start: 1px dotted var(--color-edge);
-}
-
-.artworks__closing-button {
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: zoom-in;
-}
-
-.artworks__closing-img {
-  pointer-events: none;
-  width: 180px;
   height: auto;
   border: 1px solid var(--color-edge);
   box-shadow: 0 10px 22px rgba(22, 20, 43, 0.16);
 }
 
-.artworks__closing-caption {
+.artworks__photo-caption {
   font-size: var(--fs-label);
   color: var(--color-secondary);
-  text-align: center;
 }

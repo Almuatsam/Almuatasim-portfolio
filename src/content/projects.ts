@@ -46,8 +46,8 @@ export const PROJECTS: ProjectDef[] = [
     liveUrl: 'https://apos-three.vercel.app/login',
     liveDomain: 'apos-three.vercel.app',
     images: [
+      { key: 'admin', src: '/projects/apos/admin-dashboard-hd.jpg' },
       { key: 'cafe', src: '/projects/apos/cafe-pos-hd.jpg' },
-      { key: 'admin', src: '/projects/apos/admin-hd.jpg' },
       { key: 'employees', src: '/projects/apos/employees-hd.jpg' },
       { key: 'payment', src: '/projects/apos/payment-hd.jpg' },
       { key: 'posCafe', src: '/projects/apos/pos-cafe-hd.jpg' },

@@ -2,17 +2,12 @@ import { Link } from 'react-router-dom';
 import { useFixedT } from '../../hooks/useFixedT';
 import { useScreenViewer } from '../../hooks/useScreenViewer';
 import { chapterPath, type ChapterId } from '../../content/chapters';
-import { PAINTINGS, CLOSING_IMAGE_SRC, CHAPTER_FOR_PAINTING, type PaintingDef } from '../../content/artworks';
+import { PAINTINGS, CHAPTER_FOR_PAINTING, type PaintingDef, type PaintingId } from '../../content/artworks';
 import type { ProjectImage } from '../../content/projects';
 import { TurnTheCanvas } from './TurnTheCanvas';
 import { FullscreenViewer } from '../projects/FullscreenViewer';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './artworks.css';
-
-/** The closing "Omani Archives" photo caps the whole gallery, so it
- * only ever appears on the last painting's work page (Guidance, the
- * final chapter in CHAPTER_FOR_PAINTING order). */
-const CLOSING_CHAPTER_ID: ChapterId = 'guidance';
 
 function paintingForChapter(id: ChapterId): PaintingDef {
   const painting = PAINTINGS.find((p) => CHAPTER_FOR_PAINTING[p.id] === id);
@@ -20,10 +15,26 @@ function paintingForChapter(id: ChapterId): PaintingDef {
   return painting;
 }
 
+/** Guidance's context photo is the gallery's closing "Omani Archives"
+ * image, so it reads the general art.* caption/alt keys instead of a
+ * per-painting one (Painful Experience's Hayat photo has its own). */
+function contextPhotoCopy(t: ReturnType<typeof useFixedT>, id: PaintingId): { alt: string; caption: string } {
+  if (id === 'guidance') return { alt: t('art.closingAlt'), caption: t('art.closingCaption') };
+  return {
+    alt: t(`art.paintings.${id}.inSituAlt`),
+    caption: t(`art.paintings.${id}.inSituCaption`, { defaultValue: '' }),
+  };
+}
+
 export function PaintingContext({ lang, chapter }: ChapterPanelProps) {
   const t = useFixedT(lang);
   const painting = paintingForChapter(chapter.id);
   const story = t(`art.paintings.${painting.id}.story`, { returnObjects: true }) as string[];
+  const viewer = useScreenViewer(1);
+  const photoCopy = painting.contextPhotoSrc ? contextPhotoCopy(t, painting.id) : null;
+  const viewerImages: ProjectImage[] = painting.contextPhotoSrc
+    ? [{ key: `${painting.id}-context`, src: painting.contextPhotoSrc }]
+    : [];
 
   return (
     <div className="artworks__context">
@@ -41,6 +52,26 @@ export function PaintingContext({ lang, chapter }: ChapterPanelProps) {
           </p>
         ))}
       </div>
+
+      {photoCopy && painting.contextPhotoSrc && (
+        <div className="artworks__photo">
+          <button type="button" className="artworks__photo-button" onClick={() => viewer.open(0)}>
+            <img src={painting.contextPhotoSrc} alt={photoCopy.alt} className="artworks__photo-img" />
+          </button>
+          {photoCopy.caption && <span className="artworks__photo-caption">{photoCopy.caption}</span>}
+        </div>
+      )}
+
+      {viewerImages.length > 0 && (
+        <FullscreenViewer
+          images={viewerImages}
+          altFor={() => photoCopy?.alt ?? ''}
+          openIndex={viewer.openIndex}
+          onClose={viewer.close}
+          onIndexChange={viewer.setIndex}
+          label={t(`art.paintings.${painting.id}.title`)}
+        />
+      )}
     </div>
   );
 }
@@ -48,19 +79,6 @@ export function PaintingContext({ lang, chapter }: ChapterPanelProps) {
 export function PaintingWork({ lang, chapter }: ChapterPanelProps) {
   const t = useFixedT(lang);
   const painting = paintingForChapter(chapter.id);
-  const isClosing = chapter.id === CLOSING_CHAPTER_ID;
-
-  const viewerImages: ProjectImage[] = isClosing
-    ? [{ key: `${painting.id}-in-situ`, src: painting.inSituSrc }, { key: 'closing', src: CLOSING_IMAGE_SRC }]
-    : [{ key: `${painting.id}-in-situ`, src: painting.inSituSrc }];
-  const viewer = useScreenViewer(viewerImages.length);
-
-  function altFor(key: string): string {
-    if (key === 'closing') return t('art.closingAlt');
-    return t(`art.paintings.${painting.id}.inSituAlt`);
-  }
-
-  const inSituCaption = t(`art.paintings.${painting.id}.inSituCaption`, { defaultValue: '' });
 
   return (
     <div className="artworks__work">
@@ -74,30 +92,8 @@ export function PaintingWork({ lang, chapter }: ChapterPanelProps) {
         turnHint={t('art.turnHint')}
         seeBack={t('art.seeBack')}
         seeFront={t('art.seeFront')}
-        threadCallout={painting.hasThreadCallout ? t('art.threadCallout') : undefined}
-      />
-
-      <button type="button" className="artworks__in-situ" onClick={() => viewer.open(0)}>
-        <img src={painting.inSituSrc} alt={altFor(`${painting.id}-in-situ`)} className="artworks__in-situ-img" />
-        {inSituCaption && <span className="artworks__in-situ-caption">{inSituCaption}</span>}
-      </button>
-
-      {isClosing && (
-        <div className="artworks__closing">
-          <button type="button" className="artworks__closing-button" onClick={() => viewer.open(1)}>
-            <img src={CLOSING_IMAGE_SRC} alt={t('art.closingAlt')} className="artworks__closing-img" />
-          </button>
-          <span className="artworks__closing-caption">{t('art.closingCaption')}</span>
-        </div>
-      )}
-
-      <FullscreenViewer
-        images={viewerImages}
-        altFor={altFor}
-        openIndex={viewer.openIndex}
-        onClose={viewer.close}
-        onIndexChange={viewer.setIndex}
-        label={t(`art.paintings.${painting.id}.title`)}
+        threadCallout={painting.threadPosition ? t('art.threadCallout') : undefined}
+        threadPosition={painting.threadPosition}
       />
     </div>
   );
