@@ -46,6 +46,9 @@
     "choice": { "title": "Choice", "tabLabel": "" },
     "guidance": { "title": "Guidance", "tabLabel": "" },
     "sewing": { "title": "Sewing", "tabLabel": "Sewing" },
+    "sketches": { "title": "From the Sketchbook", "tabLabel": "" },
+    "tie": { "title": "The Star Tie", "tabLabel": "" },
+    "ruffle": { "title": "At the Machine", "tabLabel": "" },
     "onset": { "title": "On Set", "tabLabel": "On Set" },
     "process": { "title": "Process", "tabLabel": "Process" },
     "skills": { "title": "Skills", "tabLabel": "Skills" },
@@ -196,6 +199,35 @@
         "alt": "Guidance, an acrylic painting of two faces close together in warm and cool tones",
         "inSituAlt": "Guidance shown on the wall"
       }
+    }
+  },
+  "sewing": {
+    "indexIntro": "Design, make, finish. Pick one to open its spread.",
+    "backToSewing": "Back to Sewing",
+    "cards": {
+      "sketches": "fashion sketches",
+      "tie": "the star tie",
+      "ruffle": "making a ruffle"
+    },
+    "sketches": {
+      "caption": "Every garment starts as a drawing",
+      "wrapTopAlt": "A fashion sketch of a mustard wrap top with long bell sleeves over wide teal shorts",
+      "coatAlt": "A fashion sketch of a long olive coat over a red jumpsuit"
+    },
+    "tie": {
+      "caption": "Picked stone by stone, placed by hand",
+      "processAlt": "Choosing silver star studs and blue rhinestones at the supplier",
+      "finalAlt": "The finished tie, embellished with silver star studs and rhinestones, worn"
+    },
+    "ruffle": {
+      "clips": {
+        "ruffle": "The owner running turquoise fabric through an overlocker, gathering it into a ruffle",
+        "ruffleFinished": "The finished turquoise ruffle panel hanging to show its fall"
+      },
+      "playHint": "Play",
+      "closeVideo": "Close",
+      "seeOnSet": "See it on set",
+      "estudioaLink": "I built a platform for this too"
     }
   },
   "projectLabels": {

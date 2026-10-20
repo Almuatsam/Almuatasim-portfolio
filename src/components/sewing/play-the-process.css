@@ -1,0 +1,88 @@
+.play-process {
+  width: 100%;
+}
+
+.play-process__card {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: var(--color-ink);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.play-process--expanded .play-process__card {
+  cursor: default;
+}
+
+.play-process__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-edge);
+}
+
+/* The "played through once" reward: a stitch line draws itself around
+ * the card's edge (B5 #6). viewBox is a plain 0-100 square and
+ * preserveAspectRatio="none" lets it stretch to the card's real
+ * aspect ratio, so the dash pattern still travels the full edge
+ * whatever the clip's own width/height. */
+.play-process__stitch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.play-process__stitch-line {
+  fill: none;
+  stroke: var(--accent-ink);
+  stroke-width: 1.4;
+  /* A single dash as long as the rect's own perimeter (2 * (98 + 98)),
+     not a short repeating pattern: a short pattern tiles identically
+     at every stroke-dashoffset, so it wouldn't actually look undrawn
+     before the clip finishes (same technique as .reveal-sketch). */
+  stroke-dasharray: 392;
+  stroke-dashoffset: 392;
+  vector-effect: non-scaling-stroke;
+  transition: stroke-dashoffset 900ms var(--ease-ui);
+}
+
+.play-process__stitch-line--drawn {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .play-process__stitch-line {
+    transition: none;
+  }
+}
+
+.play-process__hint {
+  position: absolute;
+  inset-block-end: var(--space-1);
+  inset-inline-start: var(--space-1);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-size: var(--fs-label);
+  padding: var(--space-half) var(--space-1);
+}
+
+.play-process__hint-icon {
+  width: 9px;
+  height: 11px;
+  color: var(--color-paper);
+}
+
+.play-process__collapse {
+  margin-block-start: var(--space-1);
+  font-size: var(--fs-small);
+  color: var(--accent-ink);
+  border-bottom: 1px solid currentColor;
+}

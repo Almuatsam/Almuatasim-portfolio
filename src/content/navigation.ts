@@ -3,6 +3,7 @@ import {
   CHAPTERS,
   INDEX_TABS,
   SCREENS_PROJECT_IDS,
+  SEWING_SPREAD_IDS,
   getChapterByOrder,
   type ChapterDef,
   type ChapterId,
@@ -65,6 +66,7 @@ export function isTabActive(tab: TabDef, currentId: ChapterId): boolean {
   if (tab.chapterId === currentId) return true;
   if (tab.chapterId === 'screens') return SCREENS_PROJECT_IDS.includes(currentId);
   if (tab.chapterId === 'art') return ART_PAINTING_IDS.includes(currentId);
+  if (tab.chapterId === 'sewing') return SEWING_SPREAD_IDS.includes(currentId);
   return false;
 }
 

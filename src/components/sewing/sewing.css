@@ -1,0 +1,215 @@
+/* --- Index (the "sewing" chapter: links out to the three spreads) --- */
+
+.sewing__index-context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.sewing__heading {
+  font-size: var(--fs-display);
+  line-height: 1.15;
+}
+
+.sewing__index-intro {
+  color: var(--color-secondary);
+  font-size: var(--fs-body);
+}
+
+.sewing__index-list {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sewing__index-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--color-ink);
+  padding-block: var(--space-1);
+  border-block-end: 1px dotted var(--color-edge);
+}
+
+.sewing__index-link-title {
+  font-size: var(--fs-h3);
+  font-family: var(--font-display);
+}
+
+.sewing__index-link:hover .sewing__index-link-title {
+  color: var(--accent-ink);
+}
+
+.sewing__index-link-desc {
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+}
+
+.sewing__index-work {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.sewing__index-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.sewing__index-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1);
+  background: var(--color-paper);
+  box-shadow: 0 8px 16px rgba(22, 20, 43, 0.14);
+  border: 1px solid var(--color-edge);
+  border-inline-start: 3px solid var(--accent);
+  text-decoration: none;
+  transition:
+    transform var(--duration-micro) var(--ease-ui),
+    box-shadow var(--duration-micro) var(--ease-ui);
+}
+
+.sewing__index-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px rgba(22, 20, 43, 0.18);
+}
+
+.sewing__index-card-img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border: 1px solid var(--color-edge);
+  flex-shrink: 0;
+}
+
+.sewing__index-card-title {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-ink);
+}
+
+/* --- One spread's context page (shared by sketches/tie/ruffle) --- */
+
+.sewing__context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.sewing__back {
+  font-size: var(--fs-small);
+  color: var(--accent-ink);
+  width: fit-content;
+  border-bottom: 1px solid currentColor;
+}
+
+.sewing__entry-title {
+  font-size: var(--fs-title);
+}
+
+.sewing__caption {
+  font-size: var(--fs-note);
+  line-height: 1.5;
+  color: var(--color-ink);
+  max-width: 32ch;
+}
+
+.sewing__estudioa-link {
+  margin-block-start: var(--space-1);
+  font-size: var(--fs-small);
+  color: var(--accent-ink);
+  width: fit-content;
+  border-bottom: 1px solid currentColor;
+}
+
+/* --- Work page --- */
+
+.sewing__work {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+/* Spread 1 — the two sketches, like pages torn from a notebook, with a
+ * stitch-line divider between them (no skeuomorphic torn edges —
+ * Phase 2 Review - Reset.md bans decoration like that). */
+.sewing__sketch-pair {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.sewing__sketch-img {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-edge);
+}
+
+.sewing__stitch-divider {
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 0;
+  margin-inline: var(--space-1);
+  border-inline-start: 1.5px dashed var(--color-edge);
+}
+
+/* Spread 2 — choosing the crystals, then the finished tie, joined by
+ * the same pencil arrow used for chapter navigation. */
+.sewing__tie-pair {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: var(--space-1);
+}
+
+.sewing__tie-img {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-edge);
+  box-shadow: 0 6px 14px rgba(22, 20, 43, 0.14);
+}
+
+.sewing__tie-arrow {
+  flex-shrink: 0;
+}
+
+/* Spread 3 — the two "Play the process" clips, stacked; the second
+ * carries the "See it on set" link. */
+.sewing__clips {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.sewing__clip-with-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+.sewing__see-on-set {
+  font-size: var(--fs-small);
+  color: var(--accent-ink);
+  width: fit-content;
+  border-bottom: 1px solid currentColor;
+}

@@ -10,6 +10,10 @@ import { PapitooooContext, PapitooooWork } from '../components/projects/papitooo
 import { ByHandContext, ByHandWork } from '../components/byhand/ByHand';
 import { ArtContext, ArtWork } from '../components/art/Artworks';
 import { PaintingContext, PaintingWork } from '../components/art/PaintingSpread';
+import { SewingContext, SewingWork } from '../components/sewing/Sewing';
+import { SketchesContext, SketchesWork } from '../components/sewing/SketchesSpread';
+import { TieContext, TieWork } from '../components/sewing/TieSpread';
+import { RuffleContext, RuffleWork } from '../components/sewing/RuffleSpread';
 import type { ChapterDef, ChapterId } from '../content/chapters';
 import type { SupportedLang } from '../i18n';
 
@@ -33,6 +37,10 @@ export const CONTEXT_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   painfulexperience: PaintingContext,
   choice: PaintingContext,
   guidance: PaintingContext,
+  sewing: SewingContext,
+  sketches: SketchesContext,
+  tie: TieContext,
+  ruffle: RuffleContext,
 };
 
 export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
@@ -48,6 +56,10 @@ export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   painfulexperience: PaintingWork,
   choice: PaintingWork,
   guidance: PaintingWork,
+  sewing: SewingWork,
+  sketches: SketchesWork,
+  tie: TieWork,
+  ruffle: RuffleWork,
 };
 
 export function contextComponentFor(id: ChapterId): PanelComponent {

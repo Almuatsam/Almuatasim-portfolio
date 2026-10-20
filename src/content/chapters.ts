@@ -15,6 +15,9 @@ export type ChapterId =
   | 'choice'
   | 'guidance'
   | 'sewing'
+  | 'sketches'
+  | 'tie'
+  | 'ruffle'
   | 'onset'
   | 'process'
   | 'skills'
@@ -53,11 +56,16 @@ export const CHAPTERS: ChapterDef[] = [
   { id: 'painfulexperience', order: 10, slug: 'painful-experience', accent: 'yellow', built: true },
   { id: 'choice', order: 11, slug: 'choice', accent: 'yellow', built: true },
   { id: 'guidance', order: 12, slug: 'guidance', accent: 'yellow', built: true },
-  { id: 'sewing', order: 13, slug: 'sewing', accent: 'red', built: false },
-  { id: 'onset', order: 14, slug: 'on-set', accent: 'cyan', built: false },
-  { id: 'process', order: 15, slug: 'process', accent: 'indigo', built: false },
-  { id: 'skills', order: 16, slug: 'skills', accent: 'indigo', built: false },
-  { id: 'contact', order: 17, slug: 'contact', accent: 'indigo', built: false },
+  // "sewing" is the Sewing index (mirrors "art"/"screens"); its three
+  // spreads follow the brief's own design -> make -> finish order.
+  { id: 'sewing', order: 13, slug: 'sewing', accent: 'red', built: true },
+  { id: 'sketches', order: 14, slug: 'sketches', accent: 'red', built: true },
+  { id: 'tie', order: 15, slug: 'tie', accent: 'red', built: true },
+  { id: 'ruffle', order: 16, slug: 'ruffle', accent: 'red', built: true },
+  { id: 'onset', order: 17, slug: 'on-set', accent: 'cyan', built: false },
+  { id: 'process', order: 18, slug: 'process', accent: 'indigo', built: false },
+  { id: 'skills', order: 19, slug: 'skills', accent: 'indigo', built: false },
+  { id: 'contact', order: 20, slug: 'contact', accent: 'indigo', built: false },
 ];
 
 export const TOTAL_CHAPTERS = CHAPTERS.length;
@@ -103,3 +111,4 @@ export const INDEX_TABS: TabDef[] = [
 export const SCREENS_PROJECT_IDS: ChapterId[] = ['estudioa', 'apos', 'padelaura', 'papitoooo'];
 export const BYHAND_CHAPTER_IDS: ChapterId[] = ['art', 'sewing', 'onset'];
 export const ART_PAINTING_IDS: ChapterId[] = ['painfulexperience', 'choice', 'guidance'];
+export const SEWING_SPREAD_IDS: ChapterId[] = ['sketches', 'tie', 'ruffle'];
