@@ -9,6 +9,7 @@ import { PadelAuraContext, PadelAuraWork } from '../components/projects/padelaur
 import { PapitooooContext, PapitooooWork } from '../components/projects/papitoooo/Papitoooo';
 import { ByHandContext, ByHandWork } from '../components/byhand/ByHand';
 import { ArtContext, ArtWork } from '../components/art/Artworks';
+import { PaintingContext, PaintingWork } from '../components/art/PaintingSpread';
 import type { ChapterDef, ChapterId } from '../content/chapters';
 import type { SupportedLang } from '../i18n';
 
@@ -29,6 +30,9 @@ export const CONTEXT_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   papitoooo: PapitooooContext,
   byhand: ByHandContext,
   art: ArtContext,
+  painfulexperience: PaintingContext,
+  choice: PaintingContext,
+  guidance: PaintingContext,
 };
 
 export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
@@ -41,6 +45,9 @@ export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   papitoooo: PapitooooWork,
   byhand: ByHandWork,
   art: ArtWork,
+  painfulexperience: PaintingWork,
+  choice: PaintingWork,
+  guidance: PaintingWork,
 };
 
 export function contextComponentFor(id: ChapterId): PanelComponent {

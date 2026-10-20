@@ -42,6 +42,9 @@
     "papitoooo": { "title": "Papitoooo", "tabLabel": "Papitoooo" },
     "byhand": { "title": "الجزء الثاني: صنع يدوي", "tabLabel": "" },
     "art": { "title": "أعمالي الفنية", "tabLabel": "الفن" },
+    "painfulexperience": { "title": "تجربة مؤلمة", "tabLabel": "" },
+    "choice": { "title": "اختيار", "tabLabel": "" },
+    "guidance": { "title": "إرشاد", "tabLabel": "" },
     "sewing": { "title": "الخياطة", "tabLabel": "الخياطة" },
     "onset": { "title": "في موقع التصوير", "tabLabel": "موقع التصوير" },
     "process": { "title": "طريقة عملي", "tabLabel": "طريقة عملي" },
@@ -147,6 +150,8 @@
     "seeBack": "عرض الوجه الخلفي",
     "seeFront": "عرض الوجه الأمامي",
     "threadCallout": "صوتان مخيطان معًا",
+    "backToArt": "العودة إلى أعمالي الفنية",
+    "indexIntro": "ثلاث لوحات. اختر واحدة لفتح صفحتها.",
     "closingCaption": "عرض أعمالي في فعالية نظّمتها Omani Archives",
     "closingAlt": "أعمال المالك معروضة في فعالية نظّمتها Omani Archives، وتضم سلسلة ملصقات الطوابع على الحائط",
     "paintings": {

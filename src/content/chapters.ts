@@ -11,6 +11,9 @@ export type ChapterId =
   | 'papitoooo'
   | 'byhand'
   | 'art'
+  | 'painfulexperience'
+  | 'choice'
+  | 'guidance'
   | 'sewing'
   | 'onset'
   | 'process'
@@ -44,12 +47,17 @@ export const CHAPTERS: ChapterDef[] = [
   { id: 'padelaura', order: 6, slug: 'padelaura', accent: 'yellow', built: true },
   { id: 'papitoooo', order: 7, slug: 'papitoooo', accent: 'cyan', built: true },
   { id: 'byhand', order: 8, slug: 'by-hand', accent: 'indigo', built: true },
+  // "art" is the Artworks index (mirrors "screens"); each painting is its
+  // own spread (mirrors estudioa/apos/padelaura/papitoooo), in gallery order.
   { id: 'art', order: 9, slug: 'art', accent: 'yellow', built: true },
-  { id: 'sewing', order: 10, slug: 'sewing', accent: 'red', built: false },
-  { id: 'onset', order: 11, slug: 'on-set', accent: 'cyan', built: false },
-  { id: 'process', order: 12, slug: 'process', accent: 'indigo', built: false },
-  { id: 'skills', order: 13, slug: 'skills', accent: 'indigo', built: false },
-  { id: 'contact', order: 14, slug: 'contact', accent: 'indigo', built: false },
+  { id: 'painfulexperience', order: 10, slug: 'painful-experience', accent: 'yellow', built: true },
+  { id: 'choice', order: 11, slug: 'choice', accent: 'yellow', built: true },
+  { id: 'guidance', order: 12, slug: 'guidance', accent: 'yellow', built: true },
+  { id: 'sewing', order: 13, slug: 'sewing', accent: 'red', built: false },
+  { id: 'onset', order: 14, slug: 'on-set', accent: 'cyan', built: false },
+  { id: 'process', order: 15, slug: 'process', accent: 'indigo', built: false },
+  { id: 'skills', order: 16, slug: 'skills', accent: 'indigo', built: false },
+  { id: 'contact', order: 17, slug: 'contact', accent: 'indigo', built: false },
 ];
 
 export const TOTAL_CHAPTERS = CHAPTERS.length;
@@ -94,3 +102,4 @@ export const INDEX_TABS: TabDef[] = [
 
 export const SCREENS_PROJECT_IDS: ChapterId[] = ['estudioa', 'apos', 'padelaura', 'papitoooo'];
 export const BYHAND_CHAPTER_IDS: ChapterId[] = ['art', 'sewing', 'onset'];
+export const ART_PAINTING_IDS: ChapterId[] = ['painfulexperience', 'choice', 'guidance'];

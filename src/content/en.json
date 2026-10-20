@@ -42,6 +42,9 @@
     "papitoooo": { "title": "Papitoooo", "tabLabel": "Papitoooo" },
     "byhand": { "title": "Part Two: By Hand", "tabLabel": "" },
     "art": { "title": "Artworks", "tabLabel": "Art" },
+    "painfulexperience": { "title": "Painful Experience", "tabLabel": "" },
+    "choice": { "title": "Choice", "tabLabel": "" },
+    "guidance": { "title": "Guidance", "tabLabel": "" },
     "sewing": { "title": "Sewing", "tabLabel": "Sewing" },
     "onset": { "title": "On Set", "tabLabel": "On Set" },
     "process": { "title": "Process", "tabLabel": "Process" },
@@ -147,6 +150,8 @@
     "seeBack": "See the back",
     "seeFront": "See the front",
     "threadCallout": "two voices, sewn together",
+    "backToArt": "Back to Artworks",
+    "indexIntro": "Three paintings. Pick one to open its spread.",
     "closingCaption": "Showing my work at an event by Omani Archives",
     "closingAlt": "The owner's work on show at an event organised by Omani Archives, including the stamp-sticker series on the wall",
     "paintings": {

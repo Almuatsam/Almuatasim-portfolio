@@ -17,8 +17,9 @@ interface TurnTheCanvasProps {
   turnHint: string;
   seeBack: string;
   seeFront: string;
-  /** Painful Experience only — a hover/focus callout pointing at the
-   * thread between the two faces (B4, B5 #5). */
+  /** Painful Experience only — a callout pointing at the thread between
+   * the two faces, always visible (not hidden behind hover), per the
+   * owner's review (Phase 3 Kickoff.md #2). */
   threadCallout?: string;
 }
 
@@ -31,7 +32,6 @@ interface TurnTheCanvasProps {
 export function TurnTheCanvas({ src, alt, title, medium, year, backLines, turnHint, seeBack, seeFront, threadCallout }: TurnTheCanvasProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [flipped, setFlipped] = useState(false);
-  const [calloutOn, setCalloutOn] = useState(false);
 
   return (
     <div className="turn-canvas">
@@ -51,17 +51,8 @@ export function TurnTheCanvas({ src, alt, title, medium, year, backLines, turnHi
             <div className="turn-canvas__face turn-canvas__face--front">
               <img src={src} alt={alt} className="turn-canvas__img" />
               {threadCallout && (
-                <span
-                  className="turn-canvas__thread-dot"
-                  onPointerEnter={() => setCalloutOn(true)}
-                  onPointerLeave={() => setCalloutOn(false)}
-                  onFocus={() => setCalloutOn(true)}
-                  onBlur={() => setCalloutOn(false)}
-                  tabIndex={0}
-                  role="note"
-                  aria-label={threadCallout}
-                >
-                  {calloutOn && <span className="turn-canvas__thread-label">{threadCallout}</span>}
+                <span className="turn-canvas__thread-dot" role="note" aria-label={threadCallout}>
+                  <span className="turn-canvas__thread-label">{threadCallout}</span>
                 </span>
               )}
             </div>

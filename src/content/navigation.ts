@@ -1,4 +1,5 @@
 import {
+  ART_PAINTING_IDS,
   CHAPTERS,
   INDEX_TABS,
   SCREENS_PROJECT_IDS,
@@ -63,6 +64,7 @@ export function tabAccent(tab: TabDef, current: ChapterDef): AccentKey {
 export function isTabActive(tab: TabDef, currentId: ChapterId): boolean {
   if (tab.chapterId === currentId) return true;
   if (tab.chapterId === 'screens') return SCREENS_PROJECT_IDS.includes(currentId);
+  if (tab.chapterId === 'art') return ART_PAINTING_IDS.includes(currentId);
   return false;
 }
 

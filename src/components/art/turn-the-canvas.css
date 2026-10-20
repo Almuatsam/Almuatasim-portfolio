@@ -129,10 +129,19 @@
   color: var(--color-ink);
 }
 
+/* Label style (project-spread.css / case-notes.css), not IBM Plex Mono. */
 .turn-canvas__label-meta {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
+  font-weight: 600;
   font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--color-secondary);
+}
+
+:root[dir='rtl'] .turn-canvas__label-meta {
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .turn-canvas__hint {
@@ -140,8 +149,11 @@
   color: var(--color-secondary);
 }
 
+/* Always visible (not a hover tooltip) — the owner's review called out
+ * the hover-only version as easy to miss (Phase 3 Kickoff.md #2). No
+ * pointer interaction left, so this stays pointer-events: none like its
+ * siblings in .turn-canvas__stage. */
 .turn-canvas__thread-dot {
-  pointer-events: auto;
   position: absolute;
   inset-block-start: 48%;
   inset-inline-start: 50%;
@@ -151,7 +163,6 @@
   border: 1.5px solid var(--color-paper);
   border-radius: 50%;
   background: color-mix(in srgb, var(--accent-ink) 60%, transparent);
-  cursor: help;
 }
 
 .turn-canvas__thread-label {

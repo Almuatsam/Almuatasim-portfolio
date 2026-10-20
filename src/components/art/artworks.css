@@ -1,7 +1,9 @@
-.artworks__context {
+/* --- Index (the "art" chapter: links out to one spread per painting) --- */
+
+.artworks__index-context {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-2);
   min-height: 100%;
 }
 
@@ -14,27 +16,134 @@
   color: var(--accent-ink);
 }
 
-.artworks__entry {
+.artworks__index-intro {
+  color: var(--color-secondary);
+  font-size: var(--fs-body);
+}
+
+.artworks__index-list {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.artworks__index-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--color-ink);
+  padding-block: var(--space-1);
+  border-block-end: 1px dotted var(--color-edge);
+}
+
+.artworks__index-link-title {
+  font-size: var(--fs-h3);
+  font-family: var(--font-display);
+}
+
+.artworks__index-link:hover .artworks__index-link-title {
+  color: var(--accent-ink);
+}
+
+.artworks__index-link-desc {
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+}
+
+.artworks__index-work {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.artworks__index-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.artworks__index-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  padding-block-start: var(--space-2);
-  border-block-start: 1px dotted var(--color-edge);
+  padding: var(--space-1);
+  background: var(--color-paper);
+  box-shadow: 0 8px 16px rgba(22, 20, 43, 0.14);
+  border: 1px solid var(--color-edge);
+  border-block-start: 3px solid var(--accent-ink);
+  text-decoration: none;
+  transition:
+    transform var(--duration-micro) var(--ease-ui),
+    box-shadow var(--duration-micro) var(--ease-ui);
+}
+
+.artworks__index-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px rgba(22, 20, 43, 0.18);
+}
+
+.artworks__index-card-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--color-edge);
+}
+
+.artworks__index-card-title {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-ink);
+}
+
+/* --- One painting's spread --- */
+
+.artworks__context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.artworks__back {
+  font-size: var(--fs-small);
+  color: var(--accent-ink);
+  width: fit-content;
+  border-bottom: 1px solid currentColor;
 }
 
 .artworks__entry-title {
-  font-size: var(--fs-h2);
+  font-size: var(--fs-title);
 }
 
+/* Label style (project-spread.css / case-notes.css), not IBM Plex Mono —
+ * matches how every other short descriptor line reads in this book. */
 .artworks__entry-meta {
-  font-size: var(--fs-label);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--color-secondary);
+}
+
+:root[dir='rtl'] .artworks__entry-meta {
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .artworks__story {
   display: flex;
   flex-direction: column;
   gap: var(--space-half);
+  margin-block-start: var(--space-1);
 }
 
 .artworks__story-line {
@@ -49,16 +158,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
   min-height: 100%;
-}
-
-.artworks__block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  width: 100%;
+  justify-content: center;
 }
 
 .artworks__in-situ {
@@ -66,7 +168,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-half);
-  width: 120px;
+  width: 140px;
   padding: 0;
   border: none;
   background: none;
@@ -84,7 +186,7 @@
 
 .artworks__in-situ-img {
   width: 100%;
-  height: 96px;
+  height: 108px;
   object-fit: cover;
   border: 1px solid var(--color-edge);
   box-shadow: 0 6px 14px rgba(22, 20, 43, 0.14);
@@ -114,7 +216,7 @@
 
 .artworks__closing-img {
   pointer-events: none;
-  width: 220px;
+  width: 180px;
   height: auto;
   border: 1px solid var(--color-edge);
   box-shadow: 0 10px 22px rgba(22, 20, 43, 0.16);
