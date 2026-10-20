@@ -217,13 +217,19 @@
     "tie": {
       "caption": "Picked stone by stone, placed by hand",
       "processAlt": "Choosing silver star studs and blue rhinestones at the supplier",
-      "finalAlt": "The finished tie, embellished with silver star studs and rhinestones, worn"
+      "processLabel": "Choosing the crystals",
+      "finalAlt": "The finished tie, embellished with silver star studs and rhinestones, worn",
+      "finalLabel": "The finished tie"
     },
     "ruffle": {
       "clips": {
         "ruffle": "The owner running turquoise fabric through an overlocker, gathering it into a ruffle",
         "ruffleFinished": "The finished turquoise ruffle panel hanging to show its fall"
       },
+      "ruffleTitle": "Gathering the ruffle",
+      "ruffleCaption": "Turquoise fabric through the overlocker.",
+      "finishedTitle": "The finished ruffle",
+      "finishedCaption": "Hanging to show how it falls.",
       "playHint": "Play",
       "closeVideo": "Close",
       "seeOnSet": "See it on set",
