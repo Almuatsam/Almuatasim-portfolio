@@ -11,7 +11,7 @@ type OnSetCardId = 'qalb' | 'amouage' | 'press';
 
 const CARD_IDS: OnSetCardId[] = ['qalb', 'amouage', 'press'];
 
-function thumbnailFor(id: OnSetCardId): string | null {
+function thumbnailFor(id: OnSetCardId) {
   return id === 'press' ? null : ONSET_THUMBNAILS[id];
 }
 
@@ -54,7 +54,7 @@ export function OnSetWork({ lang }: ChapterPanelProps) {
           return (
             <Link key={id} to={chapterPath(lang, id as ChapterId)} className="onset__index-card reveal-fade">
               {thumb ? (
-                <img src={thumb} alt="" className="onset__index-card-img" />
+                <img src={thumb.src} alt="" className="onset__index-card-img" />
               ) : (
                 <span className="onset__index-card-plain" aria-hidden="true">
                   3
@@ -62,7 +62,7 @@ export function OnSetWork({ lang }: ChapterPanelProps) {
               )}
               <span className="onset__index-card-text">
                 <span className="onset__index-card-title">{t(`chapters.${id}.title`)}</span>
-                {thumb && <ImageCredit t={t} />}
+                {thumb && <ImageCredit t={t} credit={thumb.credit} />}
               </span>
             </Link>
           );

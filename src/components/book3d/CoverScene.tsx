@@ -25,6 +25,12 @@ interface CoverSceneProps {
   lang: SupportedLang;
   isOpening: boolean;
   onOpened: () => void;
+  /** Plays the opening in reverse: starts with the cover swung open and
+   * the spread slid aside, and ends closed, at rest. */
+  isClosing?: boolean;
+  onClosed?: () => void;
+  /** Called once the scene (and its textures) is on screen. */
+  onReady?: () => void;
 }
 
 function cameraDistanceFor(fovDeg: number, tiltRad: number): number {
@@ -42,10 +48,12 @@ function setCameraTilt(camera: PerspectiveCamera, tiltDeg: number): void {
 
 /** Sets the rest-state camera (slight tilt). The opening timeline takes
  * over and animates tilt down to exactly 0 (top-down) at handover. */
-function CameraFit() {
+function CameraFit({ startTilt }: { startTilt: number }) {
   const { camera, size } = useThree();
   useEffect(() => {
-    setCameraTilt(camera as PerspectiveCamera, REST_TILT_DEG);
+    setCameraTilt(camera as PerspectiveCamera, startTilt);
+    // startTilt is only the pose at mount; the timelines own it after.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [camera, size]);
   return null;
 }
@@ -140,7 +148,7 @@ function PointerTilt({ active, children }: { active: boolean; children: ReactNod
   return <group ref={tiltRef}>{children}</group>;
 }
 
-function CoverBookGroup({ lang, isOpening, onOpened }: CoverSceneProps) {
+function CoverBookGroup({ lang, isOpening, onOpened, isClosing = false, onClosed, onReady }: CoverSceneProps) {
   const isRtl = lang === 'ar';
   const bookGroupRef = useRef<Group>(null);
   const hingeRef = useRef<Group>(null);
@@ -149,6 +157,10 @@ function CoverBookGroup({ lang, isOpening, onOpened }: CoverSceneProps) {
     t.colorSpace = SRGBColorSpace;
   });
   const { camera } = useThree();
+  // Whether this scene mounted as the closing run. Read once: the pose and
+  // the timeline below must not react when the parent later flips the prop
+  // (a GSAP revert would swing the cover back open).
+  const startsClosed = useRef(isClosing).current;
 
   // The cover's closed footprint matches the page block exactly (centred
   // at bookGroup x=0); the hinge sits at its spine edge, so the cover's
@@ -182,14 +194,47 @@ function CoverBookGroup({ lang, isOpening, onOpened }: CoverSceneProps) {
     { dependencies: [isOpening] },
   );
 
+  useGSAP(
+    () => {
+      if (!startsClosed || !bookGroupRef.current || !hingeRef.current) return;
+      const duration = prefersReducedMotion ? 0.001 : 1.4;
+      const ease = prefersReducedMotion ? 'none' : 'paper';
+      const cameraRig = { tilt: 0 };
+      const tl = gsap.timeline({ onComplete: onClosed });
+      tl.to(hingeRef.current.rotation, { y: 0, duration, ease }, 0)
+        .to(bookGroupRef.current.position, { x: 0, duration, ease }, 0)
+        .to(
+          cameraRig,
+          {
+            tilt: REST_TILT_DEG,
+            duration,
+            ease,
+            onUpdate: () => setCameraTilt(camera as PerspectiveCamera, cameraRig.tilt),
+          },
+          0,
+        );
+    },
+    { dependencies: [] },
+  );
+
+  useEffect(() => {
+    onReady?.();
+    // Once, when the scene first shows.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <group ref={bookGroupRef}>
+    <group ref={bookGroupRef} position={[startsClosed ? slideAmount : 0, 0, 0]}>
       <ShadowBlob />
       <RoundedBox args={[PAGE_W, SPREAD_H, PAGE_BLOCK_THICKNESS]} radius={0.01} smoothness={2} position={[0, 0, 0]}>
         <meshStandardMaterial color="#e4e1d8" roughness={0.95} />
       </RoundedBox>
 
-      <group ref={hingeRef} position={[hingeLocalX, 0, PAGE_BLOCK_THICKNESS / 2 + COVER_THICKNESS / 2]}>
+      <group
+        ref={hingeRef}
+        position={[hingeLocalX, 0, PAGE_BLOCK_THICKNESS / 2 + COVER_THICKNESS / 2]}
+        rotation={[0, startsClosed ? targetAngle : 0, 0]}
+      >
         <group position={[coverOffsetFromHinge, 0, 0]}>
           <RoundedBox args={[PAGE_W, SPREAD_H, COVER_THICKNESS]} radius={0.003} smoothness={2}>
             <meshStandardMaterial color="#16142b" roughness={0.88} metalness={0} bumpMap={paperGrain} bumpScale={0.003} />
@@ -225,11 +270,11 @@ export function CoverScene(props: CoverSceneProps) {
       // sizes to the book's true (unrotated) 1160:760 box.
       resize={{ offsetSize: true }}
     >
-      <CameraFit />
+      <CameraFit startTilt={props.isClosing ? 0 : REST_TILT_DEG} />
       <ambientLight intensity={1.0} color="#fff4e6" />
       <directionalLight position={[-1.4, 1.8, 1.6]} intensity={1.85} color="#fff4e6" />
       <directionalLight position={[0.6, -0.4, 1.2]} intensity={0.4} color="#e9dfd0" />
-      <PointerTilt active={!props.isOpening}>
+      <PointerTilt active={!props.isOpening && !props.isClosing}>
         <CoverBookGroup {...props} />
       </PointerTilt>
     </Canvas>

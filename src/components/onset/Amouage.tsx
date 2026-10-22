@@ -56,6 +56,7 @@ export function AmouageWork({ lang }: ChapterPanelProps) {
     id: print.id,
     src: print.src,
     alt: t(`onset.amouage.prints.${print.id}`),
+    credit: print.credit,
   }));
 
   return (
@@ -64,9 +65,9 @@ export function AmouageWork({ lang }: ChapterPanelProps) {
         <PrintStack
           prints={prints}
           buttonLabel={(current, total) => t('onset.amouage.nextPrint', { current, total })}
+          renderCredit={(credit) => <ImageCredit t={t} credit={credit} />}
         />
         <p className="amouage__hint">{t('onset.amouage.stackHint')}</p>
-        <ImageCredit t={t} />
       </div>
       <div className="amouage__notes">
         {PINNED_NOTES.map((note) => (
@@ -78,7 +79,7 @@ export function AmouageWork({ lang }: ChapterPanelProps) {
               style={{ aspectRatio: note.aspect, objectPosition: note.position }}
             />
             <figcaption className="amouage__note-caption">{t(`onset.amouage.notes.${note.id}.caption`)}</figcaption>
-            <ImageCredit t={t} />
+            <ImageCredit t={t} credit={note.credit} />
           </figure>
         ))}
       </div>

@@ -14,7 +14,10 @@ interface FullscreenViewerProps {
   openIndex: number | null;
   onClose: () => void;
   onIndexChange: (index: number) => void;
-  label: string;
+  /** Prefix of every caption; ignored when `captionFor` is given. */
+  label?: string;
+  /** Per-image caption prefix (the On Set photo credit differs by image). */
+  captionFor?: (key: string) => string;
 }
 
 /** The sharper of an image's two sources, for the one place "native
@@ -40,11 +43,11 @@ function highResSrc(image: ProjectImage): string {
  * `position: fixed` is never confined by the book's transformed
  * ancestors (StPageFlip's page transform, the Arabic mirror) the way
  * our previous custom viewer was. */
-export function FullscreenViewer({ images, altFor, openIndex, onClose, onIndexChange, label }: FullscreenViewerProps) {
+export function FullscreenViewer({ images, altFor, openIndex, onClose, onIndexChange, label = '', captionFor }: FullscreenViewerProps) {
   const slides = images.map((image) => ({
     src: highResSrc(image),
     alt: altFor(image.key),
-    title: `${label}: ${altFor(image.key)}`,
+    title: `${captionFor ? captionFor(image.key) : label}: ${altFor(image.key)}`,
   }));
 
   return (

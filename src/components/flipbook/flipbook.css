@@ -39,6 +39,20 @@
   cursor: pointer;
 }
 
+/* The closing run: the canvas fades in over the spread it replaces. */
+.flipbook-cover3d--closing {
+  animation: flipbook-cover3d-enter 200ms ease both;
+}
+
+@keyframes flipbook-cover3d-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .flipbook-cover3d--fading {
   opacity: 0;
   pointer-events: none;

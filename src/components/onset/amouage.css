@@ -9,7 +9,7 @@
 
 .amouage__links {
   list-style: none;
-  margin: auto 0 0;
+  margin: var(--space-2) 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -39,9 +39,11 @@
 
 .amouage__work {
   display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  /* The stack is the focus (about 290px); the pinned notes stay small (about 140px). */
+  grid-template-columns: minmax(0, 300px) minmax(0, 136px);
+  justify-content: space-between;
   align-items: start;
-  gap: var(--space-3);
+  gap: var(--space-1);
   /* Room above for the pins. */
   padding-block-start: var(--space-1);
 }
@@ -54,8 +56,8 @@
 
 .print-stack {
   position: relative;
-  width: calc(100% - 20px);
-  margin-inline-end: 20px;
+  width: calc(100% - 12px);
+  margin-inline-end: 12px;
   aspect-ratio: 4 / 5;
   /* Room for the prints that peek out below and beside the top one. */
   margin-block-end: var(--space-2);

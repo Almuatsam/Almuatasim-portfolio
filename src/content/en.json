@@ -25,6 +25,7 @@
     "arrowBack": "Back to {{chapter}}",
     "arrowForward": "On to {{chapter}}",
     "openBook": "Open the sketchbook",
+    "backToCover": "Back to cover",
     "comingSoon": {
       "title": "Still being drawn",
       "body": "This page of the sketchbook isn't inked in yet. It's coming in the next phase.",
@@ -125,7 +126,66 @@
     "linkedin": "https://www.linkedin.com/in/almuatasimalfarsi",
     "github": "https://github.com/Almuatsam",
     "copyLabel": "Copy email",
-    "copiedNote": "Copied. Talk soon."
+    "copiedNote": "Copied. Talk soon.",
+    "closingLine": "Let's make something together.",
+    "colophon": {
+      "stack": "Built with React 19, TypeScript, Vite, GSAP, StPageFlip and React Three Fiber.",
+      "photos": "Photos: {{names}}"
+    }
+  },
+  "process": {
+    "intro": "One flow that works for both worlds: listen, sketch, make, test, refine.",
+    "hint": "Pick a step to see an example from each side.",
+    "stepsLabel": "The five steps",
+    "open": "Open {{chapter}}",
+    "sides": { "screens": "Screens", "byHand": "By Hand" },
+    "steps": {
+      "listen": { "name": "Listen", "screens": "The EstudioA user survey", "byHand": "Qalb Mahmood storyboards and planning sheets" },
+      "sketch": { "name": "Sketch", "screens": "The EstudioA wireframe", "byHand": "The bedspread drawing and the fashion sketches" },
+      "make": { "name": "Make", "screens": "Four shipped platforms", "byHand": "Sewing, prop building and painting on set" },
+      "test": {
+        "name": "Test",
+        "screens": "[[186 test cases]] for EstudioA and a [[263-case test specification]] for APOS",
+        "byHand": "The bedspread tested on a real bed, and fittings with clothing altered on the spot"
+      },
+      "refine": { "name": "Refine", "screens": "The APOS production-readiness review: [[71/100]]", "byHand": "Positioning set pieces on the day" }
+    },
+    "images": {
+      "wireframe": "The EstudioA browse page drawn as a wireframe",
+      "storyboards": "Two storyboard drawings of the pink bedroom set, pinned to the studio wall",
+      "sewingMachine": "A light blue sewing machine on a wooden table, with green ribbon, thread and bobbins",
+      "courtyardSet": "The courtyard set seen from the roof, with the crew standing on a red rug and a painted sign reading Ruwi 1983"
+    }
+  },
+  "skills": {
+    "hint": "Point at a skill, or tab to it, to see the chapters that show it.",
+    "provedIn": "Shown in",
+    "groups": { "uiux": "UI/UX", "frontend": "Front-end", "fullstack": "Full-stack", "craft": "Craft" },
+    "items": {
+      "research": "User research and surveys",
+      "flows": "User flows",
+      "wireframing": "Wireframing",
+      "bilingual": "Bilingual / RTL interface design",
+      "react": "React 19",
+      "typescript": "TypeScript",
+      "vite": "Vite",
+      "motion": "Framer Motion",
+      "canvas": "Canvas 2D and Fabric.js",
+      "i18n": "Arabic/English internationalisation",
+      "dotnet": ".NET 8 Clean Architecture",
+      "flask": "Flask",
+      "mysql": "MySQL",
+      "sqlalchemy": "SQLAlchemy",
+      "jwt": "JWT authentication",
+      "payment": "Payment integration (Thawani)",
+      "nlp": "spaCy / RapidFuzz / scikit-learn",
+      "sewing": "Sewing (soft furnishings, ruffles, garment alterations)",
+      "embellishment": "Embellishment",
+      "props": "Prop building and painting",
+      "setDressing": "Set dressing",
+      "painting": "Painting (acrylic and mixed media)",
+      "illustration": "Fashion illustration"
+    }
   },
   "plain": {
     "title": "Plain version",
@@ -161,7 +221,11 @@
       "amouage": "two projects, 2023 and 2024",
       "press": "three articles about the series"
     },
-    "credit": "Abdulaziz Al-Hosni and Almuatasim Alfarsi",
+    "credits": {
+      "aziz": "Abdulaziz Al-Hosni",
+      "owner": "Almuatasim Alfarsi",
+      "both": "Abdulaziz Al-Hosni and Almuatasim Alfarsi"
+    },
     "backToOnSet": "Back to On Set",
     "qalb": {
       "meta": "October 2024, Melkweg Expo, Amsterdam",

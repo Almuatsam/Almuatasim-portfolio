@@ -78,9 +78,9 @@ export const CHAPTERS: ChapterDef[] = [
   { id: 'showmade', order: 21, slug: 'show-what-i-made', accent: 'cyan', built: true },
   { id: 'press', order: 22, slug: 'in-the-press', accent: 'cyan', built: true },
   { id: 'amouage', order: 23, slug: 'amouage', accent: 'cyan', built: true },
-  { id: 'process', order: 24, slug: 'process', accent: 'indigo', built: false },
-  { id: 'skills', order: 25, slug: 'skills', accent: 'indigo', built: false },
-  { id: 'contact', order: 26, slug: 'contact', accent: 'indigo', built: false },
+  { id: 'process', order: 24, slug: 'process', accent: 'indigo', built: true },
+  { id: 'skills', order: 25, slug: 'skills', accent: 'indigo', built: true },
+  { id: 'contact', order: 26, slug: 'contact', accent: 'indigo', built: true },
 ];
 
 export const TOTAL_CHAPTERS = CHAPTERS.length;

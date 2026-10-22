@@ -1,0 +1,238 @@
+/* --- Process: the step list with its stitch line (left page) --- */
+
+.process__context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.process__heading {
+  font-size: var(--fs-display);
+  line-height: 1.15;
+}
+
+.process__intro {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--color-ink);
+}
+
+.process__hint {
+  font-size: var(--fs-label-floor);
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+
+.process__steps {
+  --row: 68px;
+  --dot: 18px;
+  position: relative;
+  list-style: none;
+  margin: var(--space-1) 0 0;
+  padding: 0;
+}
+
+/* The stitch: a dashed thread behind the dots, and a solid ink thread
+   that sews down to the chosen step. Both run from the first dot to
+   the last. */
+.process__steps::before,
+.process__steps::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: calc(var(--dot) / 2 - 1px);
+  inset-block-start: calc(var(--row) / 2);
+  width: 2px;
+  height: calc(var(--row) * var(--steps));
+}
+
+.process__steps::before {
+  background: repeating-linear-gradient(to bottom, var(--color-secondary) 0 6px, transparent 6px 12px);
+  opacity: 0.45;
+}
+
+.process__steps::after {
+  background: var(--accent);
+  transform-origin: top;
+  transform: scaleY(calc(var(--step) / var(--steps)));
+  transition: transform 500ms var(--ease-ui);
+}
+
+.process__step {
+  height: var(--row);
+}
+
+.process__step-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--color-ink);
+  text-align: start;
+  cursor: pointer;
+}
+
+.process__dot {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--color-paper);
+  border: 2px solid var(--color-secondary);
+  transition:
+    background-color 300ms var(--ease-ui),
+    border-color 300ms var(--ease-ui),
+    transform 300ms var(--ease-ui);
+}
+
+.process__step--sewn .process__dot {
+  border-color: var(--accent);
+}
+
+.process__step-button[aria-pressed='true'] .process__dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.25);
+}
+
+.process__step-number {
+  flex: none;
+  min-width: 2ch;
+  font-size: var(--fs-label-floor);
+  color: var(--color-secondary);
+}
+
+.process__step-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+}
+
+.process__step-button[aria-pressed='true'] .process__step-name {
+  color: var(--accent-ink);
+}
+
+.process__step-button:hover .process__step-name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.process__step-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* --- Process: the examples for the chosen step (right page) --- */
+
+.process__work {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.process__stage {
+  font-size: var(--fs-label-floor);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+:root[dir='rtl'] .process__stage,
+:root[dir='rtl'] .process__side {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.process__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.process__example {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  background: var(--color-paper);
+  border: 1px solid var(--color-edge);
+  border-inline-start: 3px solid var(--accent);
+  box-shadow: 2px 3px 0 rgba(22, 20, 43, 0.14);
+}
+
+.process__side {
+  font-family: var(--font-body);
+  font-size: var(--fs-label-floor);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.process__text {
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+
+.process__images {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.process__images--1 {
+  grid-template-columns: minmax(0, 60%);
+}
+
+.process__images--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.process__figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  min-width: 0;
+}
+
+.process__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--color-edge);
+  border: 1px solid var(--color-edge);
+}
+
+.process__images--4 .process__img {
+  aspect-ratio: 1 / 1;
+}
+
+.process__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+}
+
+.process__link {
+  font-size: var(--fs-small);
+  color: var(--accent-ink);
+  border-bottom: 1px solid currentColor;
+}

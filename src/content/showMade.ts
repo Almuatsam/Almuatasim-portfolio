@@ -1,4 +1,5 @@
 import type { ChapterId } from './chapters';
+import type { Credit } from './credits';
 
 export type ShowPhotoId = 'bedroom' | 'daybed' | 'final';
 export type MakingOfId = 'bedspread' | 'blanket' | 'fan' | 'flat';
@@ -6,11 +7,11 @@ export type MakingOfId = 'bedspread' | 'blanket' | 'fan' | 'flat';
 /** Making-of photos opened from a label (photo map: 10 sewing the
  * bedspread, 8 the bedspread tested on a bed, 11 the fan painted blue,
  * 7 the blanket laid flat). */
-export const MAKING_OF: { id: MakingOfId; src: string }[] = [
-  { id: 'bedspread', src: '/on-set/qalb-mahmood-10-work.jpg' },
-  { id: 'blanket', src: '/on-set/qalb-mahmood-8-work.jpg' },
-  { id: 'fan', src: '/on-set/qalb-mahmood-11-work.jpg' },
-  { id: 'flat', src: '/on-set/qalb-mahmood-7-work.jpg' },
+export const MAKING_OF: { id: MakingOfId; src: string; credit: Credit }[] = [
+  { id: 'bedspread', src: '/on-set/qalb-mahmood-10-work.jpg', credit: 'owner' },
+  { id: 'blanket', src: '/on-set/qalb-mahmood-8-work.jpg', credit: 'owner' },
+  { id: 'fan', src: '/on-set/qalb-mahmood-11-work.jpg', credit: 'owner' },
+  { id: 'flat', src: '/on-set/qalb-mahmood-7-work.jpg', credit: 'owner' },
 ];
 
 type Point = [number, number];
@@ -36,6 +37,7 @@ export interface Outline {
 export interface ShowPhoto {
   id: ShowPhotoId;
   src: string;
+  credit: Credit;
   width: number;
   height: number;
   outlines: Outline[];
@@ -49,6 +51,7 @@ export const SHOW_PHOTOS: ShowPhoto[] = [
   {
     id: 'bedroom',
     src: '/on-set/qalb-mahmood-3-set.jpg',
+    credit: 'both',
     width: 1800,
     height: 1350,
     outlines: [
@@ -88,6 +91,7 @@ export const SHOW_PHOTOS: ShowPhoto[] = [
   {
     id: 'daybed',
     src: '/on-set/qalb-mahmood-15-set.jpg',
+    credit: 'both',
     width: 1800,
     height: 1350,
     outlines: [
@@ -104,6 +108,7 @@ export const SHOW_PHOTOS: ShowPhoto[] = [
   {
     id: 'final',
     src: '/on-set/qalb-mahmood-14-art.jpg',
+    credit: 'aziz',
     width: 1206,
     height: 885,
     outlines: [

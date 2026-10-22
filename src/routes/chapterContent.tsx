@@ -21,6 +21,9 @@ import { FollowContext, FollowWork } from '../components/onset/FollowThePiece';
 import { ShowMadeContext, ShowMadeWork } from '../components/onset/ShowWhatIMade';
 import { PressContext, PressWork } from '../components/onset/Press';
 import { AmouageContext, AmouageWork } from '../components/onset/Amouage';
+import { ProcessContext, ProcessWork } from '../components/process/Process';
+import { SkillsContext, SkillsWork } from '../components/skills/Skills';
+import { ContactContext, ContactWork } from '../components/contact/Contact';
 import type { ChapterDef, ChapterId } from '../content/chapters';
 import type { SupportedLang } from '../i18n';
 
@@ -55,6 +58,9 @@ export const CONTEXT_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   showmade: ShowMadeContext,
   press: PressContext,
   amouage: AmouageContext,
+  process: ProcessContext,
+  skills: SkillsContext,
+  contact: ContactContext,
 };
 
 export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
@@ -81,6 +87,9 @@ export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   showmade: ShowMadeWork,
   press: PressWork,
   amouage: AmouageWork,
+  process: ProcessWork,
+  skills: SkillsWork,
+  contact: ContactWork,
 };
 
 export function contextComponentFor(id: ChapterId): PanelComponent {

@@ -155,7 +155,7 @@ export function ShowMadeWork({ lang }: ChapterPanelProps) {
             );
           })}
         </div>
-        <ImageCredit t={t} />
+        <ImageCredit t={t} credit={photo.credit} />
       </figure>
       <FullscreenViewer
         images={MAKING_OF_IMAGES}
@@ -163,7 +163,10 @@ export function ShowMadeWork({ lang }: ChapterPanelProps) {
         openIndex={viewer.openIndex}
         onClose={viewer.close}
         onIndexChange={viewer.setIndex}
-        label={t('onset.credit')}
+        captionFor={(key) => {
+          const item = MAKING_OF.find((entry) => entry.id === key);
+          return item ? t(`onset.credits.${item.credit}`) : '';
+        }}
       />
     </div>
   );

@@ -7,6 +7,9 @@ interface CoverCanvasLoaderProps {
   lang: SupportedLang;
   isOpening: boolean;
   onOpened: () => void;
+  isClosing?: boolean;
+  onClosed?: () => void;
+  onReady?: () => void;
 }
 
 /** Lazy-loads the 3D cover scene as its own chunk. Suspense keeps the 2D

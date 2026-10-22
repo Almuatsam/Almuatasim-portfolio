@@ -42,7 +42,7 @@ export function QalbWork({ lang }: ChapterPanelProps) {
           className="onset__hero-img"
           style={{ objectPosition: QALB_HERO.position }}
         />
-        <ImageCredit t={t} />
+        <ImageCredit t={t} credit={QALB_HERO.credit} />
       </figure>
       <h2 className="onset__role-heading reveal-fade">{t('onset.qalb.roleHeading')}</h2>
       <ul className="onset__roles">

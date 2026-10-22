@@ -10,9 +10,11 @@ import './chapter-arrows.css';
 interface ChapterArrowsProps {
   lang: SupportedLang;
   chapter: ChapterDef;
+  /** The arrow after the last chapter: plays the cover closing. */
+  onBackToCover: () => void;
 }
 
-export function ChapterArrows({ lang, chapter }: ChapterArrowsProps) {
+export function ChapterArrows({ lang, chapter, onBackToCover }: ChapterArrowsProps) {
   const { t } = useTranslation();
   const isRtl = lang === 'ar';
   const prev = previousChapter(chapter);
@@ -48,6 +50,19 @@ export function ChapterArrows({ lang, chapter }: ChapterArrowsProps) {
           </span>
           <span className="chapter-arrows__label">{destinationLabel(next.id)}</span>
         </Link>
+      )}
+      {!next && (
+        <button
+          type="button"
+          className="chapter-arrows__button chapter-arrows__button--forward"
+          onClick={onBackToCover}
+          aria-label={t('common.backToCover')}
+        >
+          <span className="chapter-arrows__icon" style={{ borderColor: ACCENTS[chapter.accent].ink }}>
+            <PencilArrow pointing="forward" isRtl={isRtl} color={ACCENTS[chapter.accent].ink} />
+          </span>
+          <span className="chapter-arrows__label">{t('common.backToCover')}</span>
+        </button>
       )}
     </nav>
   );

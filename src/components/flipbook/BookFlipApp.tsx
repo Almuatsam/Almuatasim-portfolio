@@ -8,6 +8,7 @@ import { ChapterArrows } from '../book/ChapterArrows';
 import { FlipPage } from './FlipPage';
 import { Cover2D } from '../cover/Cover2D';
 import { CoverCanvasLoader } from '../book3d/CoverCanvasLoader';
+import { preloadCoverScene } from '../../lib/preloadCoverScene';
 import { useCurrentChapter } from '../../routes/useCurrentChapter';
 import { contextComponentFor, workComponentFor } from '../../routes/chapterContent';
 import { CHAPTERS, chapterPath, type ChapterId } from '../../content/chapters';
@@ -56,11 +57,20 @@ export function BookFlipApp() {
   const routeTargetId = useRef<ChapterId | null>(null);
   const [opening3D, setOpening3D] = useState(false);
   const [fading3D, setFading3D] = useState(false);
+  // Back to cover: the closing run mounts its own canvas (closeRun is its
+  // key), starts in the open pose over the spread, then hides the spread.
+  const [isClosing3D, setIsClosing3D] = useState(false);
+  const [isSpreadHidden, setIsSpreadHidden] = useState(false);
+  const [closeRun, setCloseRun] = useState(0);
 
   const isRtl = lang === 'ar';
   const isCover = chapter.id === 'cover';
 
   usePreloadSoriaFont(chapter.id);
+
+  useEffect(() => {
+    if (chapter.id === 'contact' && use3D) preloadCoverScene();
+  }, [chapter.id, use3D]);
   useChapterKeyboardNav(lang, chapter);
 
   const handleOpen = useCallback(() => {
@@ -70,6 +80,26 @@ export function BookFlipApp() {
     }
     setOpening3D(true);
   }, [use3D, navigate, lang]);
+
+  const handleBackToCover = useCallback(() => {
+    if (!use3D) {
+      navigate(chapterPath(lang, 'cover'));
+      return;
+    }
+    setCloseRun((run) => run + 1);
+    setIsClosing3D(true);
+  }, [use3D, navigate, lang]);
+
+  const handleCloseReady = useCallback(() => {
+    // Let the canvas fade in over the spread, then take the spread away.
+    window.setTimeout(() => setIsSpreadHidden(true), 220);
+  }, []);
+
+  const handle3DClosed = useCallback(() => {
+    navigate(chapterPath(lang, 'cover'));
+    setIsClosing3D(false);
+    setIsSpreadHidden(false);
+  }, [navigate, lang]);
 
   const handle3DOpened = useCallback(() => {
     flipBookRef.current?.pageFlip().turnToPage(pageIndexForChapter('contents'));
@@ -172,7 +202,7 @@ export function BookFlipApp() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang, isRtl, t, use3D, handleOpen]);
 
-  const hide3DBookBehindCover = isCover && use3D && !fading3D;
+  const hide3DBookBehindCover = (isCover && use3D && !fading3D) || (isClosing3D && isSpreadHidden);
 
   return (
     <Book accent={chapter.accent}>
@@ -218,26 +248,35 @@ export function BookFlipApp() {
           </HTMLFlipBook>
         </div>
 
-        {isCover && use3D && (
+        {(isCover || isClosing3D) && use3D && (
           <button
             type="button"
-            className={`flipbook-cover3d${fading3D ? ' flipbook-cover3d--fading' : ''}`}
+            className={`flipbook-cover3d${fading3D ? ' flipbook-cover3d--fading' : ''}${isClosing3D ? ' flipbook-cover3d--closing' : ''}`}
+            disabled={isClosing3D}
             onClick={() => {
               if (!opening3D) handleOpen();
             }}
             aria-label={t('common.openBook')}
           >
-            <CoverCanvasLoader lang={lang} isOpening={opening3D} onOpened={handle3DOpened} />
+            <CoverCanvasLoader
+              key={closeRun}
+              lang={lang}
+              isOpening={opening3D}
+              onOpened={handle3DOpened}
+              isClosing={isClosing3D}
+              onClosed={handle3DClosed}
+              onReady={isClosing3D ? handleCloseReady : undefined}
+            />
           </button>
         )}
 
         {isCover && <p className="flipbook-stage__hint">{t('cover.openHint')}</p>}
       </div>
 
-      {!isCover && (
+      {!isCover && !isClosing3D && (
         <>
           <IndexTabs lang={lang} chapter={chapter} />
-          <ChapterArrows lang={lang} chapter={chapter} />
+          <ChapterArrows lang={lang} chapter={chapter} onBackToCover={handleBackToCover} />
         </>
       )}
     </Book>

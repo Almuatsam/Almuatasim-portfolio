@@ -363,7 +363,7 @@ export function FollowWork({ lang }: ChapterPanelProps) {
             />
           ))}
         </div>
-        <ImageCredit t={t} />
+        <ImageCredit t={t} credit={current.credit} />
       </figure>
       <div className="follow__caption" aria-live="polite">
         <p className="follow__stage-name">{t(`onset.follow.stages.${current.id}.label`)}</p>
