@@ -63,3 +63,36 @@
 :root[dir='rtl'] .fv-lightbox .yarl__slide_title {
   letter-spacing: 0;
 }
+
+/* Caption below the image, never over it: the slide keeps a band at the
+   bottom for the caption and one at the top for the counter and the
+   toolbar. The caption is centred, wraps, and is at most 70ch wide. The
+   counter sits top-left on its own line, in both languages. */
+.fv-lightbox .yarl__slide {
+  padding-block: 64px 112px;
+}
+
+.fv-lightbox .yarl__slide_captions_container {
+  top: auto;
+  bottom: 0;
+  padding: var(--space-2) 72px var(--space-3);
+  text-align: center;
+}
+
+.fv-lightbox .yarl__slide_title {
+  max-width: 70ch;
+  margin-inline: auto;
+  overflow: visible;
+  white-space: normal;
+  text-overflow: clip;
+  text-align: center;
+  line-height: 1.4;
+  font-size: max(15px, var(--fs-small));
+}
+
+.fv-lightbox .yarl__counter {
+  --yarl__counter_rtl_left: 0;
+  --yarl__counter_rtl_right: unset;
+  left: 0;
+  right: unset;
+}

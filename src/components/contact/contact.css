@@ -146,10 +146,30 @@
   padding-block-start: var(--space-5);
 }
 
-.contact__envelope {
+.contact__envelope-art {
+  position: relative;
   width: min(100%, 320px);
+}
+
+.contact__envelope {
+  display: block;
+  width: 100%;
   height: auto;
   overflow: visible;
+}
+
+/* The owner's stamp sticker as the postage stamp: top-right corner of
+   the envelope, about 18% of its width, turned 4 degrees, with the same
+   two shadows as the cover's stickers. The envelope spans x 14 to 184
+   and y 22 to 130 of the 240 by 150 drawing. */
+.contact__stamp {
+  position: absolute;
+  left: 61.4%;
+  top: 18.7%;
+  width: 12.75%;
+  height: auto;
+  transform: rotate(4deg);
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.28));
 }
 
 .contact__signature {

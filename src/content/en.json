@@ -127,7 +127,7 @@
     "github": "https://github.com/Almuatsam",
     "copyLabel": "Copy email",
     "copiedNote": "Copied. Talk soon.",
-    "closingLine": "Let's make something together.",
+    "closingLine": "Tell me what you are making.",
     "colophon": {
       "stack": "Built with React 19, TypeScript, Vite, GSAP, StPageFlip and React Three Fiber.",
       "photos": "Photos: {{names}}"

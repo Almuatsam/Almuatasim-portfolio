@@ -127,7 +127,7 @@
     "github": "https://github.com/Almuatsam",
     "copyLabel": "نسخ البريد الإلكتروني",
     "copiedNote": "تم النسخ. إلى اللقاء.",
-    "closingLine": "لنصنع شيئًا معًا.",
+    "closingLine": "أخبرني بما تصنعه.",
     "colophon": {
       "stack": "بُني باستخدام React 19 وTypeScript وVite وGSAP وStPageFlip وReact Three Fiber.",
       "photos": "الصور: {{names}}"

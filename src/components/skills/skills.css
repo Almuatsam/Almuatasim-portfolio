@@ -25,7 +25,7 @@
   padding-block-end: var(--space-1);
   border-block-end: 2px solid var(--accent);
   font-family: var(--font-display);
-  font-size: var(--fs-h3);
+  font-size: max(17px, var(--fs-h3));
   font-weight: 400;
   line-height: 1.2;
   color: var(--color-ink);
@@ -47,7 +47,7 @@
 }
 
 .skills__name {
-  font-size: var(--fs-body);
+  font-size: max(15px, var(--fs-body));
   line-height: 1.4;
   color: var(--color-ink);
   outline-offset: 3px;
