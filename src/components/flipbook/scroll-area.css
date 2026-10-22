@@ -62,11 +62,22 @@
 .scroll-area__hint--bottom {
   inset-block-end: 0;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   gap: var(--space-half);
-  padding-block-end: 4px;
+  /* A solid paper band: text fades out above it and never runs through
+     the label. */
+  background: var(--color-paper);
+}
+
+.scroll-area__hint--bottom::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 100%;
+  height: 24px;
   background: linear-gradient(to top, var(--color-paper), transparent);
+  pointer-events: none;
 }
 
 .scroll-area__hint-chevron {

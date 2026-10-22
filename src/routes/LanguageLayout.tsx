@@ -3,6 +3,7 @@ import { Navigate, Outlet, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Stage } from '../components/layout/Stage';
 import { UtilityBar } from '../components/book/UtilityBar';
+import { RotateHint } from '../components/book/RotateHint';
 import { useDocumentLanguage } from '../i18n/useDocumentLanguage';
 import { isSupportedLang } from '../i18n';
 import { detectInitialLanguage } from '../i18n/detectLanguage';
@@ -31,6 +32,7 @@ function LanguageLayoutContent({ lang }: { lang: 'en' | 'ar' }) {
   return (
     <Stage>
       <UtilityBar />
+      <RotateHint />
       <Outlet />
     </Stage>
   );

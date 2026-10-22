@@ -357,4 +357,17 @@
   .follow__stitch {
     margin-block-start: var(--space-4);
   }
+
+  /* Five labels never fit a phone: only the current stage is named, in the
+     middle under the line, and the "1 / 5" count and arrow buttons carry
+     the rest. The needle and the buttons stay the ways to move. */
+  .follow__stage-label {
+    display: none;
+  }
+
+  .follow__stage-label--current {
+    display: block;
+    left: 50% !important;
+    font-size: max(12px, var(--fs-label-floor));
+  }
 }

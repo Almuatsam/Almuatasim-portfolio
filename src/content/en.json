@@ -26,6 +26,8 @@
     "arrowForward": "On to {{chapter}}",
     "openBook": "Open the sketchbook",
     "backToCover": "Back to cover",
+    "rotateHint": "Rotate your phone for the best view",
+    "dismiss": "Dismiss",
     "previousPage": "Previous page",
     "nextPage": "Next page",
     "pageArrows": "Pages",
