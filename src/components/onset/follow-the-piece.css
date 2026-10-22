@@ -1,0 +1,354 @@
+/* --- Follow the piece: the stitch (context page) --- */
+
+.follow__context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.follow__subtitle {
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--color-secondary);
+}
+
+.follow__stitch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-block-start: auto;
+}
+
+.follow__hint {
+  font-size: var(--fs-small);
+  color: var(--color-ink);
+  line-height: 1.45;
+}
+
+.follow__line {
+  position: relative;
+  width: 100%;
+}
+
+.follow__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  /* Draggable moves the needle with the pointer; without this a touch
+     drag along the line would scroll the page instead. */
+  touch-action: none;
+}
+
+.follow__thread {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-opacity: 0.32;
+  stroke-width: 2;
+  stroke-dasharray: 7 6;
+  stroke-linecap: round;
+}
+
+.follow__thread--sewn {
+  stroke-opacity: 1;
+}
+
+/* The cyan thread laid under the dashes as the needle passes: a flat
+   riso bar, drawn on with DrawSVG. */
+.follow__underlay {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 9;
+  stroke-opacity: 0.7;
+  stroke-linecap: round;
+}
+
+.follow__stop {
+  fill: var(--color-paper);
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+  transition: fill var(--duration-micro) var(--ease-ui);
+}
+
+.follow__stop--sewn {
+  fill: var(--accent);
+}
+
+.follow__needle {
+  cursor: grab;
+  outline: none;
+}
+
+.follow__needle:active {
+  cursor: grabbing;
+}
+
+.follow__needle-hit {
+  fill: transparent;
+}
+
+.follow__needle-ring {
+  fill: none;
+  stroke: var(--color-focus);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+  opacity: 0;
+}
+
+.follow__needle:focus-visible .follow__needle-ring {
+  opacity: 1;
+}
+
+.follow__needle-shaft,
+.follow__needle-tip {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
+.follow__needle-tip {
+  stroke-width: 1.4;
+}
+
+.follow__needle-eye {
+  fill: var(--color-paper);
+  stroke: var(--color-ink);
+  stroke-width: 1.2;
+}
+
+.follow__proxy {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Stage labels sit under the stops. Positions are physical (left in %),
+   set inline from the same coordinates as the line itself. */
+.follow__stage-label {
+  position: absolute;
+  inset-block-start: 100%;
+  transform: translateX(-50%);
+  padding: var(--space-1);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+:root[dir='rtl'] .follow__stage-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.follow__stage-label--current {
+  color: var(--color-ink);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+.follow__stage-label:hover {
+  color: var(--color-ink);
+}
+
+/* Room under the line for the labels. */
+.follow__line {
+  margin-block-end: var(--space-4);
+}
+
+.follow__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.follow__count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label-floor);
+  color: var(--color-secondary);
+  direction: ltr;
+}
+
+.follow__step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 36px;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  border: 1px solid var(--color-ink);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: transform var(--duration-micro) var(--ease-ui);
+}
+
+.follow__step:hover:not(:disabled) {
+  transform: translateY(2px);
+}
+
+.follow__step:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* The base arrow points to the physical right: "previous" turns it
+   around, and Arabic mirrors both. */
+.follow__step .follow__step-icon {
+  transform: scaleX(-1);
+}
+
+.follow__step--next .follow__step-icon {
+  transform: none;
+}
+
+:root[dir='rtl'] .follow__step .follow__step-icon {
+  transform: none;
+}
+
+:root[dir='rtl'] .follow__step--next .follow__step-icon {
+  transform: scaleX(-1);
+}
+
+/* Tailor's tag: dull until the last stage, then it lights up in the
+   chapter ink and becomes the link to Show what I made. */
+.follow__tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: var(--space-1) var(--space-2);
+  padding-inline-start: var(--space-4);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+  text-decoration: none;
+  background: var(--color-paper);
+  border: 1.5px dashed var(--color-secondary);
+  border-radius: 3px;
+  opacity: 0.55;
+  transition:
+    background var(--duration-reveal) var(--ease-ui),
+    border-color var(--duration-reveal) var(--ease-ui),
+    opacity var(--duration-reveal) var(--ease-ui),
+    transform var(--duration-micro) var(--ease-ui);
+}
+
+.follow__tag::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 11px;
+  inset-block-start: 50%;
+  width: 8px;
+  height: 8px;
+  margin-block-start: -4px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+
+.follow__tag--lit {
+  opacity: 1;
+  color: var(--color-ink);
+  background: var(--accent);
+  border: 1.5px solid var(--color-ink);
+  cursor: pointer;
+}
+
+.follow__tag--lit:hover {
+  transform: translateY(2px);
+}
+
+/* --- Follow the piece: the photo (work page) --- */
+
+.follow__work {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-height: 100%;
+}
+
+.follow__figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  margin: 0;
+}
+
+.follow__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 15 / 16;
+  background: var(--color-edge);
+  border: 1px solid var(--color-edge);
+  box-shadow: 0 6px 14px rgba(22, 20, 43, 0.14);
+  overflow: hidden;
+}
+
+.follow__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.follow__caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+}
+
+.follow__stage-name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+:root[dir='rtl'] .follow__stage-name {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.follow__note {
+  font-size: var(--fs-note);
+  line-height: 1.3;
+  color: var(--color-ink);
+  animation: follow-note-in 450ms var(--ease-ui) both;
+}
+
+@keyframes follow-note-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .follow__note {
+    animation: none;
+  }
+
+  .follow__tag,
+  .follow__stop,
+  .follow__step {
+    transition: none;
+  }
+}

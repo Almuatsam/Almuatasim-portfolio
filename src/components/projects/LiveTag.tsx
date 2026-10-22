@@ -6,19 +6,21 @@ interface LiveTagProps {
   url: string;
   domain: string;
   note?: string;
+  /** Overrides the default "Visit live" label (e.g. "Read the story on WePresent"). */
+  label?: string;
 }
 
 /** B4 — "Visit live" tag, styled as a paper luggage tag tied to the
  * screenshot with a pencil-drawn string. Opens in a new tab; never an
  * iframe (APOS blocks framing and Papitoooo needs real camera access). */
-export function LiveTag({ t, url, domain, note }: LiveTagProps) {
+export function LiveTag({ t, url, domain, note, label }: LiveTagProps) {
   return (
     <div className="live-tag">
       <svg className="live-tag__string" viewBox="0 0 40 28" aria-hidden="true">
         <path d="M20 0 C 20 10, 8 10, 8 20" stroke="var(--color-secondary)" strokeWidth="1.2" fill="none" />
       </svg>
       <a href={url} target="_blank" rel="noopener noreferrer" className="live-tag__link">
-        <span className="live-tag__label font-hand">{t('projectLabels.visitLive')}</span>
+        <span className="live-tag__label font-hand">{label ?? t('projectLabels.visitLive')}</span>
         <PencilArrowTiny />
       </a>
       <bdi className="live-tag__domain font-mono ltr-fragment">{domain}</bdi>

@@ -14,6 +14,9 @@ import { SewingContext, SewingWork } from '../components/sewing/Sewing';
 import { SketchesContext, SketchesWork } from '../components/sewing/SketchesSpread';
 import { TieContext, TieWork } from '../components/sewing/TieSpread';
 import { RuffleContext, RuffleWork } from '../components/sewing/RuffleSpread';
+import { OnSetContext, OnSetWork } from '../components/onset/OnSet';
+import { QalbContext, QalbWork } from '../components/onset/QalbMahmood';
+import { FollowContext, FollowWork } from '../components/onset/FollowThePiece';
 import type { ChapterDef, ChapterId } from '../content/chapters';
 import type { SupportedLang } from '../i18n';
 
@@ -41,6 +44,9 @@ export const CONTEXT_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   sketches: SketchesContext,
   tie: TieContext,
   ruffle: RuffleContext,
+  onset: OnSetContext,
+  qalb: QalbContext,
+  follow: FollowContext,
 };
 
 export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
@@ -60,6 +66,9 @@ export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   sketches: SketchesWork,
   tie: TieWork,
   ruffle: RuffleWork,
+  onset: OnSetWork,
+  qalb: QalbWork,
+  follow: FollowWork,
 };
 
 export function contextComponentFor(id: ChapterId): PanelComponent {

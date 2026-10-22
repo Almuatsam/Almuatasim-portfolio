@@ -1,0 +1,257 @@
+/* --- Index (the "onset" chapter: links out to the spreads) --- */
+
+.onset__index-context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.onset__heading {
+  font-size: var(--fs-display);
+  line-height: 1.15;
+}
+
+.onset__intro {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--color-ink);
+}
+
+.onset__index-intro {
+  color: var(--color-secondary);
+  font-size: var(--fs-small);
+}
+
+.onset__index-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.onset__index-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--color-ink);
+  padding-block: var(--space-1);
+  border-block-end: 1px dotted var(--color-edge);
+}
+
+.onset__index-link-title {
+  font-size: var(--fs-h3);
+  font-family: var(--font-display);
+}
+
+.onset__index-link:hover .onset__index-link-title {
+  color: var(--accent-ink);
+}
+
+.onset__index-link-desc {
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+}
+
+.onset__index-work {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.onset__index-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.onset__index-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1);
+  background: var(--color-paper);
+  box-shadow: 0 8px 16px rgba(22, 20, 43, 0.14);
+  border: 1px solid var(--color-edge);
+  border-inline-start: 3px solid var(--accent);
+  text-decoration: none;
+  transition:
+    transform var(--duration-micro) var(--ease-ui),
+    box-shadow var(--duration-micro) var(--ease-ui);
+}
+
+.onset__index-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px rgba(22, 20, 43, 0.18);
+}
+
+.onset__index-card-img,
+.onset__index-card-plain {
+  flex: none;
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--color-edge);
+}
+
+.onset__index-card-img {
+  object-fit: cover;
+}
+
+/* The press card has no image (no article images, B4): a flat tint
+   block with the number of articles, like a ledger tab. */
+.onset__index-card-plain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-tint);
+  font-family: var(--font-display);
+  font-size: var(--fs-title);
+  color: var(--color-ink);
+}
+
+.onset__index-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  min-width: 0;
+}
+
+.onset__index-card-title {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-ink);
+}
+
+/* --- Shared: back link, credit line --- */
+
+.onset__back {
+  font-size: var(--fs-small);
+  color: var(--accent-ink);
+  width: fit-content;
+  border-bottom: 1px solid currentColor;
+}
+
+/* Credit rule (B4): label style, never below 12.5px, sentence case
+   because it is a name, not a short English label. */
+.onset__credit {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  line-height: 1.4;
+  color: var(--color-secondary);
+}
+
+/* --- Qalb Mahmood overview --- */
+
+.onset__context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.onset__entry-title {
+  font-size: var(--fs-title);
+}
+
+.onset__meta {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+:root[dir='rtl'] .onset__meta {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.onset__description {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--color-ink);
+}
+
+.onset__context .live-tag {
+  margin-block-start: 0;
+}
+
+.onset__follow-link {
+  font-size: var(--fs-small);
+  color: var(--accent-ink);
+  width: fit-content;
+  border-bottom: 1px solid currentColor;
+}
+
+.onset__work {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.onset__hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  margin: 0;
+}
+
+.onset__hero-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border: 1px solid var(--color-edge);
+  box-shadow: 0 6px 14px rgba(22, 20, 43, 0.14);
+}
+
+.onset__role-heading {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+:root[dir='rtl'] .onset__role-heading {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.onset__roles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* Chapter-ink square marker, like About's margin notes and the
+   Contents entries. */
+.onset__role {
+  position: relative;
+  padding-inline-start: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--color-ink);
+}
+
+.onset__role::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.5em;
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+}

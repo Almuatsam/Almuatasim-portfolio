@@ -50,6 +50,11 @@
     "tie": { "title": "The Star Tie", "tabLabel": "" },
     "ruffle": { "title": "At the Machine", "tabLabel": "" },
     "onset": { "title": "On Set", "tabLabel": "On Set" },
+    "qalb": { "title": "Qalb Mahmood", "tabLabel": "" },
+    "follow": { "title": "Follow the piece", "tabLabel": "" },
+    "showmade": { "title": "Show what I made", "tabLabel": "" },
+    "press": { "title": "In the press", "tabLabel": "" },
+    "amouage": { "title": "Amouage", "tabLabel": "" },
     "process": { "title": "Process", "tabLabel": "Process" },
     "skills": { "title": "Skills", "tabLabel": "Skills" },
     "contact": { "title": "Contact", "tabLabel": "Contact" }
@@ -146,6 +151,50 @@
       "onset": "collaborations with Abdulaziz Al-Hosni"
     },
     "back": "Back to By Hand"
+  },
+  "onset": {
+    "intro": "I work with Omani artist Abdulaziz Al-Hosni as a set and fabrication artist. I build, paint and source props, sew soft furnishings, and shape how each set looks and feels. Every project lets me bring craft, detail and a love of making into one frame.",
+    "indexIntro": "Two collaborations and their press coverage. Pick one to open its spread.",
+    "cards": {
+      "qalb": "a photographic series, October 2024",
+      "amouage": "two projects, 2023 and 2024",
+      "press": "three articles about the series"
+    },
+    "credit": "Abdulaziz Al-Hosni and Almuatasim Alfarsi",
+    "backToOnSet": "Back to On Set",
+    "qalb": {
+      "meta": "October 2024, Melkweg Expo, Amsterdam",
+      "description": "A photographic series by Abdulaziz Al-Hosni, commissioned by WeTransfer and published on WePresent, and shown at Melkweg Expo in Amsterdam in October 2024. Its main character, Mahmood, questions traditional ideas of masculinity and strict gender norms, set in a futuristic, utopian world.",
+      "roleHeading": "My work",
+      "roles": {
+        "covers": "Sewed furniture covers, blankets and bed sheets, including the \u201c\u0623\u062d\u0628\u0643 \u0645\u062d\u0645\u0648\u062f\u201d (I love you Mahmood) blanket in the final image",
+        "props": "Built and painted props, including a fan",
+        "walls": "Painted walls and fixed fabric to them",
+        "positioned": "Positioned set pieces",
+        "tanks": "Hand-painted tank tops, including the number 3 in Arabic",
+        "fittings": "Attended fittings and altered clothing on the spot"
+      },
+      "heroAlt": "The Qalb Mahmood location shoot in the desert: a man in a red robe and red embroidered cap, photographed by crew members",
+      "wepresentLabel": "Read the story on WePresent",
+      "followLink": "Follow the piece"
+    },
+    "follow": {
+      "subtitle": "The ruffled bedspread, from sketch to set",
+      "hint": "Drag the needle along the stitch, or use the arrow keys",
+      "stagesLabel": "Stages of the bedspread",
+      "needleLabel": "Needle",
+      "previous": "Previous stage",
+      "next": "Next stage",
+      "stageOf": "Stage {{current}} of {{total}}",
+      "showMyWork": "Show my work",
+      "stages": {
+        "sketch": { "label": "Sketch", "note": "my drawing", "alt": "The owner\u2019s own drawing of the ruffled green bedspread, with fabric references" },
+        "measure": { "label": "Measure", "note": "14 m of fabric for one ruffle", "alt": "Notebook maths for the ruffle: 560 cm around the bed, gathered 2.5 times, 1,400 cm" },
+        "sew": { "label": "Sew", "note": "sewn at home", "alt": "Mint bedspread fabric running under the needle of a sewing machine" },
+        "test": { "label": "Test", "note": "tested on a real bed", "alt": "The finished ruffled bedspread on a bed at home, with a yellow blanket folded across it" },
+        "onSet": { "label": "On set", "note": "on set", "alt": "The pink bedroom set with the green ruffled bedspread, a blue fan and framed pictures on the wall" }
+      }
+    }
   },
   "art": {
     "openingNote": "the thread runs through the paintings too",
