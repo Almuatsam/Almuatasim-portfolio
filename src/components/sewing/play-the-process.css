@@ -70,7 +70,7 @@
   gap: 4px;
   background: var(--color-ink);
   color: var(--color-paper);
-  font-size: var(--fs-label);
+  font-size: var(--fs-label-floor);
   padding: var(--space-half) var(--space-1);
 }
 
