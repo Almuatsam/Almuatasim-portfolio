@@ -10,12 +10,13 @@ import { Cover2D } from '../cover/Cover2D';
 import { CoverCanvasLoader } from '../book3d/CoverCanvasLoader';
 import { useCurrentChapter } from '../../routes/useCurrentChapter';
 import { contextComponentFor, workComponentFor } from '../../routes/chapterContent';
-import { CHAPTERS, chapterPath } from '../../content/chapters';
+import { CHAPTERS, chapterPath, type ChapterId } from '../../content/chapters';
 import { pageIndexForChapter, chapterForPageIndex, contextFolio, workFolio } from '../../content/navigation';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useWebGLSupport } from '../../hooks/useWebGLSupport';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { usePreloadSoriaFont } from '../../hooks/usePreloadSoriaFont';
+import { useChapterKeyboardNav } from '../../hooks/useChapterKeyboardNav';
 import { resetScrollArea } from '../../lib/scrollRegistry';
 import './stpageflip-base.css';
 import './flipbook.css';
@@ -48,6 +49,11 @@ export function BookFlipApp() {
 
   const flipBookRef = useRef<FlipBookRef | null>(null);
   const lastSyncedChapterId = useRef<string>(chapter.id);
+  // The chapter a link or the chapter arrows asked for. StPageFlip turns
+  // one spread at a time, so a jump over several chapters reports each
+  // intermediate spread through onFlip; those must keep turning toward
+  // this target instead of rewriting the URL to wherever they stopped.
+  const routeTargetId = useRef<ChapterId | null>(null);
   const [opening3D, setOpening3D] = useState(false);
   const [fading3D, setFading3D] = useState(false);
 
@@ -55,6 +61,7 @@ export function BookFlipApp() {
   const isCover = chapter.id === 'cover';
 
   usePreloadSoriaFont(chapter.id);
+  useChapterKeyboardNav(lang, chapter);
 
   const handleOpen = useCallback(() => {
     if (!use3D) {
@@ -82,6 +89,14 @@ export function BookFlipApp() {
       // chapter scrolled to the top, however they got there.
       resetScrollArea(`${target.id}-context`);
       resetScrollArea(`${target.id}-work`);
+      const routeTarget = routeTargetId.current;
+      if (routeTarget) {
+        if (target.id !== routeTarget) {
+          flipBookRef.current?.pageFlip().flip(pageIndexForChapter(routeTarget));
+          return;
+        }
+        routeTargetId.current = null;
+      }
       if (target.id === lastSyncedChapterId.current) return;
       lastSyncedChapterId.current = target.id;
       navigate(chapterPath(lang, target.id), { replace: true });
@@ -96,7 +111,11 @@ export function BookFlipApp() {
       return;
     }
     lastSyncedChapterId.current = chapter.id;
-    flipBookRef.current?.pageFlip().flip(pageIndexForChapter(chapter.id));
+    const pageFlip = flipBookRef.current?.pageFlip();
+    // Only wait for onFlip if a turn will actually happen.
+    const isAlreadyThere = pageFlip ? chapterForPageIndex(pageFlip.getCurrentPageIndex()).id === chapter.id : true;
+    routeTargetId.current = isAlreadyThere ? null : chapter.id;
+    pageFlip?.flip(pageIndexForChapter(chapter.id));
     resetScrollArea(`${chapter.id}-context`);
     resetScrollArea(`${chapter.id}-work`);
   }, [chapter.id]);

@@ -82,9 +82,9 @@
 
   /* Floors for text that sits under or beside media: the book scales
      --fs-label down with its container, which put captions near 10px on
-     small viewports. Label style never below 12.5px; one-line captions
+     small viewports. Label style never below 13px (the owner's floor is 12.5px); one-line captions
      never below 15px. */
-  --fs-label-floor: max(12.5px, var(--fs-label));
+  --fs-label-floor: max(13px, var(--fs-label));
   --fs-caption-floor: max(15px, var(--fs-small));
 
   /* A4 — fonts, default English. Display Font - Soria.md — Soria is

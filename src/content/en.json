@@ -178,6 +178,46 @@
       "wepresentLabel": "Read the story on WePresent",
       "followLink": "Follow the piece"
     },
+    "showMade": {
+      "hint": "Turn it on to see what I made in each photo. Tap a label to see how.",
+      "photosLabel": "Photos",
+      "photos": {
+        "bedroom": { "name": "Bedroom set", "alt": "The pink bedroom set with a green ruffled bedspread, a blue fan, framed pictures and a chained pink heart" },
+        "daybed": { "name": "Daybed", "alt": "A turquoise daybed with a ruffled cover, a bolster and a cushion, in front of a pink wall" },
+        "final": { "name": "Final artwork", "alt": "The final artwork: a figure wrapped in a white blanket written with the words I love you Mahmood, sitting before a pink sofa and a red wall" }
+      },
+      "outlines": {
+        "bedspread": "bedspread, sewn",
+        "yellowBlanket": "yellow blanket, sewn",
+        "fan": "fan, rebuilt and painted",
+        "walls": "walls, painted",
+        "daybedCover": "daybed cover, sewn",
+        "blanket": "blanket, made by me"
+      },
+      "makingOf": {
+        "bedspread": "Sewing the mint bedspread on a sewing machine",
+        "blanket": "The finished ruffled bedspread with the yellow blanket, on a bed at home",
+        "fan": "The fan taken apart and painted blue by hand",
+        "flat": "The blanket written with the words I love you Mahmood, laid flat"
+      },
+      "openPhoto": "opens the making-of photo",
+      "openSewing": "opens the sewing clips"
+    },
+    "press": {
+      "readOn": "Read on {{publication}}",
+      "dates": {
+        "itsNiceThat": "21 January 2025",
+        "sandyTimes": "16 April 2025",
+        "cpMagazine": "11 May 2025"
+      },
+      "lines": {
+        "itsNiceThat": "How the series was planned colour first, each scene sketched, styled and built like a film still.",
+        "sandyTimes": "Walks through the sets scene by scene, including the bedroom with the green bed, yellow blanket and chained pink heart, built from the artist\u2019s childhood drawing.",
+        "cpMagazine": "The artist on his process: sketch, plan with a producer, then build the set with his team."
+      },
+      "quoteAttribution": "It\u2019s Nice That, 2025",
+      "sandyNote": "The bedroom in this article is the set I sewed the green bedspread and the yellow blanket for."
+    },
     "follow": {
       "subtitle": "The ruffled bedspread, from sketch to set",
       "hint": "Drag the needle along the stitch, or use the arrow keys",

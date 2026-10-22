@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useFixedT } from '../../hooks/useFixedT';
 import { chapterPath } from '../../content/chapters';
 import { PROCESS_CLIPS } from '../../content/sewing';
+import { setShowMade } from '../../lib/showMadeStore';
 import { PlayTheProcess } from './PlayTheProcess';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './sewing.css';
@@ -9,10 +10,8 @@ import './sewing.css';
 /** B4 Sewing #3 — the two ruffle clips, "Play the process" (B5 #6), one
  * per page: gathering the ruffle on the context (left) page, the
  * finished ruffle on the work (right) page. The second clip is the
- * ruffle that ends up on the Qalb Mahmood daybed, so it links across to
- * On Set. On Set isn't built yet (Phase 3 Kickoff.md group 3), so for
- * now the link opens its index; once the daybed spread exists, point it
- * there instead. */
+ * ruffle that ends up on the Qalb Mahmood daybed, so "See it on set"
+ * turns to the daybed photo in Show what I made, switched on. */
 export function RuffleContext({ lang }: ChapterPanelProps) {
   const t = useFixedT(lang);
   const [ruffle] = PROCESS_CLIPS;
@@ -56,7 +55,11 @@ export function RuffleWork({ lang }: ChapterPanelProps) {
           collapseLabel={t('sewing.ruffle.closeVideo')}
         />
       </div>
-      <Link to={chapterPath(lang, 'onset')} className="sewing__see-on-set reveal-fade">
+      <Link
+        to={chapterPath(lang, 'showmade')}
+        className="sewing__see-on-set reveal-fade"
+        onClick={() => setShowMade({ photoIndex: 1, isOn: true })}
+      >
         {t('sewing.ruffle.seeOnSet')}
       </Link>
     </div>

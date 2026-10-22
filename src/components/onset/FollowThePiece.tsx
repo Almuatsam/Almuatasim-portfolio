@@ -5,6 +5,7 @@ import { useFixedT } from '../../hooks/useFixedT';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { chapterPath } from '../../content/chapters';
 import { FOLLOW_STAGES } from '../../content/onset';
+import { setShowMade } from '../../lib/showMadeStore';
 import { getFollowStage, setFollowStage, useFollowStage } from '../../lib/followStore';
 import { ImageCredit } from './ImageCredit';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
@@ -295,7 +296,11 @@ export function FollowContext({ lang }: ChapterPanelProps) {
       </div>
 
       {isLit ? (
-        <Link to={chapterPath(lang, 'showmade')} className="follow__tag follow__tag--lit reveal-fade">
+        <Link
+          to={chapterPath(lang, 'showmade')}
+          className="follow__tag follow__tag--lit reveal-fade"
+          onClick={() => setShowMade({ photoIndex: 0, isOn: true })}
+        >
           {t('onset.follow.showMyWork')}
         </Link>
       ) : (

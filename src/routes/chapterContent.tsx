@@ -17,6 +17,8 @@ import { RuffleContext, RuffleWork } from '../components/sewing/RuffleSpread';
 import { OnSetContext, OnSetWork } from '../components/onset/OnSet';
 import { QalbContext, QalbWork } from '../components/onset/QalbMahmood';
 import { FollowContext, FollowWork } from '../components/onset/FollowThePiece';
+import { ShowMadeContext, ShowMadeWork } from '../components/onset/ShowWhatIMade';
+import { PressContext, PressWork } from '../components/onset/Press';
 import type { ChapterDef, ChapterId } from '../content/chapters';
 import type { SupportedLang } from '../i18n';
 
@@ -47,6 +49,8 @@ export const CONTEXT_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   onset: OnSetContext,
   qalb: QalbContext,
   follow: FollowContext,
+  showmade: ShowMadeContext,
+  press: PressContext,
 };
 
 export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
@@ -69,6 +73,8 @@ export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   onset: OnSetWork,
   qalb: QalbWork,
   follow: FollowWork,
+  showmade: ShowMadeWork,
+  press: PressWork,
 };
 
 export function contextComponentFor(id: ChapterId): PanelComponent {

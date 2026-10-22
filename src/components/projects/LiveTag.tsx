@@ -29,7 +29,7 @@ export function LiveTag({ t, url, domain, note, label }: LiveTagProps) {
   );
 }
 
-function PencilArrowTiny() {
+export function PencilArrowTiny() {
   return (
     <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true" className="live-tag__arrow">
       <path d="M1 6h12" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />

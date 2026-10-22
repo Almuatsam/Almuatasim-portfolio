@@ -1,0 +1,127 @@
+.press__context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.press__quote-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: auto 0;
+}
+
+/* The one pull quote: Soria at about 34px (--fs-title). */
+.press__quote {
+  margin: 0;
+  font-family: 'Soria', 'Fraunces Variable', 'Georgia', serif;
+  font-size: var(--fs-title);
+  line-height: 1.25;
+  text-align: left;
+  padding-inline-start: var(--space-2);
+  border-inline-start: 3px solid var(--accent);
+}
+
+:root[dir='rtl'] .press__quote {
+  /* A left-to-right quote on a right-to-left page keeps its bar on the
+     side the reader's eye starts from. */
+  border-inline-start: none;
+  border-inline-end: 3px solid var(--accent);
+  padding-inline-start: 0;
+  padding-inline-end: var(--space-2);
+  text-align: right;
+}
+
+.press__attribution {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+:root[dir='rtl'] .press__attribution {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.press__work {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.press__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 6px var(--space-2);
+  background: var(--color-paper);
+  border: 1px solid var(--color-edge);
+  border-inline-start: 3px solid var(--accent);
+}
+
+.press__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 var(--space-2);
+  align-self: stretch;
+}
+
+.press__publication {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+/* Other people's headlines: IBM Plex Sans 600, never Soria. */
+.press__headline {
+  margin: 0;
+  font-family: 'IBM Plex Sans', 'Arial', sans-serif;
+  font-weight: 600;
+  font-size: var(--fs-small);
+  line-height: 1.3;
+  color: var(--color-ink);
+}
+
+:root[dir='rtl'] .press__headline {
+  align-self: stretch;
+  text-align: right;
+}
+
+.press__date {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label-floor);
+  color: var(--color-secondary);
+}
+
+.press__line {
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  color: var(--color-ink);
+}
+
+.press__link {
+  margin-block-start: 4px;
+  padding: 2px var(--space-2);
+}
+
+.press__note {
+  margin: var(--space-half) 0 0;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+}
+
+.press__note-link {
+  color: var(--accent-ink);
+  border-bottom: 1px solid currentColor;
+  text-decoration: none;
+}

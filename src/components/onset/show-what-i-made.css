@@ -1,0 +1,222 @@
+/* --- Show what I made: switch and picker (context page) --- */
+
+.show__context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+.show__hint {
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--color-secondary);
+  max-width: 34ch;
+}
+
+/* Tailor's tag, as in Follow the piece: dull when off, chapter ink when on. */
+.show__tag {
+  position: relative;
+  align-self: flex-start;
+  padding: var(--space-1) var(--space-2);
+  padding-inline-start: var(--space-4);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-small);
+  color: var(--color-secondary);
+  background: var(--color-paper);
+  border: 1.5px dashed var(--color-secondary);
+  border-radius: 3px;
+  cursor: pointer;
+  transition:
+    background var(--duration-reveal) var(--ease-ui),
+    border-color var(--duration-reveal) var(--ease-ui),
+    color var(--duration-reveal) var(--ease-ui);
+}
+
+.show__tag::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 11px;
+  inset-block-start: 50%;
+  width: 8px;
+  height: 8px;
+  margin-block-start: -4px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+
+.show__tag--on {
+  color: var(--color-ink);
+  background: var(--accent);
+  border: 1.5px solid var(--color-ink);
+}
+
+.show__picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-block-start: auto;
+}
+
+.show__pick {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1);
+  text-align: start;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  border: 1px solid var(--color-edge);
+  border-inline-start: 3px solid var(--color-edge);
+  cursor: pointer;
+  transition: border-color var(--duration-micro) var(--ease-ui);
+}
+
+.show__pick--current {
+  border-inline-start-color: var(--accent);
+  border-color: var(--color-ink);
+  border-inline-start: 3px solid var(--accent);
+}
+
+.show__pick-img {
+  flex: none;
+  width: 64px;
+  height: 48px;
+  object-fit: cover;
+  border: 1px solid var(--color-edge);
+}
+
+.show__pick-name {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+}
+
+/* --- The photo (work page) --- */
+
+.show__work {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.show__figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  width: 100%;
+  margin: 0;
+}
+
+.show__frame {
+  position: relative;
+  width: 100%;
+  box-shadow: 0 6px 14px rgba(22, 20, 43, 0.14);
+}
+
+.show__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--color-edge);
+}
+
+/* "Dims the photo slightly" while the outlines are on. */
+.show__dim {
+  position: absolute;
+  inset: 0;
+  background: var(--color-ink);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-reveal) var(--ease-ui);
+}
+
+.show__frame--on .show__dim {
+  opacity: 0.2;
+}
+
+.show__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Cyan outline over a thin ink one, so it reads on the turquoise daybed
+   and the pink walls alike. Butt caps: a round cap would show a dot at
+   the start of an undrawn outline. */
+.show__halo,
+.show__line {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: butt;
+}
+
+.show__halo {
+  stroke: var(--color-ink);
+  stroke-width: 1.05;
+}
+
+.show__line {
+  stroke: var(--accent);
+  stroke-width: 0.55;
+}
+
+.show__shape--active .show__halo {
+  stroke-width: 1.7;
+}
+
+.show__shape--active .show__line {
+  stroke-width: 1.05;
+}
+
+/* Labels: the label style on a paper chip, real buttons (or a link),
+   hidden and out of the tab order until the switch is on. */
+.show__chip {
+  position: absolute;
+  width: max-content;
+  max-width: 46%;
+  padding: 3px var(--space-1);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  line-height: 1.3;
+  text-align: start;
+  text-decoration: none;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  border: 1px solid var(--color-ink);
+  border-radius: 3px;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity var(--duration-reveal) var(--ease-ui),
+    visibility 0s linear var(--duration-reveal);
+}
+
+.show__frame--on .show__chip {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0.7s, 0s;
+}
+
+.show__chip:hover,
+.show__chip:focus-visible {
+  background: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .show__dim,
+  .show__chip,
+  .show__tag {
+    transition: none;
+  }
+
+  .show__frame--on .show__chip {
+    transition-delay: 0s;
+  }
+}
