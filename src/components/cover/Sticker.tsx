@@ -37,6 +37,6 @@ export function Sticker({ src, alt, position, parallaxX, parallaxY, depth }: Sti
   };
 
   return (
-    <img src={src} alt={alt} className="sticker" style={style} draggable={false} />
+    <img src={src} alt={alt} className="sticker" fetchPriority="high" style={style} draggable={false} />
   );
 }

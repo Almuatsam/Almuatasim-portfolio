@@ -61,6 +61,7 @@
 @media (max-width: 899px) {
   .book {
     width: 100%;
+    max-width: 720px;
     height: 100%;
     aspect-ratio: auto;
     filter: none;

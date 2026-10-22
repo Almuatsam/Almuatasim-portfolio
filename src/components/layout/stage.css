@@ -48,3 +48,13 @@
       16px 16px;
   }
 }
+
+/* Phones turned sideways: every pixel of height counts, so the bars shrink
+   and the page arrows float over the page edges instead of taking a row. */
+@media (max-width: 899px) and (max-height: 520px) {
+  :root {
+    --m-top: calc(52px + env(safe-area-inset-top));
+    --m-arrows: 0px;
+    --m-tabs: calc(52px + env(safe-area-inset-bottom));
+  }
+}

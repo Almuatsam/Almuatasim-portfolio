@@ -96,3 +96,9 @@
   left: 0;
   right: unset;
 }
+
+/* The counter is a label, never a target: it must not sit over the close
+   button (it did when the toolbar is narrow). */
+.fv-lightbox .yarl__counter {
+  pointer-events: none;
+}

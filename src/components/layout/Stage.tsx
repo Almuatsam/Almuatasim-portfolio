@@ -6,5 +6,9 @@ interface StageProps {
 }
 
 export function Stage({ children }: StageProps) {
-  return <div className="stage">{children}</div>;
+  return (
+    <main className="stage" id="main">
+      {children}
+    </main>
+  );
 }

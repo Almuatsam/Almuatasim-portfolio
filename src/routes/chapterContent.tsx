@@ -1,29 +1,7 @@
-import type { ComponentType } from 'react';
+import { lazy, type ComponentType } from 'react';
 import { ContentsContext, ContentsWork } from '../components/contents/Contents';
 import { AboutContext, AboutWork } from '../components/about/About';
 import { ComingSoonContext, ComingSoonWork } from '../components/comingsoon/ComingSoon';
-import { ScreensContext, ScreensWork } from '../components/screens/Screens';
-import { EstudioAContext, EstudioAWork } from '../components/projects/estudioa/EstudioA';
-import { APOSContext, APOSWork } from '../components/projects/apos/APOS';
-import { PadelAuraContext, PadelAuraWork } from '../components/projects/padelaura/PadelAura';
-import { PapitooooContext, PapitooooWork } from '../components/projects/papitoooo/Papitoooo';
-import { ByHandContext, ByHandWork } from '../components/byhand/ByHand';
-import { ArtContext, ArtWork } from '../components/art/Artworks';
-import { PaintingContext, PaintingWork } from '../components/art/PaintingSpread';
-import { SewingContext, SewingWork } from '../components/sewing/Sewing';
-import { SketchesContext, SketchesWork } from '../components/sewing/SketchesSpread';
-import { FashionWeekContext, FashionWeekWork } from '../components/sewing/FashionWeekSpread';
-import { TieContext, TieWork } from '../components/sewing/TieSpread';
-import { RuffleContext, RuffleWork } from '../components/sewing/RuffleSpread';
-import { OnSetContext, OnSetWork } from '../components/onset/OnSet';
-import { QalbContext, QalbWork } from '../components/onset/QalbMahmood';
-import { FollowContext, FollowWork } from '../components/onset/FollowThePiece';
-import { ShowMadeContext, ShowMadeWork } from '../components/onset/ShowWhatIMade';
-import { PressContext, PressWork } from '../components/onset/Press';
-import { AmouageContext, AmouageWork } from '../components/onset/Amouage';
-import { ProcessContext, ProcessWork } from '../components/process/Process';
-import { SkillsContext, SkillsWork } from '../components/skills/Skills';
-import { ContactContext, ContactWork } from '../components/contact/Contact';
 import type { ChapterDef, ChapterId } from '../content/chapters';
 import type { SupportedLang } from '../i18n';
 
@@ -32,7 +10,59 @@ export interface ChapterPanelProps {
   chapter: ChapterDef;
 }
 
+
 type PanelComponent = ComponentType<ChapterPanelProps>;
+
+/** Chapters load as their own chunks, the first time the reader is near
+ * them, so the first paint does not carry every chapter's code. */
+function lazyPanel(load: () => Promise<{ default: PanelComponent }>): PanelComponent {
+  return lazy(load);
+}
+
+const ScreensContext = lazyPanel(() => import('../components/screens/Screens').then((m) => ({ default: m.ScreensContext })));
+const ScreensWork = lazyPanel(() => import('../components/screens/Screens').then((m) => ({ default: m.ScreensWork })));
+const EstudioAContext = lazyPanel(() => import('../components/projects/estudioa/EstudioA').then((m) => ({ default: m.EstudioAContext })));
+const EstudioAWork = lazyPanel(() => import('../components/projects/estudioa/EstudioA').then((m) => ({ default: m.EstudioAWork })));
+const APOSContext = lazyPanel(() => import('../components/projects/apos/APOS').then((m) => ({ default: m.APOSContext })));
+const APOSWork = lazyPanel(() => import('../components/projects/apos/APOS').then((m) => ({ default: m.APOSWork })));
+const PadelAuraContext = lazyPanel(() => import('../components/projects/padelaura/PadelAura').then((m) => ({ default: m.PadelAuraContext })));
+const PadelAuraWork = lazyPanel(() => import('../components/projects/padelaura/PadelAura').then((m) => ({ default: m.PadelAuraWork })));
+const PapitooooContext = lazyPanel(() => import('../components/projects/papitoooo/Papitoooo').then((m) => ({ default: m.PapitooooContext })));
+const PapitooooWork = lazyPanel(() => import('../components/projects/papitoooo/Papitoooo').then((m) => ({ default: m.PapitooooWork })));
+const ByHandContext = lazyPanel(() => import('../components/byhand/ByHand').then((m) => ({ default: m.ByHandContext })));
+const ByHandWork = lazyPanel(() => import('../components/byhand/ByHand').then((m) => ({ default: m.ByHandWork })));
+const ArtContext = lazyPanel(() => import('../components/art/Artworks').then((m) => ({ default: m.ArtContext })));
+const ArtWork = lazyPanel(() => import('../components/art/Artworks').then((m) => ({ default: m.ArtWork })));
+const PaintingContext = lazyPanel(() => import('../components/art/PaintingSpread').then((m) => ({ default: m.PaintingContext })));
+const PaintingWork = lazyPanel(() => import('../components/art/PaintingSpread').then((m) => ({ default: m.PaintingWork })));
+const SewingContext = lazyPanel(() => import('../components/sewing/Sewing').then((m) => ({ default: m.SewingContext })));
+const SewingWork = lazyPanel(() => import('../components/sewing/Sewing').then((m) => ({ default: m.SewingWork })));
+const SketchesContext = lazyPanel(() => import('../components/sewing/SketchesSpread').then((m) => ({ default: m.SketchesContext })));
+const SketchesWork = lazyPanel(() => import('../components/sewing/SketchesSpread').then((m) => ({ default: m.SketchesWork })));
+const FashionWeekContext = lazyPanel(() => import('../components/sewing/FashionWeekSpread').then((m) => ({ default: m.FashionWeekContext })));
+const FashionWeekWork = lazyPanel(() => import('../components/sewing/FashionWeekSpread').then((m) => ({ default: m.FashionWeekWork })));
+const TieContext = lazyPanel(() => import('../components/sewing/TieSpread').then((m) => ({ default: m.TieContext })));
+const TieWork = lazyPanel(() => import('../components/sewing/TieSpread').then((m) => ({ default: m.TieWork })));
+const RuffleContext = lazyPanel(() => import('../components/sewing/RuffleSpread').then((m) => ({ default: m.RuffleContext })));
+const RuffleWork = lazyPanel(() => import('../components/sewing/RuffleSpread').then((m) => ({ default: m.RuffleWork })));
+const OnSetContext = lazyPanel(() => import('../components/onset/OnSet').then((m) => ({ default: m.OnSetContext })));
+const OnSetWork = lazyPanel(() => import('../components/onset/OnSet').then((m) => ({ default: m.OnSetWork })));
+const QalbContext = lazyPanel(() => import('../components/onset/QalbMahmood').then((m) => ({ default: m.QalbContext })));
+const QalbWork = lazyPanel(() => import('../components/onset/QalbMahmood').then((m) => ({ default: m.QalbWork })));
+const FollowContext = lazyPanel(() => import('../components/onset/FollowThePiece').then((m) => ({ default: m.FollowContext })));
+const FollowWork = lazyPanel(() => import('../components/onset/FollowThePiece').then((m) => ({ default: m.FollowWork })));
+const ShowMadeContext = lazyPanel(() => import('../components/onset/ShowWhatIMade').then((m) => ({ default: m.ShowMadeContext })));
+const ShowMadeWork = lazyPanel(() => import('../components/onset/ShowWhatIMade').then((m) => ({ default: m.ShowMadeWork })));
+const PressContext = lazyPanel(() => import('../components/onset/Press').then((m) => ({ default: m.PressContext })));
+const PressWork = lazyPanel(() => import('../components/onset/Press').then((m) => ({ default: m.PressWork })));
+const AmouageContext = lazyPanel(() => import('../components/onset/Amouage').then((m) => ({ default: m.AmouageContext })));
+const AmouageWork = lazyPanel(() => import('../components/onset/Amouage').then((m) => ({ default: m.AmouageWork })));
+const ProcessContext = lazyPanel(() => import('../components/process/Process').then((m) => ({ default: m.ProcessContext })));
+const ProcessWork = lazyPanel(() => import('../components/process/Process').then((m) => ({ default: m.ProcessWork })));
+const SkillsContext = lazyPanel(() => import('../components/skills/Skills').then((m) => ({ default: m.SkillsContext })));
+const SkillsWork = lazyPanel(() => import('../components/skills/Skills').then((m) => ({ default: m.SkillsWork })));
+const ContactContext = lazyPanel(() => import('../components/contact/Contact').then((m) => ({ default: m.ContactContext })));
+const ContactWork = lazyPanel(() => import('../components/contact/Contact').then((m) => ({ default: m.ContactWork })));
 
 export const CONTEXT_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   contents: ContentsContext,

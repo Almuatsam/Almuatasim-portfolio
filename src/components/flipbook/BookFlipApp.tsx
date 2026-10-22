@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import HTMLFlipBook from 'react-pageflip';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Book } from '../layout/Book';
@@ -23,8 +22,12 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { usePreloadSoriaFont } from '../../hooks/usePreloadSoriaFont';
 import { useChapterKeyboardNav } from '../../hooks/useChapterKeyboardNav';
 import { resetScrollArea } from '../../lib/scrollRegistry';
+import { initCurrentPage, setCurrentPage } from '../../lib/currentPageStore';
 import './stpageflip-base.css';
 import './flipbook.css';
+
+// The page-turn engine is its own chunk, so the cover can paint without it.
+const HTMLFlipBook = lazy(() => import('react-pageflip'));
 
 const CONTENT_CHAPTERS = CHAPTERS.filter((c) => c.id !== 'cover');
 
@@ -60,7 +63,15 @@ export function BookFlipApp() {
   const box = useBookBox(isMobile, bookElement);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const currentPageRef = useRef<number | null>(null);
-  const [pageIndex, setPageIndex] = useState(() => pageIndexForChapter(chapter.id));
+  const [pageIndex, setPageIndexState] = useState(() => {
+    const start = pageIndexForChapter(chapter.id);
+    initCurrentPage(start);
+    return start;
+  });
+  const setPageIndex = useCallback((page: number) => {
+    setPageIndexState(page);
+    setCurrentPage(page);
+  }, []);
 
   const flipBookRef = useRef<FlipBookRef | null>(null);
   const lastSyncedChapterId = useRef<string>(chapter.id);
@@ -114,7 +125,7 @@ export function BookFlipApp() {
       return;
     }
     setOpening3D(true);
-  }, [isMobile, use3D, navigate, lang]);
+  }, [isMobile, use3D, navigate, lang, setPageIndex]);
 
   const handleBackToCover = useCallback(() => {
     if (!use3D) {
@@ -171,7 +182,7 @@ export function BookFlipApp() {
       lastSyncedChapterId.current = target.id;
       navigate(chapterPath(lang, target.id), { replace: true });
     },
-    [navigate, lang, isMobile],
+    [navigate, lang, isMobile, setPageIndex],
   );
 
   useEffect(() => {
@@ -200,7 +211,7 @@ export function BookFlipApp() {
     }
     resetScrollArea(`${chapter.id}-context`);
     resetScrollArea(`${chapter.id}-work`);
-  }, [chapter.id, isMobile, flipTo]);
+  }, [chapter.id, isMobile, flipTo, setPageIndex]);
 
   // Mobile: one step is one page. The chapter changes (and the address
   // with it) when the step crosses into another chapter's pages.
@@ -249,6 +260,7 @@ export function BookFlipApp() {
         <FlipPage
           key={`${ch.id}-context`}
           folio={leftFolio}
+          pageIndex={pageIndexForChapter(ch.id)}
           mirrorContent={isRtl}
           scrollKey={`${ch.id}-context`}
           scrollLabel={contextLabel}
@@ -261,6 +273,7 @@ export function BookFlipApp() {
         <FlipPage
           key={`${ch.id}-work`}
           folio={rightFolio}
+          pageIndex={pageIndexForChapter(ch.id) + 1}
           mirrorContent={isRtl}
           scrollKey={`${ch.id}-work`}
           scrollLabel={workLabel}
@@ -287,6 +300,7 @@ export function BookFlipApp() {
       <div ref={stageRef} className={`flipbook-stage${isRtl ? ' flipbook-stage--rtl' : ''}`}>
         <div className={`flipbook-stage__mirror${hide3DBookBehindCover ? ' flipbook-stage__mirror--hidden' : ''}`}>
           {isBoxReady && (
+            <Suspense fallback={null}>
             <HTMLFlipBook
               key={`${lang}-${isMobile ? `${pageWidth}x${pageHeight}` : 'spread'}`}
               ref={flipBookRef}
@@ -299,7 +313,9 @@ export function BookFlipApp() {
               width={pageWidth}
               height={pageHeight}
               size="stretch"
-              minWidth={isMobile ? 200 : 290}
+              // The minimum page width is the box itself on mobile: the engine
+              // shows a two-page spread whenever twice the minimum fits.
+              minWidth={isMobile ? pageWidth : 290}
               maxWidth={isMobile ? 2000 : 580}
               minHeight={isMobile ? 200 : 380}
               maxHeight={isMobile ? 3000 : 760}
@@ -328,6 +344,7 @@ export function BookFlipApp() {
             >
               {pages}
             </HTMLFlipBook>
+            </Suspense>
           )}
         </div>
 

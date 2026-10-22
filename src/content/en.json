@@ -7,7 +7,7 @@
     "skipToContent": "Skip to content",
     "languageToggle": {
       "label": "EN / ع",
-      "ariaLabel": "Switch to Arabic"
+      "ariaLabel": "EN / ع: switch to Arabic"
     },
     "sound": {
       "ariaLabelOn": "Turn sound off",
@@ -15,7 +15,7 @@
     },
     "plainVersion": {
       "label": "Plain version",
-      "ariaLabel": "Switch to the plain text version"
+      "ariaLabel": "Plain version: switch to the plain text version"
     },
     "folio": "{{current}} / {{total}}",
     "scrollHint": "Scroll",

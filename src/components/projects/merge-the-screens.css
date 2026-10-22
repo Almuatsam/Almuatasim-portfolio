@@ -29,7 +29,8 @@
 .merge-screens__target {
   position: absolute;
   inset-block-start: 50%;
-  inset-inline-start: 50%;
+  /* Physical, not logical: the -50% shift is physical too. */
+  left: 50%;
   transform: translate(-50%, -50%);
   width: 150px;
   height: 92px;

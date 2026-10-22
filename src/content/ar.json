@@ -7,7 +7,7 @@
     "skipToContent": "تخطَّ إلى المحتوى",
     "languageToggle": {
       "label": "EN / ع",
-      "ariaLabel": "التبديل إلى الإنجليزية"
+      "ariaLabel": "EN / ع: التبديل إلى الإنجليزية"
     },
     "sound": {
       "ariaLabelOn": "إيقاف الصوت",
@@ -15,7 +15,7 @@
     },
     "plainVersion": {
       "label": "نسخة مبسطة",
-      "ariaLabel": "التحويل إلى النسخة النصية المبسطة"
+      "ariaLabel": "نسخة مبسطة: التحويل إلى النسخة النصية المبسطة"
     },
     "folio": "{{current}} / {{total}}",
     "scrollHint": "مرّر",

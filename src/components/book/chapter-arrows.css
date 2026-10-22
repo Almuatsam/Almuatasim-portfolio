@@ -94,3 +94,14 @@ button.chapter-arrows__button {
   font-size: var(--fs-label-floor);
   color: var(--color-ink);
 }
+
+@media (max-width: 899px) and (max-height: 520px) {
+  .chapter-arrows--mobile {
+    inset-block: var(--m-top) var(--m-tabs);
+    height: auto;
+  }
+
+  .chapter-arrows--mobile .chapter-arrows__icon {
+    opacity: 0.92;
+  }
+}
