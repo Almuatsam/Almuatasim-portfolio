@@ -16,6 +16,7 @@ export type ChapterId =
   | 'guidance'
   | 'sewing'
   | 'sketches'
+  | 'fashionweek'
   | 'tie'
   | 'ruffle'
   | 'onset'
@@ -65,20 +66,21 @@ export const CHAPTERS: ChapterDef[] = [
   // spreads follow the brief's own design -> make -> finish order.
   { id: 'sewing', order: 13, slug: 'sewing', accent: 'red', built: true },
   { id: 'sketches', order: 14, slug: 'sketches', accent: 'red', built: true },
-  { id: 'tie', order: 15, slug: 'tie', accent: 'red', built: true },
-  { id: 'ruffle', order: 16, slug: 'ruffle', accent: 'red', built: true },
+  { id: 'fashionweek', order: 15, slug: 'muscat-fashion-week', accent: 'red', built: true },
+  { id: 'tie', order: 16, slug: 'tie', accent: 'red', built: true },
+  { id: 'ruffle', order: 17, slug: 'ruffle', accent: 'red', built: true },
   // "onset" is the On Set index (mirrors "sewing"/"art"); Qalb Mahmood
   // runs overview -> follow the piece -> show what I made -> in the
   // press (Phase 3 Kickoff.md #4), then Amouage closes the chapter.
-  { id: 'onset', order: 17, slug: 'on-set', accent: 'cyan', built: true },
-  { id: 'qalb', order: 18, slug: 'qalb-mahmood', accent: 'cyan', built: true },
-  { id: 'follow', order: 19, slug: 'follow-the-piece', accent: 'cyan', built: true },
-  { id: 'showmade', order: 20, slug: 'show-what-i-made', accent: 'cyan', built: true },
-  { id: 'press', order: 21, slug: 'in-the-press', accent: 'cyan', built: true },
-  { id: 'amouage', order: 22, slug: 'amouage', accent: 'cyan', built: false },
-  { id: 'process', order: 23, slug: 'process', accent: 'indigo', built: false },
-  { id: 'skills', order: 24, slug: 'skills', accent: 'indigo', built: false },
-  { id: 'contact', order: 25, slug: 'contact', accent: 'indigo', built: false },
+  { id: 'onset', order: 18, slug: 'on-set', accent: 'cyan', built: true },
+  { id: 'qalb', order: 19, slug: 'qalb-mahmood', accent: 'cyan', built: true },
+  { id: 'follow', order: 20, slug: 'follow-the-piece', accent: 'cyan', built: true },
+  { id: 'showmade', order: 21, slug: 'show-what-i-made', accent: 'cyan', built: true },
+  { id: 'press', order: 22, slug: 'in-the-press', accent: 'cyan', built: true },
+  { id: 'amouage', order: 23, slug: 'amouage', accent: 'cyan', built: true },
+  { id: 'process', order: 24, slug: 'process', accent: 'indigo', built: false },
+  { id: 'skills', order: 25, slug: 'skills', accent: 'indigo', built: false },
+  { id: 'contact', order: 26, slug: 'contact', accent: 'indigo', built: false },
 ];
 
 export const TOTAL_CHAPTERS = CHAPTERS.length;
@@ -124,5 +126,5 @@ export const INDEX_TABS: TabDef[] = [
 export const SCREENS_PROJECT_IDS: ChapterId[] = ['estudioa', 'apos', 'padelaura', 'papitoooo'];
 export const BYHAND_CHAPTER_IDS: ChapterId[] = ['art', 'sewing', 'onset'];
 export const ART_PAINTING_IDS: ChapterId[] = ['painfulexperience', 'choice', 'guidance'];
-export const SEWING_SPREAD_IDS: ChapterId[] = ['sketches', 'tie', 'ruffle'];
+export const SEWING_SPREAD_IDS: ChapterId[] = ['sketches', 'fashionweek', 'tie', 'ruffle'];
 export const ONSET_SPREAD_IDS: ChapterId[] = ['qalb', 'follow', 'showmade', 'press', 'amouage'];

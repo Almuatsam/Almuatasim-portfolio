@@ -1,0 +1,119 @@
+/* Muscat Fashion Week (Sewing spread 2). */
+
+.fashion-week__context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 100%;
+}
+
+/* Month label, label style (uppercase only because it is a short
+   English label; Arabic gets none). */
+.fashion-week__label {
+  margin-block-start: calc(var(--space-1) * -1);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+:root[dir='rtl'] .fashion-week__label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* The owner's four lines, in their words, 19px / 1.8. */
+.fashion-week__story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.fashion-week__line {
+  font-size: 19px;
+  line-height: 1.8;
+  color: var(--color-ink);
+}
+
+.fashion-week__made-heading {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+:root[dir='rtl'] .fashion-week__made-heading {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.fashion-week__made {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+}
+
+.fashion-week__made-item {
+  position: relative;
+  padding-inline-start: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--color-ink);
+}
+
+.fashion-week__made-item::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.5em;
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+}
+
+/* Right page: 520px tall at the 1160px book, scaled with the book so
+   both photos (201 and 240px wide there, 24px apart) always fit. */
+.fashion-week__work {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.fashion-week__photos {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: min(24px, 2.07cqi);
+}
+
+.fashion-week__figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  margin: 0;
+}
+
+.fashion-week__button {
+  display: block;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: zoom-in;
+}
+
+/* page-flip.js reads the <img> as the click target; see sewing.css. */
+.fashion-week__img {
+  pointer-events: none;
+  display: block;
+  height: min(520px, 44.8cqi);
+  width: auto;
+  border: 1px solid var(--color-edge);
+}

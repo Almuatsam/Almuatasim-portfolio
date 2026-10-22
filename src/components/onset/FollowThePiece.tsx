@@ -7,6 +7,7 @@ import { chapterPath } from '../../content/chapters';
 import { FOLLOW_STAGES } from '../../content/onset';
 import { setShowMade } from '../../lib/showMadeStore';
 import { getFollowStage, setFollowStage, useFollowStage } from '../../lib/followStore';
+import { Marked } from '../motion/Marked';
 import { ImageCredit } from './ImageCredit';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './follow-the-piece.css';
@@ -367,7 +368,7 @@ export function FollowWork({ lang }: ChapterPanelProps) {
       <div className="follow__caption" aria-live="polite">
         <p className="follow__stage-name">{t(`onset.follow.stages.${current.id}.label`)}</p>
         <p key={current.id} className="follow__note">
-          {t(`onset.follow.stages.${current.id}.note`)}
+          <Marked text={t(`onset.follow.stages.${current.id}.note`)} />
         </p>
       </div>
     </div>

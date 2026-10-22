@@ -47,6 +47,7 @@
     "guidance": { "title": "Guidance", "tabLabel": "" },
     "sewing": { "title": "Sewing", "tabLabel": "Sewing" },
     "sketches": { "title": "From the Sketchbook", "tabLabel": "" },
+    "fashionweek": { "title": "Muscat Fashion Week", "tabLabel": "" },
     "tie": { "title": "The Star Tie", "tabLabel": "" },
     "ruffle": { "title": "At the Machine", "tabLabel": "" },
     "onset": { "title": "On Set", "tabLabel": "On Set" },
@@ -147,7 +148,7 @@
     "intro": "Paintings, sewing and sets. Pick one to open its spread.",
     "cards": {
       "art": "three paintings",
-      "sewing": "fashion sketches, a tie, a ruffle",
+      "sewing": "fashion sketches, an outfit, a tie, a ruffle",
       "onset": "collaborations with Abdulaziz Al-Hosni"
     },
     "back": "Back to By Hand"
@@ -216,7 +217,28 @@
         "cpMagazine": "The artist on his process: sketch, plan with a producer, then build the set with his team."
       },
       "quoteAttribution": "It\u2019s Nice That, 2025",
+      "wordsBy": "Words: {{name}}",
       "sandyNote": "The bedroom in this article is the set I sewed the green bedspread and the yellow blanket for."
+    },
+    "amouage": {
+      "intro": "Two projects for the fragrance house Amouage.",
+      "roles": {
+        "sewn": "Sewed pieces for the props",
+        "positioned": "Positioned and fixed props on set",
+        "embellished": "Embellished props and made some of the smallest details visible in the final photos"
+      },
+      "viewOnInstagram": "View on Instagram",
+      "nextPrint": "Show the next print ({{current}} of {{total}})",
+      "stackHint": "Click the top print to see the next",
+      "prints": {
+        "stage": "Final artwork: a man in a pink robe on a green stage with a falcon, in front of a red curtain and a desert backdrop",
+        "armchair": "Final artwork: a man in an armchair in a pink room with a crystal lamp and a framed picture, and a red heart-shaped rug on the floor",
+        "blackWhite": "Final artwork in black and white: a man lying on the floor beside a small perfume bottle"
+      },
+      "notes": {
+        "heartProp": { "caption": "A prop for part of the video", "alt": "A red heart cut out of silver foil, laid on a tiled floor" },
+        "camera": { "caption": "In front of the camera too: part of the final video", "alt": "The owner in the final video, posed with a camera held up to the face" }
+      }
     },
     "follow": {
       "subtitle": "The ruffled bedspread, from sketch to set",
@@ -229,7 +251,7 @@
       "showMyWork": "Show my work",
       "stages": {
         "sketch": { "label": "Sketch", "note": "my drawing", "alt": "The owner\u2019s own drawing of the ruffled green bedspread, with fabric references" },
-        "measure": { "label": "Measure", "note": "14 m of fabric for one ruffle", "alt": "Notebook maths for the ruffle: 560 cm around the bed, gathered 2.5 times, 1,400 cm" },
+        "measure": { "label": "Measure", "note": "[[14 m of fabric]] for one ruffle", "alt": "Notebook maths for the ruffle: 560 cm around the bed, gathered 2.5 times, 1,400 cm" },
         "sew": { "label": "Sew", "note": "sewn at home", "alt": "Mint bedspread fabric running under the needle of a sewing machine" },
         "test": { "label": "Test", "note": "tested on a real bed", "alt": "The finished ruffled bedspread on a bed at home, with a yellow blanket folded across it" },
         "onSet": { "label": "On set", "note": "on set", "alt": "The pink bedroom set with the green ruffled bedspread, a blue fan and framed pictures on the wall" }
@@ -295,6 +317,7 @@
     "backToSewing": "Back to Sewing",
     "cards": {
       "sketches": "fashion sketches",
+      "fashionweek": "an outfit made in three days",
       "tie": "the star tie",
       "ruffle": "making a ruffle"
     },
@@ -302,6 +325,23 @@
       "caption": "Every garment starts as a drawing",
       "wrapTopAlt": "A fashion sketch of a mustard wrap top with long bell sleeves over wide teal shorts",
       "coatAlt": "A fashion sketch of a long olive coat over a red jumpsuit"
+    },
+    "fashionWeek": {
+      "label": "January 2026",
+      "story": [
+        "I made my outfit for Muscat Fashion Week in [[three days]].",
+        "It was a time crunch, but the result was worth it.",
+        "It was my first fashion show in Muscat, and I wanted to wear something that felt special to me:",
+        "something I designed and made myself."
+      ],
+      "madeHeading": "What I made",
+      "made": [
+        "Shirt, sewn",
+        "Trousers, sewn",
+        "Tie, hand-set with silver stars and rhinestones"
+      ],
+      "outfit": { "caption": "The outfit", "alt": "The owner's outfit in black, full length, with the face cropped out: a shirt with a rounded collar, a slim tie set with silver four-point stars, and wide trousers" },
+      "atShow": { "caption": "At the show", "alt": "The same outfit at the show, in blue light, in front of a pale backdrop, face cropped out" }
     },
     "tie": {
       "caption": "Picked stone by stone, placed by hand",
@@ -340,7 +380,7 @@
       "problem": "Users searching for sewing patterns found keyword-only search frustrating: a typo or an unusual phrase turned up nothing.",
       "insight": "A pattern-discovery platform needed natural-language, typo-tolerant search, built for three different people: the person looking for a pattern, the designer who made it, and the admin who moderates the library.",
       "build": "Fuzzy search (\"summer dress for beginners\", typos allowed) and a recommendation score (category 0.3, difficulty 0.1, tags 0.3, semantic similarity 0.3), with User, Designer and Admin roles and a moderation workflow. Built solo across 6 Scrum sprints, shaped by a user survey, documented with UML, ERD and DFD.",
-      "result": "186 test cases, all passing.",
+      "result": "[[186 test cases]], all passing.",
       "images": {
         "browse": "EstudioA pattern browse screen, with the search panel and the card grid",
         "home": "EstudioA home page, showing the pattern search and results grid",
@@ -363,7 +403,7 @@
       "problem": "At a cafe in a venue with three outlets (cafe, gift shop and ticketing), three disconnected POS systems ran side by side.",
       "insight": "One multi-tenant platform, with screen sets tailored to each outlet, deterministic and auditable instead of black-box AI.",
       "build": "PIN clock-in, Admin and Device modes, terminal pairing with device JWTs, roaming staff, void/refund approval chains, and company-wide cash rollup.",
-      "result": "Production-readiness review: 71/100. 263-case test specification.",
+      "result": "Production-readiness review: [[71/100]]. [[263-case test specification]].",
       "images": {
         "cafe": "APOS cafe point-of-sale screen",
         "admin": "APOS admin dashboard",
@@ -383,10 +423,10 @@
     },
     "padelaura": {
       "descriptor": "Nahj programme, 4-day build",
-      "problem": "The practical exam for the Nahj training-to-employment programme: build a working booking platform in four days.",
+      "problem": "The practical exam for the Nahj training-to-employment programme: build a working booking platform in [[four days]].",
       "insight": "Booking with only a phone number removes the sign-up wall that stops people booking a court on the spot.",
       "build": "Smart random court allocation, tiered pricing, pay on arrival or online via Thawani, QR confirmations, an analytics dashboard, full Arabic and English.",
-      "result": "Placed 2nd in the Nahj programme, built in 4 days.",
+      "result": "[[Placed 2nd]] in the Nahj programme, built in 4 days.",
       "images": {
         "en": "PadelAura, the English site",
         "ar": "PadelAura, the Arabic site, right-to-left",

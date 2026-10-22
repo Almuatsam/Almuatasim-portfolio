@@ -1,0 +1,20 @@
+/* Palette v2 highlights: a flat bar in the chapter ink with ink text on
+   top, like a marker pen. Cyan and yellow chapters use the full ink;
+   the others use its tint (--mark-bg is set per chapter in Book.tsx).
+   At most 3 per page. */
+mark.hl {
+  color: var(--color-ink);
+  background: var(--mark-bg, var(--accent-tint));
+  padding-inline: 0.2em;
+  margin-inline: -0.05em;
+  border-radius: 0;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* A bar that continues into the next word-reveal step: extended by about
+   one space so the two halves meet. */
+mark.hl.hl--join {
+  padding-inline-end: 0.5em;
+  margin-inline-end: -0.3em;
+}

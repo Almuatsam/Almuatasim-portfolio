@@ -2,12 +2,13 @@ import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { useFixedT } from '../../hooks/useFixedT';
 import { chapterPath, type ChapterId } from '../../content/chapters';
-import { SKETCH_IMAGES, TIE_IMAGES, PROCESS_CLIPS } from '../../content/sewing';
+import { SKETCH_IMAGES, OUTFIT_IMAGES, TIE_IMAGES, PROCESS_CLIPS } from '../../content/sewing';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './sewing.css';
 
 const SPREADS: { id: ChapterId; thumb: string }[] = [
   { id: 'sketches', thumb: SKETCH_IMAGES.wrapTop },
+  { id: 'fashionweek', thumb: OUTFIT_IMAGES.full.src },
   { id: 'tie', thumb: TIE_IMAGES.final },
   { id: 'ruffle', thumb: PROCESS_CLIPS[0].poster },
 ];

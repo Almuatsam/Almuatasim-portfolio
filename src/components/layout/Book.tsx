@@ -12,6 +12,7 @@ interface AccentStyle extends CSSProperties {
   '--accent-ink': string;
   '--accent-tint': string;
   '--accent-text': string;
+  '--mark-bg': string;
 }
 
 export function Book({ accent, children }: BookProps) {
@@ -21,6 +22,8 @@ export function Book({ accent, children }: BookProps) {
     '--accent-ink': ink,
     '--accent-tint': tint,
     '--accent-text': text === 'paper' ? 'var(--color-paper)' : 'var(--color-ink)',
+    // Highlighter bars: the full ink for cyan and yellow, the tint otherwise.
+    '--mark-bg': text === 'ink' ? accentColor : tint,
   };
 
   return (

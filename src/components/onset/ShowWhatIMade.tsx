@@ -110,6 +110,7 @@ export function ShowMadeWork({ lang }: ChapterPanelProps) {
               left: `${outline.label.left}%`,
               top: `${outline.label.top}%`,
               transform: ALIGN_TRANSFORM[outline.label.align],
+              maxWidth: outline.label.maxWidth ? `${outline.label.maxWidth}%` : undefined,
             };
             const text = t(`onset.showMade.outlines.${outline.id}`);
             const events = {

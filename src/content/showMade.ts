@@ -29,7 +29,7 @@ export interface Outline {
   shapes: Point[][];
   /** Where the label chip is anchored, as physical percentages of the
    * photo. `align` says which edge of the chip sits on that point. */
-  label: { left: number; top: number; align: 'start' | 'center' | 'end' };
+  label: { left: number; top: number; align: 'start' | 'center' | 'end'; maxWidth?: number };
   action: OutlineAction;
 }
 
@@ -57,13 +57,13 @@ export const SHOW_PHOTOS: ShowPhoto[] = [
         shapes: [
           [[49.8, 63.4], [57, 62.3], [63, 66], [65.8, 69.5], [65.9, 77.4], [57.5, 79.2], [50.5, 80.2], [49.4, 70.5]],
         ],
-        label: { left: 58, top: 90, align: 'center' },
+        label: { left: 61, top: 92, align: 'end' },
         action: { kind: 'photo', makingOf: 'bedspread' },
       },
       {
         id: 'yellowBlanket',
         shapes: [[[33.4, 63.2], [40.6, 62.6], [40.2, 68.6], [37.5, 70], [34.2, 67.8]]],
-        label: { left: 3, top: 66, align: 'start' },
+        label: { left: 2, top: 64, align: 'start', maxWidth: 30 },
         action: { kind: 'photo', makingOf: 'blanket' },
       },
       {
@@ -71,7 +71,7 @@ export const SHOW_PHOTOS: ShowPhoto[] = [
         shapes: [
           [[62.6, 56], [63.6, 52], [66.6, 50.3], [70.2, 52.4], [71.2, 57.4], [70, 63.4], [67.5, 66.4], [67.3, 80], [70.9, 81.6], [70.6, 85.2], [66, 85.8], [62.4, 84], [62.3, 81.6], [65.8, 79.8], [66, 66.4], [63.5, 63.4]],
         ],
-        label: { left: 97, top: 72, align: 'end' },
+        label: { left: 98, top: 73, align: 'end', maxWidth: 29 },
         action: { kind: 'photo', makingOf: 'fan' },
       },
       {

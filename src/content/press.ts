@@ -5,6 +5,10 @@ export interface PressCard {
   /** Names and headlines are kept in English in both languages. */
   publication: string;
   headline: string;
+  /** Writer's name, kept in Latin script in both languages. */
+  writer: string;
+  /** Only It's Nice That credits "words" (the brief's own wording). */
+  hasWordsPrefix?: boolean;
   url: string;
 }
 
@@ -16,18 +20,22 @@ export const PRESS_CARDS: PressCard[] = [
     id: 'itsNiceThat',
     publication: "It's Nice That",
     headline: '"I create to know myself better": Abdulaziz Al-hosni\'s recent series explores the self through colour',
+    writer: 'Olivia Hingley',
+    hasWordsPrefix: true,
     url: 'https://www.itsnicethat.com/articles/abdulaziz-al-hosni-qalb-mahmood-photography-project-210125',
   },
   {
     id: 'sandyTimes',
     publication: 'The Sandy Times',
     headline: 'Love, Hope, Struggle: Hidden Emotions In the Work Of Abdulaziz Al-Hosni',
+    writer: 'Alexandra Mansilla',
     url: 'https://sandytimes.ae/articles/2370/love-hope-struggle-hidden-emotions-in-the-work-of-abdulaziz-al-hosni',
   },
   {
     id: 'cpMagazine',
     publication: 'CP Magazine',
     headline: 'Abdulaziz Al-Hosni: Cultural Threads and Creative Vision',
+    writer: 'Jameel Arif',
     url: 'https://cpmagazine.online/abdulaziz-al-hosni/',
   },
 ];

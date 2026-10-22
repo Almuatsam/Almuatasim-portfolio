@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  margin: auto 0;
+  margin: var(--space-2) 0;
 }
 
 /* The one pull quote: Soria at about 34px (--fs-title). */
@@ -47,18 +47,40 @@
   text-transform: none;
 }
 
+/* The Sandy Times bedroom note: a normal paragraph with a link, not a
+   tiny underlined line under a card. */
+.press__note {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  margin-block-start: auto;
+}
+
+.press__note-text {
+  font-size: max(17px, var(--fs-body));
+  line-height: 1.55;
+  color: var(--color-ink);
+}
+
+.press__note .onset__follow-link {
+  font-size: max(15px, var(--fs-small));
+}
+
+/* Right page: readable sizes; the page scrolls if the cards do not
+   fit, the text does not shrink. */
 .press__work {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: var(--space-2);
 }
 
 .press__card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 2px;
-  padding: 6px var(--space-2);
+  gap: var(--space-1);
+  padding: var(--space-2);
   background: var(--color-paper);
   border: 1px solid var(--color-edge);
   border-inline-start: 3px solid var(--accent);
@@ -82,13 +104,28 @@
   color: var(--color-secondary);
 }
 
-/* Other people's headlines: IBM Plex Sans 600, never Soria. */
+.press__date {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  color: var(--color-secondary);
+}
+
+.press__byline {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-label-floor);
+  color: var(--color-secondary);
+}
+
+/* Other people's headlines: IBM Plex Sans 600 at 17px, never Soria. */
 .press__headline {
   margin: 0;
   font-family: 'IBM Plex Sans', 'Arial', sans-serif;
   font-weight: 600;
-  font-size: var(--fs-small);
-  line-height: 1.3;
+  font-size: max(17px, var(--fs-body));
+  line-height: 1.35;
   color: var(--color-ink);
 }
 
@@ -97,31 +134,16 @@
   text-align: right;
 }
 
-.press__date {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label-floor);
-  color: var(--color-secondary);
-}
-
 .press__line {
-  font-size: var(--fs-small);
-  line-height: 1.4;
+  font-size: var(--fs-caption-floor);
+  line-height: 1.5;
   color: var(--color-ink);
 }
 
 .press__link {
-  margin-block-start: 4px;
-  padding: 2px var(--space-2);
+  margin-block-start: var(--space-half);
 }
 
-.press__note {
-  margin: var(--space-half) 0 0;
-  font-size: var(--fs-small);
-  line-height: 1.45;
-}
-
-.press__note-link {
-  color: var(--accent-ink);
-  border-bottom: 1px solid currentColor;
-  text-decoration: none;
+.press__link .live-tag__label {
+  font-size: max(15px, var(--fs-small));
 }

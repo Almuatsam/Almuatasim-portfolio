@@ -1,3 +1,5 @@
+import { stripMarks } from './marks';
+
 /** Each paragraph's own word count used to push every later paragraph's
  * start delay further out (CaseNotes' "build" note, often the longest,
  * could push "result" past 2s, and with revealController's below-fold
@@ -15,7 +17,7 @@ export function computeParagraphDelays(texts: string[], isRtl: boolean, baseDela
 
   texts.reduce((offset, text) => {
     delays.push(baseDelayMs + offset * stepSize);
-    const wordCount = text.split(/\s+/).filter(Boolean).length;
+    const wordCount = stripMarks(text).split(/\s+/).filter(Boolean).length;
     const stepCount = isRtl ? Math.ceil(wordCount / 3) : wordCount;
     return offset + Math.min(stepCount, MAX_STEP_CONTRIBUTION);
   }, 0);

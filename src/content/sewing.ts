@@ -3,6 +3,11 @@ export const SKETCH_IMAGES = {
   coat: '/sewing/sketch-2.jpg',
 };
 
+export const OUTFIT_IMAGES = {
+  full: { src: '/sewing/outfit-full.jpg', width: 496, height: 1280 },
+  atShow: { src: '/sewing/outfit-at-show.jpg', width: 590, height: 1280 },
+};
+
 export const TIE_IMAGES = {
   process: '/sewing/tie-process.jpg',
   final: '/sewing/tie-final.jpg',

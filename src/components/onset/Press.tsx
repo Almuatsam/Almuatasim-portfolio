@@ -9,10 +9,11 @@ import './onset.css';
 import './press.css';
 
 /** "In the press" (B4 On Set, "The series in the press"): the one pull
- * quote and its attribution on the context (left) page, the three
- * press cards on the work (right) page. Honesty rule: the articles
- * credit the artist and do not name the owner, so nothing on this
- * spread says or implies that they do. */
+ * quote, its attribution and the Sandy Times bedroom note on the context
+ * (left) page; the three press cards on the work (right) page, which
+ * scrolls if they do not fit. Honesty rule: the articles credit the
+ * artist and do not name the owner, so nothing on this spread says or
+ * implies that they do. */
 export function PressContext({ lang }: ChapterPanelProps) {
   const t = useFixedT(lang);
 
@@ -29,6 +30,12 @@ export function PressContext({ lang }: ChapterPanelProps) {
         </blockquote>
         <figcaption className="press__attribution">{t('onset.press.quoteAttribution')}</figcaption>
       </figure>
+      <div className="press__note reveal-fade">
+        <p className="press__note-text">{t('onset.press.sandyNote')}</p>
+        <Link to={chapterPath(lang, 'follow')} className="onset__follow-link">
+          {t('chapters.follow.title')}
+        </Link>
+      </div>
     </div>
   );
 }
@@ -46,6 +53,9 @@ export function PressWork({ lang }: ChapterPanelProps) {
             </p>
             <p className="press__date">{t(`onset.press.dates.${card.id}`)}</p>
           </div>
+          <p className="press__byline">
+            <bdi>{card.hasWordsPrefix ? t('onset.press.wordsBy', { name: card.writer }) : card.writer}</bdi>
+          </p>
           {/* Other people's headlines: kept in English, in IBM Plex Sans. */}
           <h2 className="press__headline" lang="en" dir="ltr">
             {card.headline}
@@ -55,13 +65,6 @@ export function PressWork({ lang }: ChapterPanelProps) {
             <span className="live-tag__label">{t('onset.press.readOn', { publication: card.publication })}</span>
             <PencilArrowTiny />
           </a>
-          {card.id === 'sandyTimes' && (
-            <p className="press__note">
-              <Link to={chapterPath(lang, 'follow')} className="press__note-link">
-                {t('onset.press.sandyNote')}
-              </Link>
-            </p>
-          )}
         </article>
       ))}
     </div>
