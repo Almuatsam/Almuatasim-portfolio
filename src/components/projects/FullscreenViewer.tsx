@@ -6,6 +6,7 @@ import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/captions.css';
 import 'yet-another-react-lightbox/plugins/counter.css';
 import type { ProjectImage } from '../../content/projects';
+import { viewerSrc } from '../../lib/images';
 import './fullscreen-viewer.css';
 
 interface FullscreenViewerProps {
@@ -18,17 +19,6 @@ interface FullscreenViewerProps {
   label?: string;
   /** Per-image caption prefix (the On Set photo credit differs by image). */
   captionFor?: (key: string) => string;
-}
-
-/** The sharper of an image's two sources, for the one place "native
- * resolution" actually matters — the viewer the reader opted into. */
-function highResSrc(image: ProjectImage): string {
-  if (!image.srcSet) return image.src;
-  const twoX = image.srcSet
-    .split(',')
-    .map((entry) => entry.trim())
-    .find((entry) => entry.endsWith('2x'));
-  return twoX ? twoX.split(' ')[0] : image.src;
 }
 
 /** Reset section 3 — every screenshot opens in a full-screen viewer:
@@ -45,7 +35,7 @@ function highResSrc(image: ProjectImage): string {
  * our previous custom viewer was. */
 export function FullscreenViewer({ images, altFor, openIndex, onClose, onIndexChange, label = '', captionFor }: FullscreenViewerProps) {
   const slides = images.map((image) => ({
-    src: highResSrc(image),
+    src: viewerSrc(image.src),
     alt: altFor(image.key),
     title: `${captionFor ? captionFor(image.key) : label}: ${altFor(image.key)}`,
   }));

@@ -132,3 +132,39 @@ bdi,
 .font-mono {
   font-family: var(--font-mono);
 }
+
+/* <picture> wraps every photo: it must not add a box of its own. */
+picture {
+  display: contents;
+}
+
+/* Skip link: off-screen until it takes keyboard focus. */
+.skip-link {
+  position: fixed;
+  inset-block-start: var(--space-1);
+  inset-inline-start: var(--space-1);
+  z-index: 100;
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-radius: 999px;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* People who ask for more contrast get ink-dark secondary text and solid,
+   darker edges; nothing else about the layout changes. */
+@media (prefers-contrast: more) {
+  :root {
+    --color-secondary: var(--color-ink);
+    --color-edge: #8f8a7c;
+  }
+
+  .flip-page__inner {
+    background-image: none;
+  }
+}

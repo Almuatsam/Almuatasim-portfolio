@@ -6,6 +6,7 @@ import { ACCENTS } from '../../content/accents';
 import { getProject } from '../../content/projects';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './screens.css';
+import { Picture } from '../ui/Picture';
 
 const PROJECT_IDS: ChapterId[] = ['estudioa', 'apos', 'padelaura', 'papitoooo'];
 
@@ -47,7 +48,7 @@ export function ScreensWork({ lang }: ChapterPanelProps) {
 
           return (
             <Link key={id} to={chapterPath(lang, id)} className="screens__card reveal-fade" style={style}>
-              <img loading="lazy" decoding="async" src={project.images[0].src} alt={t(`chapters.${id}.title`)} className="screens__card-img" />
+              <Picture loading="lazy" decoding="async" src={project.images[0].src} alt="" className="screens__card-img" sizes="(max-width: 899px) 45vw, 260px" />
               <span className="screens__card-title">{t(`chapters.${id}.title`)}</span>
             </Link>
           );

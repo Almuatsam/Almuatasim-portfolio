@@ -5,6 +5,7 @@ import { chapterPath } from '../../content/chapters';
 import { PAINTINGS, CHAPTER_FOR_PAINTING, CLOSING_IMAGE_SRC } from '../../content/artworks';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './artworks.css';
+import { Picture } from '../ui/Picture';
 
 /** The Artworks index — mirrors Screens.tsx. Each painting below is its
  * own full chapter/spread (Phase 3 Kickoff.md #2: "one spread per
@@ -52,7 +53,7 @@ export function ArtWork({ lang }: ChapterPanelProps) {
             to={chapterPath(lang, CHAPTER_FOR_PAINTING[painting.id])}
             className="artworks__index-card reveal-fade"
           >
-            <img loading="lazy" decoding="async" src={painting.src} alt={t(`art.paintings.${painting.id}.title`)} className="artworks__index-card-img" />
+            <Picture loading="lazy" decoding="async" src={painting.src} alt={t(`art.paintings.${painting.id}.title`)} className="artworks__index-card-img" sizes="(max-width: 899px) 45vw, 240px" />
             <span className="artworks__index-card-title">{t(`art.paintings.${painting.id}.title`)}</span>
             <span className="artworks__index-card-meta">
               {t(`art.paintings.${painting.id}.medium`)}, {t(`art.paintings.${painting.id}.year`)}
@@ -60,7 +61,7 @@ export function ArtWork({ lang }: ChapterPanelProps) {
           </Link>
         ))}
         <Link to={chapterPath(lang, 'guidance')} className="artworks__index-card reveal-fade">
-          <img loading="lazy" decoding="async" src={CLOSING_IMAGE_SRC} alt={t('art.closingAlt')} className="artworks__index-card-img" />
+          <Picture loading="lazy" decoding="async" src={CLOSING_IMAGE_SRC} alt={t('art.closingAlt')} className="artworks__index-card-img" sizes="(max-width: 899px) 45vw, 240px" />
           <span className="artworks__index-card-title">{t('art.closingCaption')}</span>
         </Link>
       </div>

@@ -6,6 +6,7 @@ import { LiveTag } from '../projects/LiveTag';
 import { ImageCredit } from './ImageCredit';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './onset.css';
+import { Picture } from '../ui/Picture';
 
 /** Qalb Mahmood overview (B4 On Set #1): the series description, the
  * October 2024 Melkweg Expo line and the WePresent link on the context
@@ -36,7 +37,7 @@ export function QalbWork({ lang }: ChapterPanelProps) {
   return (
     <div className="onset__work">
       <figure className="onset__hero reveal-fade">
-        <img loading="lazy" decoding="async"
+        <Picture loading="lazy" decoding="async"
           src={QALB_HERO.src}
           alt={t('onset.qalb.heroAlt')}
           className="onset__hero-img"

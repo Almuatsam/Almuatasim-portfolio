@@ -1,8 +1,9 @@
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import './turn-the-canvas.css';
+import { Picture } from '../ui/Picture';
 
 interface TurnTheCanvasProps {
   src: string;
@@ -60,16 +61,16 @@ export function TurnTheCanvas({
         className="turn-canvas__button"
         onClick={() => setFlipped((value) => !value)}
         aria-pressed={flipped}
-        aria-label={flipped ? seeFront : seeBack}
       >
+        <span className="sr-only">{flipped ? seeFront : seeBack}</span>
         <div className="turn-canvas__stage">
-          <motion.div
+          <m.div
             className="turn-canvas__inner"
             animate={{ rotateY: flipped ? 180 : 0 }}
             transition={{ duration: prefersReducedMotion ? 0.001 : 0.7, ease: [0.65, 0, 0.35, 1] }}
           >
             <div className="turn-canvas__face turn-canvas__face--front">
-              <img loading="lazy" decoding="async" src={src} alt={alt} className="turn-canvas__img" />
+              <Picture loading="lazy" decoding="async" src={src} alt={alt} className="turn-canvas__img" />
               {threadCallout && (
                 <span className="turn-canvas__thread-dot" style={dotStyle} role="note" aria-label={threadCallout}>
                   <span className="turn-canvas__thread-label">{threadCallout}</span>
@@ -92,7 +93,7 @@ export function TurnTheCanvas({
                 </span>
               </span>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </button>
       <span className="turn-canvas__hint">{turnHint}</span>

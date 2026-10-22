@@ -10,6 +10,7 @@ import { ImageCredit } from '../onset/ImageCredit';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import '../onset/onset.css';
 import './process.css';
+import { Picture } from '../ui/Picture';
 
 const STEP_COUNT = PROCESS_STEPS.length;
 
@@ -73,7 +74,7 @@ function Example({ t, lang, side, stepId, example, delayMs }: ExampleProps) {
         <ul className={imageClass}>
           {example.images.map((image) => (
             <li key={image.src} className="process__figure">
-              <img src={image.src} alt={t(image.altKey)} loading="lazy" decoding="async" className="process__img" style={{ objectPosition: image.position }} />
+              <Picture src={image.src} alt={t(image.altKey)} loading="lazy" decoding="async" className="process__img" sizes="(max-width: 899px) 45vw, 240px" style={{ objectPosition: image.position }} />
               {image.credit && <ImageCredit t={t} credit={image.credit} />}
             </li>
           ))}

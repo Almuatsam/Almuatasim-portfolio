@@ -4,6 +4,7 @@ import { RevealText } from '../motion/RevealText';
 import { computeParagraphDelays } from '../../lib/revealStagger';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './about.css';
+import { Picture } from '../ui/Picture';
 
 export function AboutContext({ lang }: ChapterPanelProps) {
   const t = useFixedT(lang);
@@ -12,7 +13,7 @@ export function AboutContext({ lang }: ChapterPanelProps) {
   return (
     <div className="about__context">
       <div className="about__portrait-frame reveal-fade">
-        <img loading="lazy" decoding="async" src="/about/portrait.jpg" alt={t('about.portraitAlt')} className="about__portrait" />
+        <Picture loading="lazy" decoding="async" src="/about/portrait.jpg" alt={t('about.portraitAlt')} className="about__portrait" />
       </div>
       <ul className="about__notes">
         {marginNotes.map((note, index) => {

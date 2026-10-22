@@ -31,3 +31,27 @@ function getSnapshot(): number {
 export function useCurrentPage(): number {
   return useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 }
+
+const INITIAL_RADIUS = 1;
+const IDLE_RADIUS = 3;
+
+let buildRadius = INITIAL_RADIUS;
+const radiusListeners = new Set<Listener>();
+
+/** How many pages either side of the reader's own get built. It starts at
+ * the page itself (and its facing page), then widens once the browser is
+ * idle, so the first paint only pays for what it shows. */
+export function widenBuildRadius(): void {
+  if (buildRadius === IDLE_RADIUS) return;
+  buildRadius = IDLE_RADIUS;
+  radiusListeners.forEach((listener) => listener());
+}
+
+function subscribeRadius(listener: Listener): () => void {
+  radiusListeners.add(listener);
+  return () => radiusListeners.delete(listener);
+}
+
+export function useBuildRadius(): number {
+  return useSyncExternalStore(subscribeRadius, () => buildRadius, () => buildRadius);
+}

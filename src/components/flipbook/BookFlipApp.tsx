@@ -22,12 +22,14 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { usePreloadSoriaFont } from '../../hooks/usePreloadSoriaFont';
 import { useChapterKeyboardNav } from '../../hooks/useChapterKeyboardNav';
 import { resetScrollArea } from '../../lib/scrollRegistry';
-import { initCurrentPage, setCurrentPage } from '../../lib/currentPageStore';
+import { initCurrentPage, setCurrentPage, widenBuildRadius } from '../../lib/currentPageStore';
 import './stpageflip-base.css';
 import './flipbook.css';
 
 // The page-turn engine is its own chunk, so the cover can paint without it.
 const HTMLFlipBook = lazy(() => import('react-pageflip'));
+
+const SETTLE_BEFORE_PREBUILD_MS = 7000;
 
 const CONTENT_CHAPTERS = CHAPTERS.filter((c) => c.id !== 'cover');
 
@@ -93,6 +95,20 @@ export function BookFlipApp() {
   const isCover = chapter.id === 'cover';
 
   usePreloadSoriaFont(chapter.id);
+
+  // Once the first page has had time to settle, build the pages around it in
+  // idle time (turning a page earlier builds that page on the spot).
+  useEffect(() => {
+    let idleHandle: number | undefined;
+    const timer = window.setTimeout(() => {
+      if (window.requestIdleCallback) idleHandle = window.requestIdleCallback(() => widenBuildRadius(), { timeout: 4000 });
+      else widenBuildRadius();
+    }, SETTLE_BEFORE_PREBUILD_MS);
+    return () => {
+      window.clearTimeout(timer);
+      if (idleHandle !== undefined && window.cancelIdleCallback) window.cancelIdleCallback(idleHandle);
+    };
+  }, []);
 
   useEffect(() => {
     if (chapter.id === 'contact' && use3D) preloadCoverScene();
@@ -265,6 +281,8 @@ export function BookFlipApp() {
           scrollKey={`${ch.id}-context`}
           scrollLabel={contextLabel}
           scrollHint={scrollHint}
+          // About's notes page has no heading of its own (its headline is on the facing page).
+          srHeading={isMobile && ch.id === 'about' ? chapterTitle : undefined}
         >
           <ContextComponent lang={lang} chapter={ch} />
         </FlipPage>,
@@ -278,6 +296,7 @@ export function BookFlipApp() {
           scrollKey={`${ch.id}-work`}
           scrollLabel={workLabel}
           scrollHint={scrollHint}
+          srHeading={isMobile ? chapterTitle : undefined}
         >
           <WorkComponent lang={lang} chapter={ch} />
         </FlipPage>,
@@ -347,6 +366,8 @@ export function BookFlipApp() {
             </Suspense>
           )}
         </div>
+
+        {isCover && use3D && <h1 className="sr-only">{t('cover.nameLatin')}</h1>}
 
         {(isCover || isClosing3D) && use3D && (
           <button

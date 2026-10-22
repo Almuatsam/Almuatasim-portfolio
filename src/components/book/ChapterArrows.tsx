@@ -72,7 +72,7 @@ export function ChapterArrows({ lang, chapter, onBackToCover, mobile }: ChapterA
         <Link
           to={chapterPath(lang, prev.id)}
           className="chapter-arrows__button chapter-arrows__button--back"
-          aria-label={t('common.arrowBack', { chapter: t(`chapters.${prev.id}.title`) })}
+          aria-label={t('common.arrowBack', { chapter: destinationLabel(prev.id) })}
         >
           <span className="chapter-arrows__icon" style={{ borderColor: ACCENTS[prev.accent].ink }}>
             <PencilArrow pointing="back" isRtl={isRtl} color={ACCENTS[prev.accent].ink} />
@@ -84,7 +84,7 @@ export function ChapterArrows({ lang, chapter, onBackToCover, mobile }: ChapterA
         <Link
           to={chapterPath(lang, next.id)}
           className="chapter-arrows__button chapter-arrows__button--forward"
-          aria-label={t('common.arrowForward', { chapter: t(`chapters.${next.id}.title`) })}
+          aria-label={t('common.arrowForward', { chapter: destinationLabel(next.id) })}
         >
           <span className="chapter-arrows__icon" style={{ borderColor: ACCENTS[next.accent].ink }}>
             <PencilArrow pointing="forward" isRtl={isRtl} color={ACCENTS[next.accent].ink} />

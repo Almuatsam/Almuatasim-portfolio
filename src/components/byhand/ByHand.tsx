@@ -5,6 +5,7 @@ import { chapterPath, getChapter, type ChapterId } from '../../content/chapters'
 import { ACCENTS } from '../../content/accents';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './by-hand.css';
+import { Picture } from '../ui/Picture';
 
 const CARD_IDS: ChapterId[] = ['art', 'sewing', 'onset'];
 
@@ -58,7 +59,7 @@ export function ByHandWork({ lang }: ChapterPanelProps) {
           const style: CSSProperties = { '--card-accent': swatch } as CSSProperties;
           return (
             <Link key={id} to={chapterPath(lang, id)} className="by-hand__card reveal-fade" style={style}>
-              <img loading="lazy" decoding="async" src={THUMBNAILS[id] ?? ''} alt={t(`chapters.${id}.title`)} className="by-hand__card-img" />
+              <Picture loading="lazy" decoding="async" src={THUMBNAILS[id] ?? ''} alt="" className="by-hand__card-img" sizes="(max-width: 899px) 90vw, 360px" />
               <span className="by-hand__card-label">
                 <span className="by-hand__card-swatch" aria-hidden="true" />
                 <span className="by-hand__card-title">{t(`chapters.${id}.title`)}</span>

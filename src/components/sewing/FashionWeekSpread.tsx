@@ -9,6 +9,7 @@ import type { ProjectImage } from '../../content/projects';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './sewing.css';
 import './fashion-week.css';
+import { Picture } from '../ui/Picture';
 
 const OUTFIT_VIEWER_IMAGES: ProjectImage[] = [
   { key: 'outfit', src: OUTFIT_IMAGES.full.src },
@@ -70,7 +71,7 @@ export function FashionWeekWork({ lang }: ChapterPanelProps) {
         {photos.map(({ key, image }, index) => (
           <figure key={key} className="fashion-week__figure reveal-fade">
             <button type="button" className="fashion-week__button" onClick={() => viewer.open(index)}>
-              <img loading="lazy" decoding="async"
+              <Picture loading="lazy" decoding="async"
                 src={image.src}
                 alt={t(`sewing.fashionWeek.${key}.alt`)}
                 width={image.width}

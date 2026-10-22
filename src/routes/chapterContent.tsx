@@ -15,8 +15,19 @@ type PanelComponent = ComponentType<ChapterPanelProps>;
 
 /** Chapters load as their own chunks, the first time the reader is near
  * them, so the first paint does not carry every chapter's code. */
+const LOADERS = new Map<PanelComponent, () => Promise<unknown>>();
+
 function lazyPanel(load: () => Promise<{ default: PanelComponent }>): PanelComponent {
-  return lazy(load);
+  const component = lazy(load);
+  LOADERS.set(component, load);
+  return component;
+}
+
+/** Starts downloading a chapter's code without rendering it. */
+export function preloadChapter(id: ChapterId): void {
+  for (const component of [CONTEXT_COMPONENTS[id], WORK_COMPONENTS[id]]) {
+    if (component) void LOADERS.get(component)?.();
+  }
 }
 
 const ScreensContext = lazyPanel(() => import('../components/screens/Screens').then((m) => ({ default: m.ScreensContext })));

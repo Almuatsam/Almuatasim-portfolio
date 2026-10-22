@@ -8,6 +8,7 @@ import { TurnTheCanvas } from './TurnTheCanvas';
 import { FullscreenViewer } from '../projects/FullscreenViewer';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './artworks.css';
+import { Picture } from '../ui/Picture';
 
 function paintingForChapter(id: ChapterId): PaintingDef {
   const painting = PAINTINGS.find((p) => CHAPTER_FOR_PAINTING[p.id] === id);
@@ -56,7 +57,7 @@ export function PaintingContext({ lang, chapter }: ChapterPanelProps) {
       {photoCopy && painting.contextPhotoSrc && (
         <div className="artworks__photo">
           <button type="button" className="artworks__photo-button" onClick={() => viewer.open(0)}>
-            <img loading="lazy" decoding="async" src={painting.contextPhotoSrc} alt={photoCopy.alt} className="artworks__photo-img" />
+            <Picture loading="lazy" decoding="async" src={painting.contextPhotoSrc} alt={photoCopy.alt} className="artworks__photo-img" />
           </button>
           {photoCopy.caption && <span className="artworks__photo-caption">{photoCopy.caption}</span>}
         </div>

@@ -7,7 +7,7 @@ interface StageProps {
 
 export function Stage({ children }: StageProps) {
   return (
-    <main className="stage" id="main">
+    <main className="stage" id="main" tabIndex={-1}>
       {children}
     </main>
   );

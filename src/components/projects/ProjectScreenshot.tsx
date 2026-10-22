@@ -1,8 +1,8 @@
 import './project-screenshot.css';
+import { Picture } from '../ui/Picture';
 
 interface ProjectScreenshotProps {
   src: string;
-  srcSet?: string;
   alt: string;
   className?: string;
   onOpen?: () => void;
@@ -11,9 +11,9 @@ interface ProjectScreenshotProps {
 /** Reset section 3 — the main screenshot, flat and sharp: full width
  * inside the page margins, 0deg, a 1px edge border and a soft shadow.
  * No frame, no tape. Opens the full-screen viewer on click. */
-export function ProjectScreenshot({ src, srcSet, alt, className, onOpen }: ProjectScreenshotProps) {
+export function ProjectScreenshot({ src, alt, className, onOpen }: ProjectScreenshotProps) {
   const image = (
-    <img src={src} srcSet={srcSet} alt={alt} className="project-screenshot__img" loading="lazy" />
+    <Picture src={src} alt={alt} className="project-screenshot__img" loading="lazy" />
   );
 
   return (

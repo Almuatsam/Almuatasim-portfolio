@@ -56,7 +56,6 @@ export function EstudioAWork({ lang }: ChapterPanelProps) {
         t={t}
         isRtl={lang === 'ar'}
         screenshotSrc={project.images[0].src}
-        screenshotSrcSet={project.images[0].srcSet}
         screenshotAlt={altFor('browse')}
       />
       <FuzzySearchDemo t={t} defaultQuery={t('projects.estudioa.demo.query')} />

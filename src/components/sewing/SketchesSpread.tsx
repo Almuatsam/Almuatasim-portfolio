@@ -7,6 +7,7 @@ import { FullscreenViewer } from '../projects/FullscreenViewer';
 import type { ProjectImage } from '../../content/projects';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './sewing.css';
+import { Picture } from '../ui/Picture';
 
 /** B4 Sewing #1 — one sketch per page: the mustard wrap top on the
  * context (left) page under the caption, the olive coat alone on the
@@ -26,7 +27,7 @@ export function SketchesContext({ lang }: ChapterPanelProps) {
       <p className="sewing__caption reveal-fade">{t('sewing.sketches.caption')}</p>
       <div className="sewing__sketch-divider" aria-hidden="true" />
       <button type="button" className="sewing__sketch-button reveal-fade" onClick={() => viewer.open(0)}>
-        <img loading="lazy" decoding="async" src={SKETCH_IMAGES.wrapTop} alt={t('sewing.sketches.wrapTopAlt')} className="sewing__sketch-img" />
+        <Picture loading="lazy" decoding="async" src={SKETCH_IMAGES.wrapTop} alt={t('sewing.sketches.wrapTopAlt')} className="sewing__sketch-img" />
       </button>
       <FullscreenViewer
         images={images}
@@ -48,7 +49,7 @@ export function SketchesWork({ lang }: ChapterPanelProps) {
   return (
     <div className="sewing__work">
       <button type="button" className="sewing__sketch-button reveal-fade" onClick={() => viewer.open(0)}>
-        <img loading="lazy" decoding="async" src={SKETCH_IMAGES.coat} alt={t('sewing.sketches.coatAlt')} className="sewing__sketch-img" />
+        <Picture loading="lazy" decoding="async" src={SKETCH_IMAGES.coat} alt={t('sewing.sketches.coatAlt')} className="sewing__sketch-img" />
       </button>
       <FullscreenViewer
         images={images}

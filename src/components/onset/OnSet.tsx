@@ -6,6 +6,7 @@ import { ONSET_THUMBNAILS } from '../../content/onset';
 import { ImageCredit } from './ImageCredit';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './onset.css';
+import { Picture } from '../ui/Picture';
 
 type OnSetCardId = 'qalb' | 'amouage' | 'press';
 
@@ -54,7 +55,7 @@ export function OnSetWork({ lang }: ChapterPanelProps) {
           return (
             <Link key={id} to={chapterPath(lang, id as ChapterId)} className="onset__index-card reveal-fade">
               {thumb ? (
-                <img loading="lazy" decoding="async" src={thumb.src} alt="" className="onset__index-card-img" />
+                <Picture loading="lazy" decoding="async" src={thumb.src} alt="" className="onset__index-card-img" sizes="72px" />
               ) : (
                 <span className="onset__index-card-plain" aria-hidden="true">
                   3

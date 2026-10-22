@@ -1,9 +1,10 @@
 import { useRef, useState, type CSSProperties } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import type { TFunction } from 'i18next';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { ProjectScreenshot } from './ProjectScreenshot';
 import './merge-the-screens.css';
+import { Picture } from '../ui/Picture';
 
 type CardId = 'cafe' | 'gift' | 'tickets';
 const CARD_IDS: CardId[] = ['cafe', 'gift', 'tickets'];
@@ -62,7 +63,7 @@ export function MergeTheScreens({ t, cards, unifiedScreenshotSrc, unifiedScreens
           CARD_IDS.map((id, index) => {
             if (merged.has(id)) return null;
             return (
-              <motion.div
+              <m.div
                 key={id}
                 className={`merge-screens__card merge-screens__card--${id}`}
                 drag={!prefersReducedMotion}
@@ -76,9 +77,9 @@ export function MergeTheScreens({ t, cards, unifiedScreenshotSrc, unifiedScreens
                 data-no-swipe=""
                 style={{ '--offset': index } as CSSProperties}
               >
-                <img loading="lazy" decoding="async" src={cards[id].src} alt={cards[id].alt} className="merge-screens__card-img" draggable={false} />
+                <Picture loading="lazy" decoding="async" src={cards[id].src} alt={cards[id].alt} className="merge-screens__card-img" sizes="128px" draggable={false} />
                 <span className="merge-screens__card-label font-mono">{t(`projects.apos.merge.${id}`)}</span>
-              </motion.div>
+              </m.div>
             );
           })
         )}

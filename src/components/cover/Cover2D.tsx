@@ -26,7 +26,7 @@ export function Cover2D({ onOpen }: Cover2DProps) {
       {STICKER_LAYOUT.map(({ n, x, y, w, r }) => (
         <Sticker
           key={n}
-          src={`/stickers/sticker-${n}-480.webp`}
+          src={`/stickers/sticker-${n}.png`}
           alt={stickerAlts[n - 1] ?? ''}
           position={{ leftPct: x, topPct: y, widthPct: w, rotateDeg: r }}
           parallaxX={0}

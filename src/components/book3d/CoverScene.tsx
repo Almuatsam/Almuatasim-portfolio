@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { RoundedBox, useTexture } from '@react-three/drei';
 import { SRGBColorSpace, type CanvasTexture, type Group, type Mesh, type PerspectiveCamera } from 'three';
 import { gsap, useGSAP } from '../../lib/gsap';
+import { variantUrl, viewerSrc } from '../../lib/images';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { STICKER_LAYOUT, BAND_STICKER, BAND_LAYOUT, LABEL_LAYOUT } from '../../content/coverLayout';
 import type { SupportedLang } from '../../i18n';
@@ -59,7 +60,7 @@ function CameraFit({ startTilt }: { startTilt: number }) {
 }
 
 function StickerPlane({ n, x, y, w, r }: { n: number; x: number; y: number; w: number; r: number }) {
-  const texture = useTexture(`/stickers/sticker-${n}.png`, (t) => {
+  const texture = useTexture(variantUrl(`/stickers/sticker-${n}.png`, 800, 'webp'), (t) => {
     t.colorSpace = SRGBColorSpace;
   });
   const image = texture.image as HTMLImageElement | undefined;
@@ -153,7 +154,7 @@ function CoverBookGroup({ lang, isOpening, onOpened, isClosing = false, onClosed
   const bookGroupRef = useRef<Group>(null);
   const hingeRef = useRef<Group>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const paperGrain = useTexture('/web-assets/paper-grain.png', (t) => {
+  const paperGrain = useTexture(viewerSrc('/web-assets/paper-grain.png'), (t) => {
     t.colorSpace = SRGBColorSpace;
   });
   const { camera } = useThree();

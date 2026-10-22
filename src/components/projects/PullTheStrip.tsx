@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import type { TFunction } from 'i18next';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import './pull-the-strip.css';
+import { Picture } from '../ui/Picture';
 
 interface PullTheStripProps {
   t: TFunction;
@@ -60,14 +61,14 @@ export function PullTheStrip({ t, stripSrc, stripAlt }: PullTheStripProps) {
       </button>
 
       {phase === 'developed' && (
-        <motion.figure
+        <m.figure
           className={`pull-strip__photo pull-strip__photo--${FRAME_THEMES[themeIndex]}`}
           initial={prefersReducedMotion ? { opacity: 1 } : { y: 40, opacity: 0, filter: 'sepia(1) saturate(0.4)' }}
           animate={{ y: 0, opacity: 1, filter: 'sepia(0) saturate(1)' }}
           transition={{ duration: prefersReducedMotion ? 0.2 : 1.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <img loading="lazy" decoding="async" src={stripSrc} alt={stripAlt} className="pull-strip__img" />
-        </motion.figure>
+          <Picture loading="lazy" decoding="async" src={stripSrc} alt={stripAlt} className="pull-strip__img" />
+        </m.figure>
       )}
 
       <p className="pull-strip__note font-hand reveal-fade">{t('projects.papitoooo.booth.note')}</p>

@@ -5,6 +5,7 @@ import { chapterPath, type ChapterId } from '../../content/chapters';
 import { SKETCH_IMAGES, OUTFIT_IMAGES, TIE_IMAGES, PROCESS_CLIPS } from '../../content/sewing';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './sewing.css';
+import { Picture } from '../ui/Picture';
 
 const SPREADS: { id: ChapterId; thumb: string }[] = [
   { id: 'sketches', thumb: SKETCH_IMAGES.wrapTop },
@@ -48,7 +49,7 @@ export function SewingWork({ lang }: ChapterPanelProps) {
       <div className="sewing__index-cards">
         {SPREADS.map((spread) => (
           <Link key={spread.id} to={chapterPath(lang, spread.id)} className="sewing__index-card reveal-fade">
-            <img loading="lazy" decoding="async" src={spread.thumb} alt={t(`chapters.${spread.id}.title`)} className="sewing__index-card-img" />
+            <Picture loading="lazy" decoding="async" src={spread.thumb} alt="" className="sewing__index-card-img" sizes="72px" />
             <span className="sewing__index-card-title">{t(`chapters.${spread.id}.title`)}</span>
           </Link>
         ))}

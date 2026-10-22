@@ -1,5 +1,6 @@
 import type { ProjectImage } from '../../content/projects';
 import './screenshot-thumbnails.css';
+import { Picture } from '../ui/Picture';
 
 interface ScreenshotThumbnailsProps {
   images: ProjectImage[];
@@ -22,7 +23,7 @@ export function ScreenshotThumbnails({ images, altFor, onOpen, label }: Screensh
           className="screenshot-thumbs__item"
           onClick={() => onOpen(index)}
         >
-          <img src={image.src} alt={altFor(image.key)} loading="lazy" />
+          <Picture src={image.src} alt={altFor(image.key)} loading="lazy" />
         </button>
       ))}
     </div>

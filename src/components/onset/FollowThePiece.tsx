@@ -11,6 +11,7 @@ import { Marked } from '../motion/Marked';
 import { ImageCredit } from './ImageCredit';
 import type { ChapterPanelProps } from '../../routes/chapterContent';
 import './follow-the-piece.css';
+import { Picture } from '../ui/Picture';
 
 const STAGE_COUNT = FOLLOW_STAGES.length;
 const LAST_STAGE = STAGE_COUNT - 1;
@@ -354,7 +355,7 @@ export function FollowWork({ lang }: ChapterPanelProps) {
       <figure className="follow__figure reveal-fade">
         <div className="follow__frame" ref={frameRef}>
           {FOLLOW_STAGES.map((item, index) => (
-            <img loading="lazy" decoding="async"
+            <Picture loading="lazy" decoding="async"
               key={item.id}
               src={item.src}
               alt={t(`onset.follow.stages.${item.id}.alt`)}

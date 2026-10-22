@@ -17,7 +17,7 @@ function readDismissed(): boolean {
  * phone to be turned upright. Dismissible, and remembered for the visit. */
 export function RotateHint() {
   const { t } = useTranslation();
-  const isSideways = useMediaQuery('(max-width: 899px) and (max-height: 500px) and (orientation: landscape)');
+  const isSideways = useMediaQuery('(max-width: 899px) and (max-height: 500px) and (orientation: landscape) and (pointer: coarse)');
   const [isDismissed, setIsDismissed] = useState(readDismissed);
 
   if (!isSideways || isDismissed) return null;

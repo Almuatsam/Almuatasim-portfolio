@@ -2,6 +2,7 @@ import { useRef, useState, type ReactNode } from "react";
 import { gsap, useGSAP } from "../../lib/gsap";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import type { Credit } from "../../content/credits";
+import { Picture } from '../ui/Picture';
 
 export interface StackPrint {
   id: string;
@@ -116,7 +117,7 @@ export function PrintStack({
             className="print-stack__print"
             aria-hidden={index !== topIndex}
           >
-            <img loading="lazy" decoding="async" src={print.src} alt={print.alt} className="print-stack__img" />
+            <Picture loading="lazy" decoding="async" src={print.src} alt={print.alt} className="print-stack__img" sizes="(max-width: 899px) 70vw, 300px" />
           </div>
         ))}
         <button

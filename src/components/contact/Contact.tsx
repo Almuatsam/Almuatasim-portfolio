@@ -3,6 +3,7 @@ import { Trans } from "react-i18next";
 import { useFixedT } from "../../hooks/useFixedT";
 import type { ChapterPanelProps } from "../../routes/chapterContent";
 import "./contact.css";
+import { Picture } from '../ui/Picture';
 
 const COPIED_NOTE_MS = 2600;
 
@@ -161,10 +162,10 @@ export function ContactWork({ lang }: ChapterPanelProps) {
               className="reveal-fade"
             />
           </svg>
-          <img loading="lazy" decoding="async"
-            src="/stickers/sticker-1-480.webp"
+          <Picture loading="lazy" decoding="async"
+            src="/stickers/sticker-1.png"
             alt={(t("cover.stickers", { returnObjects: true }) as string[])[0]}
-            className="contact__stamp"
+            className="contact__stamp" sizes="60px"
           />
         </div>
         <p className="contact__signature font-hand">

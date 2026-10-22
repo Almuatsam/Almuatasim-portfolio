@@ -2,10 +2,8 @@ import type { AccentKey } from './accents';
 
 export interface ProjectImage {
   key: string;
-  /** 1x fallback (also the `src` for browsers that ignore srcSet). */
+  /** The original's path; the image pipeline serves it in several sizes. */
   src: string;
-  /** `"<1x-url> 1x, <2x-url> 2x"`, when a sharper capture exists. */
-  srcSet?: string;
 }
 
 export interface ProjectDef {
@@ -28,12 +26,10 @@ export const PROJECTS: ProjectDef[] = [
       {
         key: 'browse',
         src: '/projects/estudioa/estudioa-browse.jpg',
-        srcSet: '/projects/estudioa/estudioa-browse.jpg 1x, /projects/estudioa/estudioa-browse@2x.jpg 2x',
       },
       {
         key: 'home',
         src: '/projects/estudioa/estudioa-en.jpg',
-        srcSet: '/projects/estudioa/estudioa-en.jpg 1x, /projects/estudioa/estudioa-en@2x.jpg 2x',
       },
       { key: 'admin', src: '/projects/estudioa/admin.png' },
       { key: 'cardflip', src: '/projects/estudioa/cardflip.png' },
@@ -65,12 +61,10 @@ export const PROJECTS: ProjectDef[] = [
       {
         key: 'en',
         src: '/projects/padelaura/padelaura-en.jpg',
-        srcSet: '/projects/padelaura/padelaura-en.jpg 1x, /projects/padelaura/padelaura-en@2x.jpg 2x',
       },
       {
         key: 'ar',
         src: '/projects/padelaura/padelaura-ar.jpg',
-        srcSet: '/projects/padelaura/padelaura-ar.jpg 1x, /projects/padelaura/padelaura-ar@2x.jpg 2x',
       },
       { key: 'booking', src: '/projects/padelaura/booking-page-hd.jpg' },
       { key: 'thawani', src: '/projects/padelaura/thawani-page-hd.jpg' },
@@ -87,12 +81,10 @@ export const PROJECTS: ProjectDef[] = [
       {
         key: 'en',
         src: '/projects/papitoooo/papitoooo-en.jpg',
-        srcSet: '/projects/papitoooo/papitoooo-en.jpg 1x, /projects/papitoooo/papitoooo-en@2x.jpg 2x',
       },
       {
         key: 'ar',
         src: '/projects/papitoooo/papitoooo-ar.jpg',
-        srcSet: '/projects/papitoooo/papitoooo-ar.jpg 1x, /projects/papitoooo/papitoooo-ar@2x.jpg 2x',
       },
       { key: 'final', src: '/projects/papitoooo/final-photo.jpg' },
     ],

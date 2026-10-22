@@ -9,6 +9,7 @@ import type { ChapterPanelProps } from '../../routes/chapterContent';
 import '../projects/live-tag.css';
 import './onset.css';
 import './amouage.css';
+import { Picture } from '../ui/Picture';
 
 /** Amouage (B4 On Set #2, B5 #8 Amouage variant). Left page: the two
  * projects, the owner's role as stated in the brief, and the three
@@ -72,10 +73,10 @@ export function AmouageWork({ lang }: ChapterPanelProps) {
       <div className="amouage__notes">
         {PINNED_NOTES.map((note) => (
           <figure key={note.id} className="amouage__note reveal-fade">
-            <img loading="lazy" decoding="async"
+            <Picture loading="lazy" decoding="async"
               src={note.src}
               alt={t(`onset.amouage.notes.${note.id}.alt`)}
-              className="amouage__note-img"
+              className="amouage__note-img" sizes="140px"
               style={{ aspectRatio: note.aspect, objectPosition: note.position }}
             />
             <figcaption className="amouage__note-caption">{t(`onset.amouage.notes.${note.id}.caption`)}</figcaption>

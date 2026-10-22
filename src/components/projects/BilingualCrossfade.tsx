@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { ProjectImage } from '../../content/projects';
 import './bilingual-crossfade.css';
+import { Picture } from '../ui/Picture';
 
 interface BilingualCrossfadeProps {
   enImage: ProjectImage;
@@ -30,8 +31,8 @@ export function BilingualCrossfade({ enImage, arImage, altEn, altAr, onOpen }: B
       </button>
 
       <button type="button" className="bilingual-crossfade__stage" onClick={() => onOpen(showAr ? 'ar' : 'en')}>
-        <img loading="lazy" decoding="async" src={enImage.src} srcSet={enImage.srcSet} alt={altEn} className="bilingual-crossfade__img" style={{ opacity: showAr ? 0 : 1 }} />
-        <img loading="lazy" decoding="async" src={arImage.src} srcSet={arImage.srcSet} alt={altAr} className="bilingual-crossfade__img" style={{ opacity: showAr ? 1 : 0 }} />
+        <Picture loading="lazy" decoding="async" src={enImage.src} alt={altEn} className="bilingual-crossfade__img" style={{ opacity: showAr ? 0 : 1 }} />
+        <Picture loading="lazy" decoding="async" src={arImage.src} alt={altAr} className="bilingual-crossfade__img" style={{ opacity: showAr ? 1 : 0 }} />
       </button>
     </div>
   );

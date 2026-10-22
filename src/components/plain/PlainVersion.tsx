@@ -31,7 +31,7 @@ export function PlainVersion() {
   const lines = (key: string): string => (t(key, { returnObjects: true }) as string[]).map(stripMarks).join(' ');
 
   return (
-    <article className="plain">
+    <article className="plain" tabIndex={-1}>
       <h1 className="plain__title">{t('plain.title')}</h1>
       <p className="plain__intro">{t('plain.intro')}</p>
 

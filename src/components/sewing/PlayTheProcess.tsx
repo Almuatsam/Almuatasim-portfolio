@@ -3,6 +3,7 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import type { ProcessClip } from '../../content/sewing';
 import './play-the-process.css';
+import { viewerSrc } from '../../lib/images';
 
 interface PlayTheProcessProps {
   clip: ProcessClip;
@@ -30,7 +31,8 @@ export function PlayTheProcess({ clip, alt, playHint, collapseLabel }: PlayThePr
     const video = videoRef.current;
     if (!video) return;
     video.currentTime = 0;
-    void video.play();
+    // A play() cut short because the element was swapped out is not an error.
+    video.play().catch(() => {});
   }
 
   function stopPreview(): void {
@@ -50,7 +52,8 @@ export function PlayTheProcess({ clip, alt, playHint, collapseLabel }: PlayThePr
     const video = videoRef.current;
     if (!video) return;
     video.currentTime = 0;
-    void video.play();
+    // A play() cut short because the element was swapped out is not an error.
+    video.play().catch(() => {});
   }, [expanded]);
 
   function collapse(): void {
@@ -85,7 +88,7 @@ export function PlayTheProcess({ clip, alt, playHint, collapseLabel }: PlayThePr
           <video
             ref={videoRef}
             className="play-process__video"
-            poster={clip.poster}
+            poster={viewerSrc(clip.poster)}
             muted
             playsInline
             loop={false}
@@ -114,10 +117,10 @@ export function PlayTheProcess({ clip, alt, playHint, collapseLabel }: PlayThePr
         onPointerLeave={stopPreview}
         onFocus={startPreview}
         onBlur={stopPreview}
-        aria-label={alt}
+        aria-label={`${playHint}: ${alt}`}
       >
         {stitch}
-        <video ref={videoRef} className="play-process__video" poster={clip.poster} muted playsInline loop preload="none">
+        <video ref={videoRef} className="play-process__video" poster={viewerSrc(clip.poster)} muted playsInline loop preload="none">
           <source src={clip.webm} type="video/webm" />
           <source src={clip.mp4} type="video/mp4" />
         </video>

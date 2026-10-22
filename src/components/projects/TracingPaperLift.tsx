@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import type { TFunction } from 'i18next';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { PencilArrow } from '../icons/PencilArrow';
 import './tracing-paper-lift.css';
+import { Picture } from '../ui/Picture';
 
 interface TracingPaperLiftProps {
   t: TFunction;
   screenshotSrc: string;
-  screenshotSrcSet?: string;
   screenshotAlt: string;
   isRtl: boolean;
 }
@@ -19,7 +19,7 @@ interface TracingPaperLiftProps {
  * the screenshot underneath, so every line sits on the real UI at any
  * size. Dragging peels it back to reveal the shipped screen; keyboard/
  * reduced-motion users get a button that does the same thing. */
-export function TracingPaperLift({ t, screenshotSrc, screenshotSrcSet, screenshotAlt, isRtl }: TracingPaperLiftProps) {
+export function TracingPaperLift({ t, screenshotSrc, screenshotAlt, isRtl }: TracingPaperLiftProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [revealed, setRevealed] = useState(false);
   const dragSign = isRtl ? 1 : -1;
@@ -27,10 +27,10 @@ export function TracingPaperLift({ t, screenshotSrc, screenshotSrcSet, screensho
   return (
     <div className="tracing-lift">
       <div className="tracing-lift__stage">
-        <img loading="lazy" decoding="async" src={screenshotSrc} srcSet={screenshotSrcSet} alt={screenshotAlt} className="tracing-lift__screenshot" />
+        <Picture loading="lazy" decoding="async" src={screenshotSrc} alt={screenshotAlt} className="tracing-lift__screenshot" />
 
         {!prefersReducedMotion && (
-          <motion.div
+          <m.div
             className="tracing-lift__paper"
             data-no-swipe=""
             drag="x"
@@ -43,7 +43,7 @@ export function TracingPaperLift({ t, screenshotSrc, screenshotSrcSet, screensho
             }}
             aria-hidden="true"
           >
-            <img loading="lazy" decoding="async"
+            <Picture loading="lazy" decoding="async"
               src="/projects/estudioa/estudioa-browse-wireframe.svg"
               alt=""
               className="tracing-lift__wireframe reveal-fade"
@@ -65,7 +65,7 @@ export function TracingPaperLift({ t, screenshotSrc, screenshotSrcSet, screensho
                 </marker>
               </defs>
             </svg>
-          </motion.div>
+          </m.div>
         )}
       </div>
 

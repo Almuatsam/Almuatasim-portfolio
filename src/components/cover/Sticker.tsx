@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import './sticker.css';
+import { Picture } from '../ui/Picture';
 
 interface StickerPosition {
   leftPct: number;
@@ -37,6 +38,6 @@ export function Sticker({ src, alt, position, parallaxX, parallaxY, depth }: Sti
   };
 
   return (
-    <img src={src} alt={alt} className="sticker" fetchPriority="high" style={style} draggable={false} />
+    <Picture src={src} alt={alt} className="sticker" sizes="(max-width: 899px) 40vw, 220px" fetchPriority="high" style={style} draggable={false} />
   );
 }
