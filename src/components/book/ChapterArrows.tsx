@@ -7,16 +7,57 @@ import { nextChapter, previousChapter } from '../../content/navigation';
 import type { SupportedLang } from '../../i18n';
 import './chapter-arrows.css';
 
+interface MobileSteps {
+  /** The StPageFlip page the reader is on (1 is the first content page). */
+  pageIndex: number;
+  /** The last content page: forward from here goes back to the cover. */
+  lastIndex: number;
+  onStep: (direction: 1 | -1) => void;
+}
+
 interface ChapterArrowsProps {
   lang: SupportedLang;
   chapter: ChapterDef;
   /** The arrow after the last chapter: plays the cover closing. */
   onBackToCover: () => void;
+  /** On phones each arrow moves one page (context, then work). */
+  mobile?: MobileSteps;
 }
 
-export function ChapterArrows({ lang, chapter, onBackToCover }: ChapterArrowsProps) {
+export function ChapterArrows({ lang, chapter, onBackToCover, mobile }: ChapterArrowsProps) {
   const { t } = useTranslation();
   const isRtl = lang === 'ar';
+  const ink = ACCENTS[chapter.accent].ink;
+
+  if (mobile) {
+    const isLast = mobile.pageIndex >= mobile.lastIndex;
+    return (
+      <nav className="chapter-arrows chapter-arrows--mobile" aria-label={t('common.pageArrows')}>
+        <button
+          type="button"
+          className="chapter-arrows__button chapter-arrows__button--back"
+          onClick={() => mobile.onStep(-1)}
+          aria-label={t('common.previousPage')}
+        >
+          <span className="chapter-arrows__icon" style={{ borderColor: ink }}>
+            <PencilArrow pointing="back" isRtl={isRtl} color={ink} />
+          </span>
+        </button>
+        <button
+          type="button"
+          className="chapter-arrows__button chapter-arrows__button--forward"
+          onClick={isLast ? onBackToCover : () => mobile.onStep(1)}
+          aria-label={isLast ? t('common.backToCover') : t('common.nextPage')}
+        >
+          <span className="chapter-arrows__icon" style={{ borderColor: ink }}>
+            <PencilArrow pointing="forward" isRtl={isRtl} color={ink} />
+          </span>
+          {isLast && <span className="chapter-arrows__label">{t('common.backToCover')}</span>}
+        </button>
+      </nav>
+    );
+  }
+
   const prev = previousChapter(chapter);
   const next = nextChapter(chapter);
 
@@ -58,8 +99,8 @@ export function ChapterArrows({ lang, chapter, onBackToCover }: ChapterArrowsPro
           onClick={onBackToCover}
           aria-label={t('common.backToCover')}
         >
-          <span className="chapter-arrows__icon" style={{ borderColor: ACCENTS[chapter.accent].ink }}>
-            <PencilArrow pointing="forward" isRtl={isRtl} color={ACCENTS[chapter.accent].ink} />
+          <span className="chapter-arrows__icon" style={{ borderColor: ink }}>
+            <PencilArrow pointing="forward" isRtl={isRtl} color={ink} />
           </span>
           <span className="chapter-arrows__label">{t('common.backToCover')}</span>
         </button>

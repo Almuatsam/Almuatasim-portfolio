@@ -56,7 +56,7 @@ export function PaintingContext({ lang, chapter }: ChapterPanelProps) {
       {photoCopy && painting.contextPhotoSrc && (
         <div className="artworks__photo">
           <button type="button" className="artworks__photo-button" onClick={() => viewer.open(0)}>
-            <img src={painting.contextPhotoSrc} alt={photoCopy.alt} className="artworks__photo-img" />
+            <img loading="lazy" decoding="async" src={painting.contextPhotoSrc} alt={photoCopy.alt} className="artworks__photo-img" />
           </button>
           {photoCopy.caption && <span className="artworks__photo-caption">{photoCopy.caption}</span>}
         </div>

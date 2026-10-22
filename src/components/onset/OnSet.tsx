@@ -54,7 +54,7 @@ export function OnSetWork({ lang }: ChapterPanelProps) {
           return (
             <Link key={id} to={chapterPath(lang, id as ChapterId)} className="onset__index-card reveal-fade">
               {thumb ? (
-                <img src={thumb.src} alt="" className="onset__index-card-img" />
+                <img loading="lazy" decoding="async" src={thumb.src} alt="" className="onset__index-card-img" />
               ) : (
                 <span className="onset__index-card-plain" aria-hidden="true">
                   3

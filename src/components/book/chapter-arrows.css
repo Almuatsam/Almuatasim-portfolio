@@ -15,6 +15,7 @@
 }
 
 button.chapter-arrows__button {
+  -webkit-tap-highlight-color: transparent;
   background: transparent;
   border: none;
   font: inherit;
@@ -57,29 +58,39 @@ button.chapter-arrows__button {
   line-height: 1.1;
 }
 
-@media (max-width: 900px) {
-  .chapter-arrows__button {
-    position: fixed;
-    inset-block-start: auto;
-    inset-block-end: var(--space-6);
-    transform: none;
-    background: var(--color-paper);
-    box-shadow: 0 4px 12px rgba(22, 20, 43, 0.2);
-  }
+/* Phones: two round buttons in a row above the tab bar, one page per tap
+   (the context page, then the work page, then the next chapter). */
+.chapter-arrows--mobile {
+  position: fixed;
+  z-index: 30;
+  inset-inline: 0;
+  inset-block-end: var(--m-tabs);
+  height: var(--m-arrows);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--space-2);
+  pointer-events: none;
+}
 
-  .chapter-arrows__button:hover {
-    transform: none;
-  }
+.chapter-arrows--mobile .chapter-arrows__button {
+  position: static;
+  inset: auto;
+  transform: none;
+  flex-direction: row;
+  width: auto;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  gap: var(--space-1);
+  pointer-events: auto;
+}
 
-  .chapter-arrows__button--back {
-    inset-inline-start: var(--space-2);
-  }
+.chapter-arrows--mobile .chapter-arrows__button:hover {
+  transform: none;
+}
 
-  .chapter-arrows__button--forward {
-    inset-inline-end: var(--space-2);
-  }
-
-  .chapter-arrows__label {
-    font-size: var(--fs-label);
-  }
+.chapter-arrows--mobile .chapter-arrows__label {
+  font-size: var(--fs-label-floor);
+  color: var(--color-ink);
 }

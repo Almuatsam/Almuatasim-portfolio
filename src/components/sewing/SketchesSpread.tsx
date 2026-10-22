@@ -26,7 +26,7 @@ export function SketchesContext({ lang }: ChapterPanelProps) {
       <p className="sewing__caption reveal-fade">{t('sewing.sketches.caption')}</p>
       <div className="sewing__sketch-divider" aria-hidden="true" />
       <button type="button" className="sewing__sketch-button reveal-fade" onClick={() => viewer.open(0)}>
-        <img src={SKETCH_IMAGES.wrapTop} alt={t('sewing.sketches.wrapTopAlt')} className="sewing__sketch-img" />
+        <img loading="lazy" decoding="async" src={SKETCH_IMAGES.wrapTop} alt={t('sewing.sketches.wrapTopAlt')} className="sewing__sketch-img" />
       </button>
       <FullscreenViewer
         images={images}
@@ -48,7 +48,7 @@ export function SketchesWork({ lang }: ChapterPanelProps) {
   return (
     <div className="sewing__work">
       <button type="button" className="sewing__sketch-button reveal-fade" onClick={() => viewer.open(0)}>
-        <img src={SKETCH_IMAGES.coat} alt={t('sewing.sketches.coatAlt')} className="sewing__sketch-img" />
+        <img loading="lazy" decoding="async" src={SKETCH_IMAGES.coat} alt={t('sewing.sketches.coatAlt')} className="sewing__sketch-img" />
       </button>
       <FullscreenViewer
         images={images}

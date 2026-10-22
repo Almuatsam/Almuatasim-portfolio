@@ -154,9 +154,10 @@ export function FollowContext({ lang }: ChapterPanelProps) {
           tighten(false);
         },
         onDrag: () => {
-          const event = drag.pointerEvent as PointerEvent;
+          // pointerX works for mouse, pen and touch alike; a touch drag's
+          // event has no clientX of its own.
           const box = svg.getBoundingClientRect();
-          const x = ((event.clientX - box.left) / box.width) * VIEW_W;
+          const x = ((drag.pointerX - window.scrollX - box.left) / box.width) * VIEW_W;
           const progress = Math.min(Math.max((x - startX) / (endX - startX), 0), 1);
           render(progress);
           setFollowStage(progress * LAST_STAGE, STAGE_COUNT);
@@ -353,7 +354,7 @@ export function FollowWork({ lang }: ChapterPanelProps) {
       <figure className="follow__figure reveal-fade">
         <div className="follow__frame" ref={frameRef}>
           {FOLLOW_STAGES.map((item, index) => (
-            <img
+            <img loading="lazy" decoding="async"
               key={item.id}
               src={item.src}
               alt={t(`onset.follow.stages.${item.id}.alt`)}

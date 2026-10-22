@@ -1,0 +1,65 @@
+/* Mobile Pass.md: every tap target is at least 44x44px, or has an invisible
+   hit area that large. Text links and small controls keep their look; an
+   invisible ::after grows the area that answers the tap. Only touch
+   screens get it (a mouse does not need the extra reach). */
+@media (pointer: coarse) {
+  .flip-page :is(
+      .project-spread__back,
+      .artworks__back,
+      .sewing__back,
+      .onset__back,
+      .onset__follow-link,
+      .sewing__estudioa-link,
+      .sewing__see-on-set,
+      .process__link,
+      .tracing-lift__button,
+      .fuzzy-demo__submit,
+      .merge-screens__button,
+      .bilingual-crossfade__toggle,
+      .follow__stage-label,
+      .follow__step,
+      .live-tag__link,
+      .press__link,
+      .skills__chip,
+      .contact__link
+    ) {
+    position: relative;
+  }
+
+  .flip-page :is(
+      .project-spread__back,
+      .artworks__back,
+      .sewing__back,
+      .onset__back,
+      .onset__follow-link,
+      .sewing__estudioa-link,
+      .sewing__see-on-set,
+      .process__link,
+      .tracing-lift__button,
+      .fuzzy-demo__submit,
+      .merge-screens__button,
+      .bilingual-crossfade__toggle,
+      .follow__stage-label,
+      .follow__step,
+      .live-tag__link,
+      .press__link,
+      .skills__chip,
+      .contact__link,
+      .show__chip
+    )::after {
+    content: '';
+    position: absolute;
+    inset-inline: -8px;
+    inset-block: 50%;
+    min-height: 44px;
+    transform: translateY(-50%);
+  }
+
+  .contents__link {
+    min-height: 44px;
+  }
+
+  .contact__link {
+    padding-block: var(--space-1);
+  }
+}

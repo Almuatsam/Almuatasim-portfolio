@@ -47,7 +47,7 @@ export function ScreensWork({ lang }: ChapterPanelProps) {
 
           return (
             <Link key={id} to={chapterPath(lang, id)} className="screens__card reveal-fade" style={style}>
-              <img src={project.images[0].src} alt={t(`chapters.${id}.title`)} className="screens__card-img" />
+              <img loading="lazy" decoding="async" src={project.images[0].src} alt={t(`chapters.${id}.title`)} className="screens__card-img" />
               <span className="screens__card-title">{t(`chapters.${id}.title`)}</span>
             </Link>
           );

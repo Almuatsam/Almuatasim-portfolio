@@ -352,3 +352,9 @@
     transition: none;
   }
 }
+
+@media (max-width: 899px) {
+  .follow__stitch {
+    margin-block-start: var(--space-4);
+  }
+}

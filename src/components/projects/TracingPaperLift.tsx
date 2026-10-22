@@ -27,11 +27,12 @@ export function TracingPaperLift({ t, screenshotSrc, screenshotSrcSet, screensho
   return (
     <div className="tracing-lift">
       <div className="tracing-lift__stage">
-        <img src={screenshotSrc} srcSet={screenshotSrcSet} alt={screenshotAlt} className="tracing-lift__screenshot" />
+        <img loading="lazy" decoding="async" src={screenshotSrc} srcSet={screenshotSrcSet} alt={screenshotAlt} className="tracing-lift__screenshot" />
 
         {!prefersReducedMotion && (
           <motion.div
             className="tracing-lift__paper"
+            data-no-swipe=""
             drag="x"
             dragConstraints={{ left: dragSign === -1 ? -320 : 0, right: dragSign === -1 ? 0 : 320 }}
             dragElastic={0.05}
@@ -42,7 +43,7 @@ export function TracingPaperLift({ t, screenshotSrc, screenshotSrcSet, screensho
             }}
             aria-hidden="true"
           >
-            <img
+            <img loading="lazy" decoding="async"
               src="/projects/estudioa/estudioa-browse-wireframe.svg"
               alt=""
               className="tracing-lift__wireframe reveal-fade"

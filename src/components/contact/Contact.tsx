@@ -161,8 +161,8 @@ export function ContactWork({ lang }: ChapterPanelProps) {
               className="reveal-fade"
             />
           </svg>
-          <img
-            src="/stickers/sticker-1.png"
+          <img loading="lazy" decoding="async"
+            src="/stickers/sticker-1-480.webp"
             alt={(t("cover.stickers", { returnObjects: true }) as string[])[0]}
             className="contact__stamp"
           />

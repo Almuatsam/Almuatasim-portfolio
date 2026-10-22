@@ -69,7 +69,7 @@ export function TurnTheCanvas({
             transition={{ duration: prefersReducedMotion ? 0.001 : 0.7, ease: [0.65, 0, 0.35, 1] }}
           >
             <div className="turn-canvas__face turn-canvas__face--front">
-              <img src={src} alt={alt} className="turn-canvas__img" />
+              <img loading="lazy" decoding="async" src={src} alt={alt} className="turn-canvas__img" />
               {threadCallout && (
                 <span className="turn-canvas__thread-dot" style={dotStyle} role="note" aria-label={threadCallout}>
                   <span className="turn-canvas__thread-label">{threadCallout}</span>

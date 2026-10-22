@@ -52,7 +52,7 @@ export function ArtWork({ lang }: ChapterPanelProps) {
             to={chapterPath(lang, CHAPTER_FOR_PAINTING[painting.id])}
             className="artworks__index-card reveal-fade"
           >
-            <img src={painting.src} alt={t(`art.paintings.${painting.id}.title`)} className="artworks__index-card-img" />
+            <img loading="lazy" decoding="async" src={painting.src} alt={t(`art.paintings.${painting.id}.title`)} className="artworks__index-card-img" />
             <span className="artworks__index-card-title">{t(`art.paintings.${painting.id}.title`)}</span>
             <span className="artworks__index-card-meta">
               {t(`art.paintings.${painting.id}.medium`)}, {t(`art.paintings.${painting.id}.year`)}
@@ -60,7 +60,7 @@ export function ArtWork({ lang }: ChapterPanelProps) {
           </Link>
         ))}
         <Link to={chapterPath(lang, 'guidance')} className="artworks__index-card reveal-fade">
-          <img src={CLOSING_IMAGE_SRC} alt={t('art.closingAlt')} className="artworks__index-card-img" />
+          <img loading="lazy" decoding="async" src={CLOSING_IMAGE_SRC} alt={t('art.closingAlt')} className="artworks__index-card-img" />
           <span className="artworks__index-card-title">{t('art.closingCaption')}</span>
         </Link>
       </div>

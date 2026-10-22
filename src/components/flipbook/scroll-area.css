@@ -104,3 +104,10 @@
     animation: none;
   }
 }
+
+/* Touch screens scroll natively; the custom thumb stays hidden. */
+@media (hover: none), (pointer: coarse) {
+  .scroll-area .os-scrollbar {
+    display: none;
+  }
+}

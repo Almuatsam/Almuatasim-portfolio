@@ -73,9 +73,10 @@ export function MergeTheScreens({ t, cards, unifiedScreenshotSrc, unifiedScreens
                   if (el) tryMerge(id, el as HTMLDivElement);
                 }}
                 id={`merge-card-${id}`}
+                data-no-swipe=""
                 style={{ '--offset': index } as CSSProperties}
               >
-                <img src={cards[id].src} alt={cards[id].alt} className="merge-screens__card-img" draggable={false} />
+                <img loading="lazy" decoding="async" src={cards[id].src} alt={cards[id].alt} className="merge-screens__card-img" draggable={false} />
                 <span className="merge-screens__card-label font-mono">{t(`projects.apos.merge.${id}`)}</span>
               </motion.div>
             );

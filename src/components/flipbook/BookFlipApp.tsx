@@ -7,11 +7,15 @@ import { IndexTabs } from '../book/IndexTabs';
 import { ChapterArrows } from '../book/ChapterArrows';
 import { FlipPage } from './FlipPage';
 import { Cover2D } from '../cover/Cover2D';
+import { Link } from 'react-router-dom';
+import { useBookBox } from '../../hooks/useBookBox';
+import { useSwipeTurn } from '../../hooks/useSwipeTurn';
 import { CoverCanvasLoader } from '../book3d/CoverCanvasLoader';
 import { preloadCoverScene } from '../../lib/preloadCoverScene';
 import { useCurrentChapter } from '../../routes/useCurrentChapter';
 import { contextComponentFor, workComponentFor } from '../../routes/chapterContent';
 import { CHAPTERS, chapterPath, type ChapterId } from '../../content/chapters';
+import { TOTAL_PAGES } from '../../content/navigation';
 import { pageIndexForChapter, chapterForPageIndex, contextFolio, workFolio } from '../../content/navigation';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useWebGLSupport } from '../../hooks/useWebGLSupport';
@@ -26,6 +30,8 @@ const CONTENT_CHAPTERS = CHAPTERS.filter((c) => c.id !== 'cover');
 
 interface PageFlipLike {
   flip: (page: number) => void;
+  flipNext: () => void;
+  flipPrev: () => void;
   turnToPage: (page: number) => void;
   getCurrentPageIndex: () => number;
 }
@@ -47,6 +53,14 @@ export function BookFlipApp() {
   const hasWebGL = useWebGLSupport();
   const isWideEnough = useMediaQuery('(min-width: 900px)');
   const use3D = hasWebGL && isWideEnough && !prefersReducedMotion;
+  // Below 900px the book is a single page: the context page, then the
+  // work page, each its own StPageFlip page (Mobile Pass.md).
+  const isMobile = !isWideEnough;
+  const [bookElement, setBookElement] = useState<HTMLDivElement | null>(null);
+  const box = useBookBox(isMobile, bookElement);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const currentPageRef = useRef<number | null>(null);
+  const [pageIndex, setPageIndex] = useState(() => pageIndexForChapter(chapter.id));
 
   const flipBookRef = useRef<FlipBookRef | null>(null);
   const lastSyncedChapterId = useRef<string>(chapter.id);
@@ -55,6 +69,7 @@ export function BookFlipApp() {
   // intermediate spread through onFlip; those must keep turning toward
   // this target instead of rewriting the URL to wherever they stopped.
   const routeTargetId = useRef<ChapterId | null>(null);
+  const routeTargetPage = useRef<number | null>(null);
   const [opening3D, setOpening3D] = useState(false);
   const [fading3D, setFading3D] = useState(false);
   // Back to cover: the closing run mounts its own canvas (closeRun is its
@@ -73,13 +88,33 @@ export function BookFlipApp() {
   }, [chapter.id, use3D]);
   useChapterKeyboardNav(lang, chapter);
 
+  const flipTo = useCallback((page: number, isInstant = false) => {
+    const pageFlip = flipBookRef.current?.pageFlip();
+    if (!pageFlip) return;
+    if (isInstant) pageFlip.turnToPage(page);
+    else pageFlip.flip(page);
+  }, []);
+
   const handleOpen = useCallback(() => {
+    if (isMobile) {
+      // A simple fade, no 3D: the cover fades out over the first spread.
+      flipBookRef.current?.pageFlip().turnToPage(pageIndexForChapter('contents'));
+      currentPageRef.current = pageIndexForChapter('contents');
+      setPageIndex(pageIndexForChapter('contents'));
+      lastSyncedChapterId.current = 'contents';
+      setFading3D(true);
+      window.setTimeout(() => {
+        navigate(chapterPath(lang, 'contents'), { replace: true });
+        setFading3D(false);
+      }, 260);
+      return;
+    }
     if (!use3D) {
       navigate(chapterPath(lang, 'contents'));
       return;
     }
     setOpening3D(true);
-  }, [use3D, navigate, lang]);
+  }, [isMobile, use3D, navigate, lang]);
 
   const handleBackToCover = useCallback(() => {
     if (!use3D) {
@@ -114,6 +149,8 @@ export function BookFlipApp() {
 
   const handleFlip = useCallback(
     (e: { data: number }) => {
+      currentPageRef.current = e.data;
+      setPageIndex(e.data);
       const target = chapterForPageIndex(e.data);
       // Page Scrolling.md section 1 — the reader always arrives at a
       // chapter scrolled to the top, however they got there.
@@ -121,17 +158,20 @@ export function BookFlipApp() {
       resetScrollArea(`${target.id}-work`);
       const routeTarget = routeTargetId.current;
       if (routeTarget) {
-        if (target.id !== routeTarget) {
-          flipBookRef.current?.pageFlip().flip(pageIndexForChapter(routeTarget));
+        const targetPage = routeTargetPage.current ?? pageIndexForChapter(routeTarget);
+        const hasArrived = isMobile ? e.data === targetPage : target.id === routeTarget;
+        if (!hasArrived) {
+          flipBookRef.current?.pageFlip().flip(targetPage);
           return;
         }
         routeTargetId.current = null;
+        routeTargetPage.current = null;
       }
       if (target.id === lastSyncedChapterId.current) return;
       lastSyncedChapterId.current = target.id;
       navigate(chapterPath(lang, target.id), { replace: true });
     },
-    [navigate, lang],
+    [navigate, lang, isMobile],
   );
 
   useEffect(() => {
@@ -142,13 +182,46 @@ export function BookFlipApp() {
     }
     lastSyncedChapterId.current = chapter.id;
     const pageFlip = flipBookRef.current?.pageFlip();
+    const targetPage = pageIndexForChapter(chapter.id);
     // Only wait for onFlip if a turn will actually happen.
-    const isAlreadyThere = pageFlip ? chapterForPageIndex(pageFlip.getCurrentPageIndex()).id === chapter.id : true;
+    const currentIndex = pageFlip ? pageFlip.getCurrentPageIndex() : targetPage;
+    const isAlreadyThere = isMobile ? currentIndex === targetPage : chapterForPageIndex(currentIndex).id === chapter.id;
     routeTargetId.current = isAlreadyThere ? null : chapter.id;
-    pageFlip?.flip(pageIndexForChapter(chapter.id));
+    routeTargetPage.current = isAlreadyThere ? null : targetPage;
+    if (isMobile && Math.abs(currentIndex - targetPage) > 2) {
+      // A tab jump across the book: turn straight there, not page by page.
+      routeTargetId.current = null;
+      routeTargetPage.current = null;
+      flipTo(targetPage, true);
+      currentPageRef.current = targetPage;
+      setPageIndex(targetPage);
+    } else {
+      pageFlip?.flip(targetPage);
+    }
     resetScrollArea(`${chapter.id}-context`);
     resetScrollArea(`${chapter.id}-work`);
-  }, [chapter.id]);
+  }, [chapter.id, isMobile, flipTo]);
+
+  // Mobile: one step is one page. The chapter changes (and the address
+  // with it) when the step crosses into another chapter's pages.
+  const stepMobile = useCallback(
+    (direction: 1 | -1) => {
+      const pageFlip = flipBookRef.current?.pageFlip();
+      if (!pageFlip) return;
+      const current = pageFlip.getCurrentPageIndex();
+      const next = current + direction;
+      if (next < 1) {
+        navigate(chapterPath(lang, 'cover'));
+        return;
+      }
+      if (next > TOTAL_PAGES) return;
+      if (direction === 1) pageFlip.flipNext();
+      else pageFlip.flipPrev();
+    },
+    [navigate, lang],
+  );
+
+  useSwipeTurn(stageRef, isMobile && !isCover, isRtl, stepMobile);
 
   const pages = useMemo(() => {
     const items = [];
@@ -158,7 +231,7 @@ export function BookFlipApp() {
             (see .flipbook-cover3d below) — rendering the 2D cover here
             too would just show through the canvas's transparent areas
             at StPageFlip's own (misaligned) single-page position. */}
-        {!use3D && <Cover2D onOpen={handleOpen} />}
+        {!use3D && !isMobile && <Cover2D onOpen={handleOpen} />}
       </div>,
     );
     const scrollHint = t('common.scrollHint');
@@ -200,52 +273,62 @@ export function BookFlipApp() {
     items.push(<div className="flip-page flip-page--back-cover" key="back-cover" />);
     return items;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang, isRtl, t, use3D, handleOpen]);
+  }, [lang, isRtl, t, use3D, isMobile, handleOpen]);
 
-  const hide3DBookBehindCover = (isCover && use3D && !fading3D) || (isClosing3D && isSpreadHidden);
+  const hide3DBookBehindCover = (isCover && (use3D || isMobile) && !fading3D) || (isClosing3D && isSpreadHidden);
+  // Mobile has no 3D scene and a book box of its own shape, so it waits
+  // for the first measurement before building the flipbook.
+  const isBoxReady = !isMobile || box !== null;
+  const pageWidth = isMobile && box ? box.width : 580;
+  const pageHeight = isMobile && box ? box.height : 760;
 
   return (
-    <Book accent={chapter.accent}>
-      <div className={`flipbook-stage${isRtl ? ' flipbook-stage--rtl' : ''}`}>
+    <Book accent={chapter.accent} ref={setBookElement}>
+      <div ref={stageRef} className={`flipbook-stage${isRtl ? ' flipbook-stage--rtl' : ''}`}>
         <div className={`flipbook-stage__mirror${hide3DBookBehindCover ? ' flipbook-stage__mirror--hidden' : ''}`}>
-          <HTMLFlipBook
-            key={lang}
-            ref={flipBookRef}
-            className=""
-            style={{}}
-            // StPageFlip's width/height are the size of ONE PAGE, not the
-            // spread (see its README) — 1160x760 here made every page
-            // 1160 wide, so two side by side rendered as a 2320x760
-            // strip. The spread is two pages, so the page itself is
-            // half-width: 580x760.
-            width={580}
-            height={760}
-            size="stretch"
-            minWidth={290}
-            maxWidth={580}
-            minHeight={380}
-            maxHeight={760}
-            startPage={pageIndexForChapter(chapter.id)}
-            drawShadow
-            flippingTime={1000}
-            usePortrait
-            startZIndex={0}
-            autoSize
-            maxShadowOpacity={0.35}
-            showCover
-            // Page Scrolling.md section 3 — let touchmove distinguish a
-            // vertical scroll from a horizontal page-turn swipe instead
-            // of always calling preventDefault on touch.
-            mobileScrollSupport
-            swipeDistance={30}
-            clickEventForward
-            useMouseEvents={!isCover}
-            showPageCorners={!isCover}
-            disableFlipByClick={isCover}
-            onFlip={handleFlip}
-          >
-            {pages}
-          </HTMLFlipBook>
+          {isBoxReady && (
+            <HTMLFlipBook
+              key={`${lang}-${isMobile ? `${pageWidth}x${pageHeight}` : 'spread'}`}
+              ref={flipBookRef}
+              className=""
+              style={{}}
+              // StPageFlip's width/height are the size of ONE PAGE, not the
+              // spread (see its README). On desktop the spread is two pages,
+              // so the page is half-width: 580x760. On mobile the page is the
+              // measured book box itself, so "stretch" fills it exactly.
+              width={pageWidth}
+              height={pageHeight}
+              size="stretch"
+              minWidth={isMobile ? 200 : 290}
+              maxWidth={isMobile ? 2000 : 580}
+              minHeight={isMobile ? 200 : 380}
+              maxHeight={isMobile ? 3000 : 760}
+              startPage={currentPageRef.current ?? pageIndexForChapter(chapter.id)}
+              drawShadow
+              flippingTime={isMobile ? 600 : 1000}
+              usePortrait
+              startZIndex={0}
+              autoSize
+              maxShadowOpacity={0.35}
+              showCover
+              // Page Scrolling.md section 3 - let touchmove distinguish a
+              // vertical scroll from a horizontal page-turn swipe instead
+              // of always calling preventDefault on touch.
+              mobileScrollSupport
+              swipeDistance={30}
+              clickEventForward
+              // On mobile the turns come from our own swipe handler (it
+              // mirrors the direction in Arabic and never fights a
+              // vertical scroll or a drag), so the engine's own pointer
+              // handling is off.
+              useMouseEvents={!isCover && !isMobile}
+              showPageCorners={!isCover && !isMobile}
+              disableFlipByClick={isCover}
+              onFlip={handleFlip}
+            >
+              {pages}
+            </HTMLFlipBook>
+          )}
         </div>
 
         {(isCover || isClosing3D) && use3D && (
@@ -270,13 +353,30 @@ export function BookFlipApp() {
           </button>
         )}
 
-        {isCover && <p className="flipbook-stage__hint">{t('cover.openHint')}</p>}
+        {isCover && isMobile && (
+          <div className={`flipbook-cover2d${fading3D ? ' flipbook-cover2d--fading' : ''}`}>
+            <div className="flipbook-cover2d__book">
+              <Cover2D onOpen={handleOpen} />
+            </div>
+            <p className="flipbook-cover2d__hint">{t('cover.openHint')}</p>
+            <Link to={`/${lang}/plain`} className="flipbook-cover2d__plain">
+              {t('common.plainVersion.label')}
+            </Link>
+          </div>
+        )}
+
+        {isCover && !isMobile && <p className="flipbook-stage__hint">{t('cover.openHint')}</p>}
       </div>
 
       {!isCover && !isClosing3D && (
         <>
-          <IndexTabs lang={lang} chapter={chapter} />
-          <ChapterArrows lang={lang} chapter={chapter} onBackToCover={handleBackToCover} />
+          <IndexTabs lang={lang} chapter={chapter} isMobile={isMobile} />
+          <ChapterArrows
+            lang={lang}
+            chapter={chapter}
+            onBackToCover={handleBackToCover}
+            mobile={isMobile ? { pageIndex, lastIndex: TOTAL_PAGES, onStep: stepMobile } : undefined}
+          />
         </>
       )}
     </Book>

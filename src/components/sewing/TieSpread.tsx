@@ -21,7 +21,7 @@ export function TieContext({ lang }: ChapterPanelProps) {
       <h1 className="font-display sewing__entry-title reveal-fade-slow">{t('chapters.tie.title')}</h1>
       <p className="sewing__caption reveal-fade">{t('sewing.tie.caption')}</p>
       <p className="sewing__photo-label reveal-fade">{t('sewing.tie.processLabel')}</p>
-      <img
+      <img loading="lazy" decoding="async"
         src={TIE_IMAGES.process}
         alt={t('sewing.tie.processAlt')}
         className="sewing__tie-img sewing__tie-img--process reveal-fade"
@@ -35,7 +35,7 @@ export function TieWork({ lang }: ChapterPanelProps) {
 
   return (
     <div className="sewing__work">
-      <img
+      <img loading="lazy" decoding="async"
         src={TIE_IMAGES.final}
         alt={t('sewing.tie.finalAlt')}
         className="sewing__tie-img sewing__tie-img--final reveal-fade"

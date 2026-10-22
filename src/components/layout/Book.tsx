@@ -1,10 +1,11 @@
-import type { CSSProperties, ReactNode } from 'react';
+import type { CSSProperties, ReactNode, Ref } from 'react';
 import { ACCENTS, type AccentKey } from '../../content/accents';
 import './book.css';
 
 interface BookProps {
   accent: AccentKey;
   children: ReactNode;
+  ref?: Ref<HTMLDivElement>;
 }
 
 interface AccentStyle extends CSSProperties {
@@ -15,7 +16,7 @@ interface AccentStyle extends CSSProperties {
   '--mark-bg': string;
 }
 
-export function Book({ accent, children }: BookProps) {
+export function Book({ accent, children, ref }: BookProps) {
   const { accent: accentColor, ink, tint, text } = ACCENTS[accent];
   const style: AccentStyle = {
     '--accent': accentColor,
@@ -27,7 +28,7 @@ export function Book({ accent, children }: BookProps) {
   };
 
   return (
-    <div className="book" style={style}>
+    <div className="book" style={style} ref={ref}>
       {children}
     </div>
   );

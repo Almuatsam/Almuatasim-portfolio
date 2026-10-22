@@ -72,7 +72,7 @@ export function AmouageWork({ lang }: ChapterPanelProps) {
       <div className="amouage__notes">
         {PINNED_NOTES.map((note) => (
           <figure key={note.id} className="amouage__note reveal-fade">
-            <img
+            <img loading="lazy" decoding="async"
               src={note.src}
               alt={t(`onset.amouage.notes.${note.id}.alt`)}
               className="amouage__note-img"

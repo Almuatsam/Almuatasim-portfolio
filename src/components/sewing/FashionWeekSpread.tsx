@@ -70,7 +70,7 @@ export function FashionWeekWork({ lang }: ChapterPanelProps) {
         {photos.map(({ key, image }, index) => (
           <figure key={key} className="fashion-week__figure reveal-fade">
             <button type="button" className="fashion-week__button" onClick={() => viewer.open(index)}>
-              <img
+              <img loading="lazy" decoding="async"
                 src={image.src}
                 alt={t(`sewing.fashionWeek.${key}.alt`)}
                 width={image.width}

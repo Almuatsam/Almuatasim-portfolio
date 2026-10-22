@@ -147,3 +147,9 @@
 .press__link .live-tag__label {
   font-size: max(15px, var(--fs-small));
 }
+
+@media (max-width: 899px) {
+  .press__note {
+    margin-block-start: var(--space-4);
+  }
+}

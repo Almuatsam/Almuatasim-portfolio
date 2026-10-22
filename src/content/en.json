@@ -26,6 +26,9 @@
     "arrowForward": "On to {{chapter}}",
     "openBook": "Open the sketchbook",
     "backToCover": "Back to cover",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "pageArrows": "Pages",
     "comingSoon": {
       "title": "Still being drawn",
       "body": "This page of the sketchbook isn't inked in yet. It's coming in the next phase.",

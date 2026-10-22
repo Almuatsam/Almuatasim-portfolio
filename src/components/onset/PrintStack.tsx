@@ -116,7 +116,7 @@ export function PrintStack({
             className="print-stack__print"
             aria-hidden={index !== topIndex}
           >
-            <img src={print.src} alt={print.alt} className="print-stack__img" />
+            <img loading="lazy" decoding="async" src={print.src} alt={print.alt} className="print-stack__img" />
           </div>
         ))}
         <button

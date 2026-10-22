@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import { useEffect, useRef, type CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ACCENTS } from '../../content/accents';
@@ -10,6 +10,8 @@ import './index-tabs.css';
 interface IndexTabsProps {
   lang: SupportedLang;
   chapter: ChapterDef;
+  /** On phones the tabs are a scrollable bar along the bottom. */
+  isMobile?: boolean;
 }
 
 interface TabStyle extends CSSProperties {
@@ -17,11 +19,22 @@ interface TabStyle extends CSSProperties {
   '--tab-ink': string;
 }
 
-export function IndexTabs({ lang, chapter }: IndexTabsProps) {
+export function IndexTabs({ lang, chapter, isMobile = false }: IndexTabsProps) {
   const { t } = useTranslation();
+  const barRef = useRef<HTMLDivElement>(null);
+
+  // Keep the active chip in view as the reader moves through the book.
+  useEffect(() => {
+    if (!isMobile) return;
+    const bar = barRef.current;
+    const active = bar?.querySelector<HTMLElement>('.index-tabs__tab--active');
+    if (!bar || !active) return;
+    const target = active.offsetLeft - (bar.clientWidth - active.offsetWidth) / 2;
+    bar.scrollTo({ left: target, behavior: 'smooth' });
+  }, [isMobile, chapter.id]);
 
   return (
-    <div className="index-tabs">
+    <div className="index-tabs" ref={barRef}>
       {allTabs().map((tab) => {
         const active = isTabActive(tab, chapter.id);
         const accentKey = tabAccent(tab, chapter);

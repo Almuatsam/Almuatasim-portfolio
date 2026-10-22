@@ -36,7 +36,7 @@ export function QalbWork({ lang }: ChapterPanelProps) {
   return (
     <div className="onset__work">
       <figure className="onset__hero reveal-fade">
-        <img
+        <img loading="lazy" decoding="async"
           src={QALB_HERO.src}
           alt={t('onset.qalb.heroAlt')}
           className="onset__hero-img"

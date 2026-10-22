@@ -36,8 +36,17 @@
   font-weight: 600;
 }
 
-@media (max-width: 480px) {
-  .utility-bar__button--plain span {
-    display: none;
+@media (max-width: 899px) {
+  .utility-bar {
+    inset-block-start: calc(var(--space-1) + env(safe-area-inset-top));
+    inset-inline-end: var(--space-2);
+    gap: var(--space-1);
+  }
+
+  .utility-bar__button {
+    min-height: 44px;
+    min-width: 44px;
+    padding-inline: var(--space-2);
+    font-size: var(--fs-label-floor);
   }
 }

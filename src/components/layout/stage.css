@@ -24,8 +24,27 @@
   overflow-x: hidden;
 }
 
-@media (max-width: 480px) {
+/* Phones (Mobile Pass.md): the book is one page that fills the screen
+   between the top bar and the arrows and tab bar. dvh, never vh, and the
+   safe-area insets are respected. A static paper background with a soft
+   vignette; no parallax or shaders. */
+@media (max-width: 899px) {
+  :root {
+    --m-top: calc(56px + env(safe-area-inset-top));
+    --m-arrows: 56px;
+    --m-tabs: calc(60px + env(safe-area-inset-bottom));
+  }
+
   .stage {
-    padding-inline: var(--space-2);
+    height: 100dvh;
+    min-height: 0;
+    align-items: stretch;
+    padding-block: var(--m-top) calc(var(--m-tabs) + var(--m-arrows));
+    padding-inline: var(--space-1);
+    background-image: radial-gradient(ellipse at center, transparent 55%, rgba(22, 20, 43, 0.07) 100%),
+      radial-gradient(rgba(22, 20, 43, 0.05) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      16px 16px;
   }
 }

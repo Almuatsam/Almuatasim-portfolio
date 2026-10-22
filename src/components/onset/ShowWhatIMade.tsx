@@ -63,7 +63,7 @@ export function ShowMadeContext({ lang }: ChapterPanelProps) {
             aria-pressed={index === photoIndex}
             onClick={() => setShowMade({ photoIndex: index })}
           >
-            <img src={photo.src} alt="" className="show__pick-img" />
+            <img loading="lazy" decoding="async" src={photo.src} alt="" className="show__pick-img" />
             <span className="show__pick-name">{t(`onset.showMade.photos.${photo.id}.name`)}</span>
           </button>
         ))}
@@ -91,7 +91,7 @@ export function ShowMadeWork({ lang }: ChapterPanelProps) {
     <div className="show__work">
       <figure className="show__figure reveal-fade">
         <div ref={frameRef} className={`show__frame${isOn ? ' show__frame--on' : ''}`} style={frameStyle}>
-          <img src={photo.src} alt={t(`onset.showMade.photos.${photo.id}.alt`)} className="show__photo" />
+          <img loading="lazy" decoding="async" src={photo.src} alt={t(`onset.showMade.photos.${photo.id}.alt`)} className="show__photo" />
           <div className="show__dim" aria-hidden="true" />
           <svg className="show__svg" viewBox={`0 0 100 ${heightUnits}`} aria-hidden="true">
             {photo.outlines.map((outline) => (

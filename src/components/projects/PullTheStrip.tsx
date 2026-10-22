@@ -66,7 +66,7 @@ export function PullTheStrip({ t, stripSrc, stripAlt }: PullTheStripProps) {
           animate={{ y: 0, opacity: 1, filter: 'sepia(0) saturate(1)' }}
           transition={{ duration: prefersReducedMotion ? 0.2 : 1.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <img src={stripSrc} alt={stripAlt} className="pull-strip__img" />
+          <img loading="lazy" decoding="async" src={stripSrc} alt={stripAlt} className="pull-strip__img" />
         </motion.figure>
       )}
 

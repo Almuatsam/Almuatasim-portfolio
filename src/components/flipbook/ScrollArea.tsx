@@ -159,7 +159,9 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
 
     reveal.run();
 
-    if (!prefersReducedMotion) {
+    // Native momentum scrolling is better on touch screens (Mobile Pass.md).
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    if (!prefersReducedMotion && !isTouch) {
       const lenis = new Lenis({
         wrapper: viewport,
         content,

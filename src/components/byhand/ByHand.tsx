@@ -58,7 +58,7 @@ export function ByHandWork({ lang }: ChapterPanelProps) {
           const style: CSSProperties = { '--card-accent': swatch } as CSSProperties;
           return (
             <Link key={id} to={chapterPath(lang, id)} className="by-hand__card reveal-fade" style={style}>
-              <img src={THUMBNAILS[id] ?? ''} alt={t(`chapters.${id}.title`)} className="by-hand__card-img" />
+              <img loading="lazy" decoding="async" src={THUMBNAILS[id] ?? ''} alt={t(`chapters.${id}.title`)} className="by-hand__card-img" />
               <span className="by-hand__card-label">
                 <span className="by-hand__card-swatch" aria-hidden="true" />
                 <span className="by-hand__card-title">{t(`chapters.${id}.title`)}</span>

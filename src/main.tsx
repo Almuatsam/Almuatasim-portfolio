@@ -5,6 +5,7 @@ import './i18n';
 import './styles/tokens.css';
 import './styles/global.css';
 import './styles/reveal.css';
+import './styles/touch.css';
 import App from './App.tsx';
 
 createRoot(document.getElementById('root')!).render(

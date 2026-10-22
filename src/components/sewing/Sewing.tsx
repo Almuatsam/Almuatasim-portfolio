@@ -48,7 +48,7 @@ export function SewingWork({ lang }: ChapterPanelProps) {
       <div className="sewing__index-cards">
         {SPREADS.map((spread) => (
           <Link key={spread.id} to={chapterPath(lang, spread.id)} className="sewing__index-card reveal-fade">
-            <img src={spread.thumb} alt={t(`chapters.${spread.id}.title`)} className="sewing__index-card-img" />
+            <img loading="lazy" decoding="async" src={spread.thumb} alt={t(`chapters.${spread.id}.title`)} className="sewing__index-card-img" />
             <span className="sewing__index-card-title">{t(`chapters.${spread.id}.title`)}</span>
           </Link>
         ))}

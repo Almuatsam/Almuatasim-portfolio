@@ -30,8 +30,8 @@ export function BilingualCrossfade({ enImage, arImage, altEn, altAr, onOpen }: B
       </button>
 
       <button type="button" className="bilingual-crossfade__stage" onClick={() => onOpen(showAr ? 'ar' : 'en')}>
-        <img src={enImage.src} srcSet={enImage.srcSet} alt={altEn} className="bilingual-crossfade__img" style={{ opacity: showAr ? 0 : 1 }} />
-        <img src={arImage.src} srcSet={arImage.srcSet} alt={altAr} className="bilingual-crossfade__img" style={{ opacity: showAr ? 1 : 0 }} />
+        <img loading="lazy" decoding="async" src={enImage.src} srcSet={enImage.srcSet} alt={altEn} className="bilingual-crossfade__img" style={{ opacity: showAr ? 0 : 1 }} />
+        <img loading="lazy" decoding="async" src={arImage.src} srcSet={arImage.srcSet} alt={altAr} className="bilingual-crossfade__img" style={{ opacity: showAr ? 1 : 0 }} />
       </button>
     </div>
   );
