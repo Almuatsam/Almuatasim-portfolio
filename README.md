@@ -39,7 +39,12 @@ npm run lint       # oxlint
    and `/ar/plain`.
 
 The public address used in canonical links, hreflang, the sitemap and the share
-image is `VITE_SITE_URL` (see `.env`). Change it when the domain is final.
+image comes from the `VITE_SITE_URL` environment variable at build time. A
+production build stops with a message if it is missing. For a local build, copy
+`.env.example` to `.env.local` (or run `VITE_SITE_URL=https://example.com npm run build`);
+on Vercel, set it under Settings, Environment Variables.
+`vercel.json` holds the rewrites (so deep links like `/ar/contact` work), the
+cache rules and the security headers.
 
 ## Folder map
 
