@@ -68,6 +68,9 @@ const PressContext = lazyPanel(() => import('../components/onset/Press').then((m
 const PressWork = lazyPanel(() => import('../components/onset/Press').then((m) => ({ default: m.PressWork })));
 const AmouageContext = lazyPanel(() => import('../components/onset/Amouage').then((m) => ({ default: m.AmouageContext })));
 const AmouageWork = lazyPanel(() => import('../components/onset/Amouage').then((m) => ({ default: m.AmouageWork })));
+const FollowOnePage = lazyPanel(() => import('../components/onset/FollowThePiece').then((m) => ({ default: m.FollowOnePage })));
+const ShowMadeOnePage = lazyPanel(() => import('../components/onset/ShowWhatIMade').then((m) => ({ default: m.ShowMadeOnePage })));
+const ProcessOnePage = lazyPanel(() => import('../components/process/Process').then((m) => ({ default: m.ProcessOnePage })));
 const ProcessContext = lazyPanel(() => import('../components/process/Process').then((m) => ({ default: m.ProcessContext })));
 const ProcessWork = lazyPanel(() => import('../components/process/Process').then((m) => ({ default: m.ProcessWork })));
 const SkillsContext = lazyPanel(() => import('../components/skills/Skills').then((m) => ({ default: m.SkillsContext })));
@@ -139,4 +142,16 @@ export function contextComponentFor(id: ChapterId): PanelComponent {
 
 export function workComponentFor(id: ChapterId): PanelComponent {
   return WORK_COMPONENTS[id as Exclude<ChapterId, 'cover'>];
+}
+
+/** The phone layout of a chapter whose control and result sit on facing
+ * pages on desktop: both on one page (see ONE_PAGE_ON_PHONES). */
+const ONE_PAGE_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
+  follow: FollowOnePage,
+  showmade: ShowMadeOnePage,
+  process: ProcessOnePage,
+};
+
+export function onePageComponentFor(id: ChapterId): PanelComponent {
+  return ONE_PAGE_COMPONENTS[id] ?? CONTEXT_COMPONENTS[id as Exclude<ChapterId, 'cover'>];
 }

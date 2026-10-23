@@ -220,3 +220,14 @@
     transition-delay: 0s;
   }
 }
+
+/* The outlines over another page's photo (Follow the piece, on phones). */
+.show__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.show__one-page .show__work {
+  min-height: 0;
+}

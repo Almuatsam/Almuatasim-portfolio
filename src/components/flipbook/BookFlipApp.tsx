@@ -12,10 +12,9 @@ import { useSwipeTurn } from '../../hooks/useSwipeTurn';
 import { CoverCanvasLoader } from '../book3d/CoverCanvasLoader';
 import { preloadCoverScene } from '../../lib/preloadCoverScene';
 import { useCurrentChapter } from '../../routes/useCurrentChapter';
-import { contextComponentFor, workComponentFor } from '../../routes/chapterContent';
+import { contextComponentFor, onePageComponentFor, workComponentFor } from '../../routes/chapterContent';
 import { CHAPTERS, chapterPath, type ChapterId } from '../../content/chapters';
-import { TOTAL_PAGES } from '../../content/navigation';
-import { pageIndexForChapter, chapterForPageIndex, contextFolio, workFolio } from '../../content/navigation';
+import { ONE_PAGE_ON_PHONES, chapterForPageIndex, contextFolio, pageIndexForChapter, setPhoneLayout, totalPages, workFolio } from '../../content/navigation';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useWebGLSupport } from '../../hooks/useWebGLSupport';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
@@ -62,6 +61,9 @@ export function BookFlipApp() {
   // Below 900px the book is a single page: the context page, then the
   // work page, each its own StPageFlip page (Mobile Pass.md).
   const isMobile = !isWideEnough;
+  // Page numbers depend on the layout (see ONE_PAGE_ON_PHONES), and the page
+  // numbers are read while rendering, so set it first.
+  setPhoneLayout(isMobile);
   const [bookElement, setBookElement] = useState<HTMLDivElement | null>(null);
   const box = useBookBox(isMobile, bookElement);
   const stageRef = useRef<HTMLDivElement | null>(null);
@@ -243,7 +245,7 @@ export function BookFlipApp() {
         navigate(chapterPath(lang, 'cover'));
         return;
       }
-      if (next > TOTAL_PAGES) return;
+      if (next > totalPages()) return;
       if (direction === 1) pageFlip.flipNext();
       else pageFlip.flipPrev();
     },
@@ -274,6 +276,25 @@ export function BookFlipApp() {
       const chapterTitle = t(`chapters.${ch.id}.title`);
       const contextLabel = t('common.pageRegion', { chapter: chapterTitle, side: t('common.pageSideContext') });
       const workLabel = t('common.pageRegion', { chapter: chapterTitle, side: t('common.pageSideWork') });
+      if (isMobile && ONE_PAGE_ON_PHONES.includes(ch.id)) {
+        // Control and result on one page: this chapter is a single page here.
+        const OnePageComponent = onePageComponentFor(ch.id);
+        items.push(
+          <FlipPage
+            key={`${ch.id}-context`}
+            folio={leftFolio}
+            pageIndex={pageIndexForChapter(ch.id)}
+            mirrorContent={isRtl}
+            scrollKey={`${ch.id}-context`}
+            scrollLabel={contextLabel}
+            scrollHint={scrollHint}
+            srHeading={undefined}
+          >
+            <OnePageComponent lang={lang} chapter={ch} />
+          </FlipPage>,
+        );
+        continue;
+      }
       items.push(
         <FlipPage
           key={`${ch.id}-context`}
@@ -415,7 +436,7 @@ export function BookFlipApp() {
             lang={lang}
             chapter={chapter}
             onBackToCover={handleBackToCover}
-            mobile={isMobile ? { pageIndex, lastIndex: TOTAL_PAGES, onStep: stepMobile } : undefined}
+            mobile={isMobile ? { pageIndex, lastIndex: totalPages(), onStep: stepMobile } : undefined}
           />
         </>
       )}

@@ -33,18 +33,24 @@ const ALIGN_TRANSFORM: Record<Outline['label']['align'], string> = {
 /** B5 #8, the switch and the photo picker (left page). The switch is a
  * tailor's tag; turning it on draws the outlines on the photo to the
  * right. Both pages read the same state from showMadeStore. */
-export function ShowMadeContext({ lang }: ChapterPanelProps) {
+function ShowMadeHeading({ lang }: ChapterPanelProps) {
   const t = useFixedT(lang);
-  const { photoIndex, isOn } = useShowMade();
-
   return (
-    <div className="show__context">
+    <>
       <Link to={chapterPath(lang, 'follow')} className="onset__back reveal-fade">
         {t('chapters.follow.title')}
       </Link>
       <h1 className="font-display onset__entry-title reveal-fade-slow">{t('chapters.showmade.title')}</h1>
       <p className="show__hint reveal-fade">{t('onset.showMade.hint')}</p>
+    </>
+  );
+}
 
+function ShowMadeControls({ lang }: ChapterPanelProps) {
+  const t = useFixedT(lang);
+  const { photoIndex, isOn } = useShowMade();
+  return (
+    <>
       <button
         type="button"
         role="switch"
@@ -69,6 +75,27 @@ export function ShowMadeContext({ lang }: ChapterPanelProps) {
           </button>
         ))}
       </div>
+    </>
+  );
+}
+
+export function ShowMadeContext(props: ChapterPanelProps) {
+  return (
+    <div className="show__context">
+      <ShowMadeHeading {...props} />
+      <ShowMadeControls {...props} />
+    </div>
+  );
+}
+
+/** Phones: the heading, the photo with its outlines, then the switch and the
+ * photo picker, all on one page, so the switch is next to what it changes. */
+export function ShowMadeOnePage(props: ChapterPanelProps) {
+  return (
+    <div className="show__context show__one-page">
+      <ShowMadeHeading {...props} />
+      <ShowMadeWork {...props} />
+      <ShowMadeControls {...props} />
     </div>
   );
 }
@@ -198,4 +225,32 @@ function useOutlineFrame(photoId: string, isOn: boolean, reduced: boolean) {
     { scope: frameRef, dependencies: [photoId, isOn, reduced] },
   );
   return frameRef;
+}
+
+/** The outlines of one photo, drawn over a frame that shows that photo. With
+ * `squareCropAt` the frame is a square showing the photo as object-fit: cover,
+ * centred at that horizontal fraction, so the outlines are given the same
+ * window onto the photo and land on the same things. */
+export function OutlineOverlay({ photo, isOn, squareCropAt }: { photo: ShowPhoto; isOn: boolean; squareCropAt?: number }) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const frameRef = useOutlineFrame(photo.id, isOn, prefersReducedMotion);
+  const heightUnits = (100 * photo.height) / photo.width;
+  const viewBox =
+    squareCropAt === undefined ? `0 0 100 ${heightUnits}` : `${(100 - heightUnits) * squareCropAt} 0 ${heightUnits} ${heightUnits}`;
+  return (
+    <div ref={frameRef} className="show__overlay" aria-hidden="true">
+      <svg className="show__svg" viewBox={viewBox}>
+        {photo.outlines.map((outline) => (
+          <g key={outline.id} className="show__shape">
+            {outline.shapes.map((shape, index) => (
+              <g key={index}>
+                <path className="show__halo" d={outlinePath(shape, photo)} />
+                <path className="show__line" d={outlinePath(shape, photo)} />
+              </g>
+            ))}
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
 }

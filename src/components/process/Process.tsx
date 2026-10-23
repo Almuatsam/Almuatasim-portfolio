@@ -113,3 +113,14 @@ export function ProcessWork({ lang }: ChapterPanelProps) {
     </div>
   );
 }
+
+/** Phones: the steps and the examples they choose are one page, so picking a
+ * step shows its examples right under the list without a page turn. */
+export function ProcessOnePage(props: ChapterPanelProps) {
+  return (
+    <div className="process__one-page">
+      <ProcessContext {...props} />
+      <ProcessWork {...props} />
+    </div>
+  );
+}

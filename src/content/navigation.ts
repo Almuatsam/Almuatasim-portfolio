@@ -14,23 +14,52 @@ import type { AccentKey } from './accents';
 
 /** Every chapter except the cover becomes two StPageFlip pages (context
  * = left, work = right). The cover is page index 0 (a hard page, no
- * folio); content pages are numbered 1..N in reading order. */
+ * folio); content pages are numbered 1..N in reading order.
+ *
+ * On phones the book shows one page at a time, and a chapter whose control
+ * sits on one page and whose result sits on the other (see
+ * ONE_PAGE_ON_PHONES) is a single page, so the reader never has to turn a
+ * page to see what a control did. Page numbers follow the layout in use. */
 const CONTENT_CHAPTERS = CHAPTERS.filter((c) => c.id !== 'cover');
 
-export const TOTAL_PAGES = CONTENT_CHAPTERS.length * 2;
+export const ONE_PAGE_ON_PHONES: readonly ChapterId[] = ['follow', 'showmade', 'process'];
+
+let isPhoneLayout = false;
+
+/** Called by the book before it renders, from the viewport width. */
+export function setPhoneLayout(isPhone: boolean): void {
+  isPhoneLayout = isPhone;
+}
+
+export function pagesInChapter(chapter: ChapterDef): 1 | 2 {
+  return isPhoneLayout && ONE_PAGE_ON_PHONES.includes(chapter.id) ? 1 : 2;
+}
+
+export function totalPages(): number {
+  return CONTENT_CHAPTERS.reduce((sum, c) => sum + pagesInChapter(c), 0);
+}
 
 /** The StPageFlip array index for a chapter's context (left) page. The
- * work (right) page is always the next index. The cover is index 0. */
+ * work (right) page, when there is one, is the next index. The cover is
+ * index 0. */
 export function pageIndexForChapter(id: ChapterId): number {
   if (id === 'cover') return 0;
-  const i = CONTENT_CHAPTERS.findIndex((c) => c.id === id);
-  return i < 0 ? 0 : 1 + i * 2;
+  let index = 1;
+  for (const chapter of CONTENT_CHAPTERS) {
+    if (chapter.id === id) return index;
+    index += pagesInChapter(chapter);
+  }
+  return 0;
 }
 
 export function chapterForPageIndex(pageIndex: number): ChapterDef {
   if (pageIndex <= 0) return CHAPTERS[0];
-  const i = Math.min(Math.floor((pageIndex - 1) / 2), CONTENT_CHAPTERS.length - 1);
-  return CONTENT_CHAPTERS[i];
+  let index = 1;
+  for (const chapter of CONTENT_CHAPTERS) {
+    index += pagesInChapter(chapter);
+    if (pageIndex < index) return chapter;
+  }
+  return CONTENT_CHAPTERS[CONTENT_CHAPTERS.length - 1];
 }
 
 /** The printed folio number for a chapter's context (left) page. */
@@ -41,7 +70,7 @@ export function contextFolio(chapter: ChapterDef): number {
 /** The printed folio number for a chapter's work (right) page — always
  * one more than its context page, never the same number on both. */
 export function workFolio(chapter: ChapterDef): number {
-  return pageIndexForChapter(chapter.id) + 1;
+  return pageIndexForChapter(chapter.id) + pagesInChapter(chapter) - 1;
 }
 
 export function previousChapter(chapter: ChapterDef): ChapterDef | undefined {

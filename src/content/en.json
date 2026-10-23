@@ -309,12 +309,14 @@
     "follow": {
       "subtitle": "The ruffled bedspread, from sketch to set",
       "hint": "Drag the needle along the stitch, or use the arrow keys",
+      "hintTouch": "Drag the needle along the stitch, or tap the arrows.",
       "stagesLabel": "Stages of the bedspread",
       "needleLabel": "Needle",
       "previous": "Previous stage",
       "next": "Next stage",
       "stageOf": "Stage {{current}} of {{total}}",
       "showMyWork": "Show my work",
+      "hideMyWork": "Hide my work",
       "stages": {
         "sketch": { "label": "Sketch", "note": "my drawing", "alt": "The owner\u2019s own drawing of the ruffled green bedspread, with fabric references" },
         "measure": { "label": "Measure", "note": "[[14 m of fabric]] for one ruffle", "alt": "Notebook maths for the ruffle: 560 cm around the bed, gathered 2.5 times, 1,400 cm" },

@@ -236,3 +236,25 @@
   color: var(--accent-ink);
   border-bottom: 1px solid currentColor;
 }
+
+/* Phones: the steps and the examples are one page, stacked. */
+.process__one-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.process__one-page > .process__context,
+.process__one-page > .process__work {
+  min-height: 0;
+}
+
+/* Phones: tighter rows (44px, the touch size), so the chosen step's examples
+   start on the same screen as the list. */
+.process__one-page .process__steps {
+  --row: 44px;
+}
+
+.process__one-page .process__context {
+  gap: var(--space-1);
+}

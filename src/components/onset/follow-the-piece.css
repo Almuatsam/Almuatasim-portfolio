@@ -36,9 +36,8 @@
   width: 100%;
   height: auto;
   overflow: visible;
-  /* Draggable moves the needle with the pointer; without this a touch
-     drag along the line would scroll the page instead. */
-  touch-action: none;
+  /* Only the needle takes touch (below); the rest of the line still scrolls. */
+  touch-action: pan-y;
 }
 
 .follow__thread {
@@ -78,6 +77,8 @@
 .follow__needle {
   cursor: grab;
   outline: none;
+  /* A touch drag on the needle moves the needle; it must not scroll the page. */
+  touch-action: none;
 }
 
 .follow__needle:active {
@@ -369,5 +370,84 @@
     display: block;
     left: 50% !important;
     font-size: max(12px, var(--fs-label-floor));
+  }
+}
+
+/* --- Phones: the whole interaction on one page --- */
+
+.follow__one-page {
+  gap: var(--space-2);
+}
+
+.follow__one-page .follow__work {
+  min-height: 0;
+}
+
+.follow__one-page .follow__frame {
+  aspect-ratio: 1 / 1;
+  width: min(100%, 32svh);
+  margin-inline: auto;
+}
+
+.follow__one-page .follow__stitch {
+  margin-block-start: 0;
+}
+
+.follow__one-page .follow__note {
+  font-size: var(--fs-small);
+}
+
+/* "Show my work" on phones: a real switch, solid outline in the chapter ink. */
+.follow__show {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  align-self: stretch;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  color: var(--accent-ink);
+  background: var(--color-paper);
+  border: 2px solid var(--accent-ink);
+  border-radius: 3px;
+  cursor: pointer;
+  transition:
+    background var(--duration-micro) var(--ease-ui),
+    color var(--duration-micro) var(--ease-ui),
+    transform var(--duration-micro) var(--ease-ui);
+}
+
+.follow__show-box {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.follow__show[aria-checked='true'] {
+  color: var(--color-paper);
+  background: var(--accent-ink);
+}
+
+.follow__show[aria-checked='true'] .follow__show-box {
+  background: currentColor;
+}
+
+.follow__show:active {
+  transform: translateY(2px);
+}
+
+.follow__show:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@media (max-width: 899px) {
+  .follow__step {
+    height: 44px;
   }
 }
