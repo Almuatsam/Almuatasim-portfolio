@@ -4,6 +4,15 @@
   height: 100%;
   background: var(--color-ink);
   overflow: hidden;
+  /* The name sizes below are in cqw so they scale with the cover itself. */
+  container-type: inline-size;
+}
+
+.flipbook-stage--rtl .flip-page--cover .cover-page {
+  /* The Arabic book is mirrored as a whole (see flipbook.css); the cover is
+     the one page that is not content, so undo it here and the 2D cover
+     matches the 3D cover and the English one instead of reading backwards. */
+  transform: scaleX(-1);
 }
 
 .cover-page__hit {
@@ -15,10 +24,10 @@
 
 .cover-page__label {
   position: absolute;
-  inset-inline-start: 18.5%;
-  inset-block-start: 25%;
-  width: 59.3%;
-  height: 25.6%;
+  inset-inline-start: 25.2%;
+  inset-block-start: 27.9%;
+  width: 46%;
+  height: 19.9%;
   z-index: 5;
   margin: 0;
   background: var(--color-paper);
@@ -41,12 +50,10 @@
 
 .cover-page__name--latin {
   font-family: var(--font-display);
-  /* --fs-title (~34px at the 1160px book reference, i.e. a ~580px-wide
-     closed cover) rather than --fs-h3: Soria's regular-only, thin
-     strokes read smaller and lighter than the bold Arabic line at the
-     same font-size, so the Latin name needs a visibly larger size to
-     land at about the same weight on the page. */
-  font-size: var(--fs-title);
+  /* 5cqw is 29px on the 580px reference cover (the owner's floor is 28px).
+     Soria's thin, regular-only strokes read lighter than the bold Arabic
+     line, so the Latin name keeps the larger share of the label. */
+  font-size: 5cqw;
   font-weight: 400;
   font-style: normal;
   font-synthesis: none;
@@ -62,7 +69,8 @@
      together with tokens.css's RTL --font-display if that choice
      changes. */
   font-family: 'Amiri', 'Noto Naskh Arabic', 'Traditional Arabic', serif;
-  font-size: var(--fs-h3);
+  /* 1.1x the Latin size, the same ratio as the 3D label texture. */
+  font-size: 5.5cqw;
   font-weight: 700;
 }
 

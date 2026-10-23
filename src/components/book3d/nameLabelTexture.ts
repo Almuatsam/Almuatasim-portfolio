@@ -6,7 +6,7 @@ const NAME_ARABIC = 'المعتصم الفارسي';
 // 3x resolution relative to the label's on-screen size at a 1160px-wide
 // spread, so the type stays crisp under any reasonable viewport/DPR.
 const CANVAS_W = 1536;
-const CANVAS_H = 660;
+const CANVAS_H = 871;
 
 /** Renders the bilingual name label once into a canvas texture, waiting
  * for fonts to be ready so it never falls back to a system serif. Sizes
@@ -38,12 +38,10 @@ export async function drawNameLabelTexture(): Promise<CanvasTexture> {
   ctx.textBaseline = 'middle';
 
   // The canvas maps 1:1 onto the label plane (LABEL_LAYOUT's own box),
-  // so sizes are relative to CANVAS_W/H, not the whole cover — matching
-  // the 2D cover's ~34px Soria name (--fs-title) in a ~344px-wide label
-  // (ratio ~0.099). Soria's thin, regular-only strokes read smaller and
-  // lighter than the bold Arabic line at the same font-size, so the
-  // Latin start size is bumped well past the old ~22px/0.064 ratio to
-  // land at about the same visual weight.
+  // so sizes are relative to CANVAS_W/H, not the whole cover. CANVAS_W:H
+  // is the label's own 46% x 19.9% box on the 580x760 cover (~1.76), so
+  // nothing is stretched. The 2D cover sets the Latin name at 5cqw (29px
+  // on a 580px cover) in a 267px-wide label: ratio ~0.109.
   const maxTextWidth = canvas.width * 0.86;
 
   function fittedSize(text: string, font: (px: number) => string, startPx: number): number {
@@ -59,14 +57,14 @@ export async function drawNameLabelTexture(): Promise<CanvasTexture> {
   const latinFont = (px: number) => `400 ${px}px Soria, Fraunces, Georgia, serif`;
   const arabicFont = (px: number) => `700 ${px}px Amiri, "Noto Naskh Arabic", serif`;
 
-  const latinSize = fittedSize(NAME_LATIN, latinFont, Math.round(CANVAS_W * 0.099));
+  const latinSize = fittedSize(NAME_LATIN, latinFont, Math.round(CANVAS_W * 0.109));
   const arabicSize = fittedSize(NAME_ARABIC, arabicFont, Math.round(latinSize * 1.1));
 
   ctx.font = latinFont(latinSize);
-  ctx.fillText(NAME_LATIN, canvas.width / 2, canvas.height * 0.38);
+  ctx.fillText(NAME_LATIN, canvas.width / 2, canvas.height * 0.4);
 
   ctx.font = arabicFont(arabicSize);
-  ctx.fillText(NAME_ARABIC, canvas.width / 2, canvas.height * 0.74);
+  ctx.fillText(NAME_ARABIC, canvas.width / 2, canvas.height * 0.72);
 
   const texture = new CanvasTexture(canvas);
   texture.colorSpace = SRGBColorSpace;

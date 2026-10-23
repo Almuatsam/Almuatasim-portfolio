@@ -15,7 +15,7 @@ export const STICKER_LAYOUT = [
 /** The sticker crossed by the elastic band — drawn above the stickers. */
 export const BAND_STICKER = 6;
 
-export const LABEL_LAYOUT = { x: 18.5, y: 25, w: 59.3, h: 25.6 } as const;
+export const LABEL_LAYOUT = { x: 25.2, y: 27.9, w: 46, h: 19.9 } as const;
 export const BAND_LAYOUT = { x: 85.2, w: 2.2 } as const;
 
 /** Reference aspect ratio of the closed cover (a single StPageFlip hard
