@@ -32,12 +32,7 @@
     "dismiss": "إغلاق",
     "previousPage": "الصفحة السابقة",
     "nextPage": "الصفحة التالية",
-    "pageArrows": "الصفحات",
-    "comingSoon": {
-      "title": "لا تزال قيد الرسم",
-      "body": "هذه الصفحة من دفتر الرسم لم تُحبَّر بعد. ستصل في المرحلة القادمة.",
-      "back": "عودة إلى المحتويات"
-    }
+    "pageArrows": "الصفحات"
   },
   "chapters": {
     "cover": { "title": "الغلاف", "tabLabel": "" },
@@ -126,7 +121,7 @@
       "فنان ديكور وتصنيع",
       "خمس سنوات في خدمة العملاء"
     ],
-    "portraitAlt": "صورة شخصية للمعتصم الفارسي"
+    "portraitAlt": "المعتصم الفارسي"
   },
   "contact": {
     "email": "Almuatsamalfarsi@gmail.com",

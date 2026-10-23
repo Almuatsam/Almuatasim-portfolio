@@ -1,18 +1,14 @@
 #!/usr/bin/env node
 // sitemap.xml: every chapter route in both languages (plus the Plain Version),
 // each with hreflang alternates, and robots.txt pointing at it. The domain
-// comes from VITE_SITE_URL (see src/config/site.ts).
+// comes from VITE_SITE_URL (see scripts/site-url.mjs).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { siteUrl } from './site-url.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const site = (process.env.VITE_SITE_URL ?? readSiteDefault()).replace(/\/$/, '');
-
-function readSiteDefault() {
-  const source = readFileSync(join(root, 'src', 'config', 'site.ts'), 'utf8');
-  return source.match(/\?\? '([^']+)'/)[1];
-}
+const site = siteUrl({ devFallback: process.env.npm_lifecycle_event === 'predev' });
 
 const chapters = readFileSync(join(root, 'src', 'content', 'chapters.ts'), 'utf8');
 const slugs = [...chapters.matchAll(/\{ id: '\w+', order: \d+, slug: '([^']*)'/g)].map((match) => match[1]);

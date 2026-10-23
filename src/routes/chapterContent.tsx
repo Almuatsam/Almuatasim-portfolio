@@ -1,7 +1,6 @@
 import { lazy, type ComponentType } from 'react';
 import { ContentsContext, ContentsWork } from '../components/contents/Contents';
 import { AboutContext, AboutWork } from '../components/about/About';
-import { ComingSoonContext, ComingSoonWork } from '../components/comingsoon/ComingSoon';
 import type { ChapterDef, ChapterId } from '../content/chapters';
 import type { SupportedLang } from '../i18n';
 
@@ -25,8 +24,9 @@ function lazyPanel(load: () => Promise<{ default: PanelComponent }>): PanelCompo
 
 /** Starts downloading a chapter's code without rendering it. */
 export function preloadChapter(id: ChapterId): void {
+  if (id === 'cover') return;
   for (const component of [CONTEXT_COMPONENTS[id], WORK_COMPONENTS[id]]) {
-    if (component) void LOADERS.get(component)?.();
+    void LOADERS.get(component)?.();
   }
 }
 
@@ -75,7 +75,7 @@ const SkillsWork = lazyPanel(() => import('../components/skills/Skills').then((m
 const ContactContext = lazyPanel(() => import('../components/contact/Contact').then((m) => ({ default: m.ContactContext })));
 const ContactWork = lazyPanel(() => import('../components/contact/Contact').then((m) => ({ default: m.ContactWork })));
 
-export const CONTEXT_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
+export const CONTEXT_COMPONENTS: Record<Exclude<ChapterId, 'cover'>, PanelComponent> = {
   contents: ContentsContext,
   about: AboutContext,
   screens: ScreensContext,
@@ -104,7 +104,7 @@ export const CONTEXT_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
   contact: ContactContext,
 };
 
-export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
+export const WORK_COMPONENTS: Record<Exclude<ChapterId, 'cover'>, PanelComponent> = {
   contents: ContentsWork,
   about: AboutWork,
   screens: ScreensWork,
@@ -134,9 +134,9 @@ export const WORK_COMPONENTS: Partial<Record<ChapterId, PanelComponent>> = {
 };
 
 export function contextComponentFor(id: ChapterId): PanelComponent {
-  return CONTEXT_COMPONENTS[id] ?? ComingSoonContext;
+  return CONTEXT_COMPONENTS[id as Exclude<ChapterId, 'cover'>];
 }
 
 export function workComponentFor(id: ChapterId): PanelComponent {
-  return WORK_COMPONENTS[id] ?? ComingSoonWork;
+  return WORK_COMPONENTS[id as Exclude<ChapterId, 'cover'>];
 }

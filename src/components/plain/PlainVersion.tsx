@@ -36,6 +36,7 @@ export function PlainVersion() {
       <p className="plain__intro">{t('plain.intro')}</p>
 
       <section>
+        <img className="plain__portrait" src="/img/about/portrait-mirror-480.webp" alt={t('about.portraitAlt')} width="240" height="293" />
         <h2 className="plain__headline">{t('about.headline')}</h2>
         {paragraphs.map((paragraph) => (
           <p key={paragraph} className="plain__paragraph">

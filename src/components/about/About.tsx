@@ -13,7 +13,7 @@ export function AboutContext({ lang }: ChapterPanelProps) {
   return (
     <div className="about__context">
       <div className="about__portrait-frame reveal-fade">
-        <Picture loading="lazy" decoding="async" src="/about/portrait.jpg" alt={t('about.portraitAlt')} className="about__portrait" />
+        <Picture loading="lazy" decoding="async" src="/about/portrait-mirror.jpg" sizes="(max-width: 899px) 70vw, 260px" alt={t('about.portraitAlt')} className="about__portrait" />
       </div>
       <ul className="about__notes">
         {marginNotes.map((note, index) => {

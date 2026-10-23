@@ -5,10 +5,10 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { siteUrl } from './site-url.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const siteDefault = readFileSync(join(root, 'src', 'config', 'site.ts'), 'utf8').match(/\?\? '([^']+)'/)[1];
-const site = (process.env.VITE_SITE_URL ?? siteDefault).replace(/\/$/, '');
+const site = siteUrl();
 const template = readFileSync(join(root, 'dist', 'index.html'), 'utf8');
 const { renderPlain } = await import(pathToFileURL(join(root, 'dist-ssr', 'entry-ssr.js')).href);
 

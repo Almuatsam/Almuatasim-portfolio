@@ -100,3 +100,11 @@
 .plain a {
   overflow-wrap: anywhere;
 }
+
+.plain__portrait {
+  width: min(240px, 60%);
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  align-self: flex-start;
+}

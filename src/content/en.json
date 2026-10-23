@@ -32,12 +32,7 @@
     "dismiss": "Dismiss",
     "previousPage": "Previous page",
     "nextPage": "Next page",
-    "pageArrows": "Pages",
-    "comingSoon": {
-      "title": "Still being drawn",
-      "body": "This page of the sketchbook isn't inked in yet. It's coming in the next phase.",
-      "back": "Back to contents"
-    }
+    "pageArrows": "Pages"
   },
   "chapters": {
     "cover": { "title": "Cover", "tabLabel": "" },
@@ -126,7 +121,7 @@
       "set and fabrication artist",
       "5 years in customer service"
     ],
-    "portraitAlt": "Portrait of Almuatasim Alfarsi"
+    "portraitAlt": "Almuatasim Alfarsi"
   },
   "contact": {
     "email": "Almuatsamalfarsi@gmail.com",
