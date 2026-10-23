@@ -12,15 +12,13 @@
   height: 100%;
   background-image: radial-gradient(circle, rgba(22, 20, 43, 0.09) 1px, transparent 1px);
   background-size: 20px 20px;
-  /* Reset section 2 — fixed 56px margins (scaled via container units,
-     see --page-margin in book.css), not a percentage that balloons on
-     a wide book. */
-  padding: var(--page-margin);
 }
 
+/* The page margins (--page-margin in book.css, 56px at the reference size)
+   are padding inside the scroll area, not out here, so the whole page scrolls. */
 .flip-page__content {
-  position: relative;
-  height: 100%;
+  position: absolute;
+  inset: 0;
 }
 
 .flip-page__folio {
@@ -32,12 +30,4 @@
   font-size: var(--fs-label);
   color: var(--color-secondary);
   letter-spacing: 0.04em;
-}
-
-/* The floating arrows get their own strip at each page edge, so they never
-   cover text. */
-@media (max-width: 899px) and (max-height: 520px) {
-  .flip-page__inner {
-    padding-inline: 60px;
-  }
 }

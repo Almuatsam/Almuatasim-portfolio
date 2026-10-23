@@ -10,7 +10,7 @@ backend, no database, no cookies and no third-party requests.
   (English left to right, Arabic right to left).
 - StPageFlip (`page-flip`, `react-pageflip`) for the page turns, GSAP and
   Framer Motion for the interactions, React Three Fiber for the 3D cover on
-  desktop, Lenis and OverlayScrollbars for page scrolling.
+  desktop, OverlayScrollbars for the page scrollbars (the browser does the scrolling).
 - Plain CSS with design tokens. Fonts are self-hosted.
 - `sharp` makes the AVIF and WebP images at build time.
 
@@ -79,5 +79,5 @@ Al-Hosni; the owner's part is the set and fabrication. Used with permission.
 
 **Libraries** keep their own licences: React, React Router, i18next,
 react-i18next, Framer Motion, three.js, React Three Fiber, drei, StPageFlip,
-react-pageflip, Lenis, OverlayScrollbars, yet-another-react-lightbox and Vite
+react-pageflip, OverlayScrollbars, yet-another-react-lightbox and Vite
 are MIT; sharp is Apache-2.0; GSAP is used under its standard no-charge licence.

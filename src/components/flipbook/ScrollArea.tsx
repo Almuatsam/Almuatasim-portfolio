@@ -1,23 +1,29 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import type { OverlayScrollbars } from 'overlayscrollbars';
-import Lenis from 'lenis';
 import 'overlayscrollbars/overlayscrollbars.css';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useViewerOpen } from '../../hooks/useViewerOpen';
-import { registerScrollReset, unregisterScrollReset } from '../../lib/scrollRegistry';
-import { registerLenis, unregisterLenis } from '../../lib/lenisRafLoop';
+import {
+  canScrollBy,
+  registerScrollReset,
+  registerViewport,
+  setHoveredViewport,
+  siblingViewport,
+  unregisterScrollReset,
+  unregisterViewport,
+} from '../../lib/scrollRegistry';
 import { createRevealController, type RevealController } from '../../lib/revealController';
 import './scroll-area.css';
 
 interface ScrollAreaProps {
   children: ReactNode;
   /** Unique id this page's scroll position is reset by (see
-   * scrollRegistry) — e.g. "estudioa-work". */
+   * scrollRegistry), e.g. "estudioa-work". */
   scrollKey: string;
   /** Accessible name for the scroll region, e.g. "EstudioA, work". */
   label: string;
-  /** Localised "Scroll" hint shown at the bottom fade. */
+  /** Localised "Scroll" hint shown in the bottom margin. */
   hint: string;
 }
 
@@ -25,67 +31,29 @@ interface HintState {
   isScrollable: boolean;
   atTop: boolean;
   atBottom: boolean;
-  /** Full-screen viewer fix item 3 — the fade must only ever sit over
-   * paper. True when the page's own content under the top/bottom edge
-   * is an image, so that edge should show no fade (bottom keeps its
-   * chevron + label; top just hides). */
-  topOverImage: boolean;
-  bottomOverImage: boolean;
 }
 
 const EDGE_EPSILON = 1;
-const FADE_BAND = 16;
-const DEFAULT_HINTS: HintState = {
-  isScrollable: false,
-  atTop: true,
-  atBottom: true,
-  topOverImage: false,
-  bottomOverImage: false,
-};
+const DEFAULT_HINTS: HintState = { isScrollable: false, atTop: true, atBottom: true };
+const LINE_PX = 16;
 
-/** Geometric check, not `elementFromPoint` — most images on these pages
- * are `pointer-events: none` (the page-flip.js click-exemption fix in
- * this file's own comment below), which makes `elementFromPoint` skip
- * straight past them to whatever's behind. A plain rect test still
- * catches them.
- *
- * Tests the whole fade band against each image's rect, not a single
- * sample point: the hint must only ever sit over bare paper, and a
- * point sample can miss an image that only partially spans the band's
- * width (an image narrower than the page, say) while the fade itself
- * — which spans the full width — still visibly overlaps it. */
-function bandOverlapsImage(container: Element, bandTop: number, bandBottom: number, left: number, right: number): boolean {
-  const media = container.querySelectorAll('img, picture, video, canvas');
-  for (const el of media) {
-    const rect = el.getBoundingClientRect();
-    const overlapsVertically = rect.bottom > bandTop && rect.top < bandBottom;
-    const overlapsHorizontally = rect.right > left && rect.left < right;
-    if (overlapsVertically && overlapsHorizontally) return true;
-  }
-  return false;
-}
-
-/** Page Scrolling.md — the one scroll area each book page gets. Page
- * margins, the folio and any fixed header live outside this component
- * (see FlipPage); this wraps only the part that scrolls, with a thin
- * custom scrollbar (OverlayScrollbars) and gentle smooth scrolling
- * (Lenis) scoped to this page alone. */
+/** The one scroll area each book page gets. It is the whole page rectangle
+ * (the margins are padding inside it), so a two-finger scroll over any part of
+ * the page scrolls it, and the browser does the scrolling itself. When this
+ * page has nothing left to scroll that way, the wheel goes to the other page
+ * of the spread. OverlayScrollbars only draws the thin thumb. */
 export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const viewerOpen = useViewerOpen();
-  const lenisRef = useRef<Lenis | null>(null);
   const revealRef = useRef<RevealController | null>(null);
+  const viewportRef = useRef<HTMLElement | null>(null);
   const scrollAreaRef = useRef<HTMLDivElement | null>(null);
   const [hints, setHints] = useState<HintState>(DEFAULT_HINTS);
 
   useEffect(
     () => () => {
       unregisterScrollReset(scrollKey);
-      if (lenisRef.current) {
-        unregisterLenis(lenisRef.current);
-        lenisRef.current.destroy();
-        lenisRef.current = null;
-      }
+      if (viewportRef.current) unregisterViewport(scrollKey, viewportRef.current);
       if (revealRef.current) {
         revealRef.current.dispose();
         revealRef.current = null;
@@ -94,97 +62,89 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
     [scrollKey],
   );
 
-  // Page Scrolling.md section 3 — StPageFlip (page-flip.js) attaches its
-  // own native mousedown/touchstart listener to an ancestor of this node
-  // (outside React), which fires during the native bubble phase before
-  // the event ever reaches React's root-delegated listeners. A React
-  // onMouseDown/onTouchStart prop here — even one calling
-  // stopPropagation() — can't pre-empt that: React only runs its handler
-  // once bubbling reaches the root, by which point page-flip.js's own
-  // listener, sitting lower in the real DOM, has already fired. A plain
-  // addEventListener on the actual node fires at the right point in that
-  // native bubble, before it reaches page-flip.js's ancestor listener.
-  //
-  // This also covers a case page-flip.js's own click exemption
-  // (`checkTarget`, matching only `<a>`/`<button>` tag names) misses:
-  // any button or link here whose clickable area is filled by a plain
-  // child element (an <img>, say) reports that child as `event.target`,
-  // not the link/button itself, so the exemption doesn't apply and a
-  // stray page-turn fires alongside the intended click.
+  // StPageFlip (page-flip.js) attaches its own native mousedown/touchstart
+  // listener to an ancestor of this node, which fires in the native bubble
+  // phase before React's root-delegated listeners. A plain addEventListener
+  // on this node fires first, so a press or drag inside the page never
+  // starts a page turn. The wheel is handled here too: it never turns the
+  // page, and when this page cannot scroll that way the other page of the
+  // spread takes it.
   useEffect(() => {
     const el = scrollAreaRef.current;
     if (!el) return;
     const stop = (event: Event) => event.stopPropagation();
+    function handleWheel(event: WheelEvent): void {
+      const viewport = viewportRef.current;
+      if (!viewport || event.ctrlKey || Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
+      const unit = event.deltaMode === 1 ? LINE_PX : event.deltaMode === 2 ? viewport.clientHeight : 1;
+      const delta = event.deltaY * unit;
+      if (canScrollBy(viewport, delta)) return;
+      const sibling = siblingViewport(scrollKey);
+      if (sibling && canScrollBy(sibling, delta)) {
+        event.preventDefault();
+        sibling.scrollTop += delta;
+      }
+    }
     el.addEventListener('mousedown', stop);
     el.addEventListener('touchstart', stop);
+    el.addEventListener('wheel', handleWheel, { passive: false });
     return () => {
       el.removeEventListener('mousedown', stop);
       el.removeEventListener('touchstart', stop);
+      el.removeEventListener('wheel', handleWheel);
     };
-  }, []);
+  }, [scrollKey]);
 
   function updateHints(instance: OverlayScrollbars): void {
-    const { viewport, content } = instance.elements();
+    const { viewport } = instance.elements();
     const overflow = viewport.scrollHeight - viewport.clientHeight;
-    const rect = viewport.getBoundingClientRect();
-    setHints({
+    const next = {
       isScrollable: overflow > EDGE_EPSILON,
       atTop: viewport.scrollTop <= EDGE_EPSILON,
       atBottom: viewport.scrollTop >= overflow - EDGE_EPSILON,
-      topOverImage: bandOverlapsImage(content, rect.top, rect.top + FADE_BAND, rect.left, rect.right),
-      bottomOverImage: bandOverlapsImage(content, rect.bottom - FADE_BAND, rect.bottom, rect.left, rect.right),
-    });
+    };
+    setHints((previous) =>
+      next.isScrollable === previous.isScrollable && next.atTop === previous.atTop && next.atBottom === previous.atBottom ? previous : next,
+    );
   }
 
   function handleInitialized(instance: OverlayScrollbars): void {
     const { viewport, content } = instance.elements();
+    viewportRef.current = viewport;
     viewport.tabIndex = 0;
+    viewport.dataset.scrollKey = scrollKey;
     viewport.setAttribute('role', 'region');
     viewport.setAttribute('aria-label', label);
+    registerViewport(scrollKey, viewport);
 
     const reveal = createRevealController(viewport, content, prefersReducedMotion);
     revealRef.current = reveal;
 
-    // The same moment the reader arrives at this page (chapter switch or
-    // initial load) is exactly when BookFlipApp resets scroll position
-    // via this registry — re-running the reveal pass here too means
-    // content already in view on arrival shows immediately, and content
-    // left mid-reveal from a previous visit settles instead of staying
-    // stuck (see revealController.ts).
+    // The reader arriving at this page (chapter switch or initial load) is
+    // when BookFlipApp resets the scroll position through this registry.
     registerScrollReset(scrollKey, () => {
-      if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
-      else viewport.scrollTop = 0;
+      viewport.scrollTop = 0;
       reveal.run();
     });
 
     reveal.run();
-
-    // Native momentum scrolling is better on touch screens (Mobile Pass.md).
-    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-    if (!prefersReducedMotion && !isTouch) {
-      const lenis = new Lenis({
-        wrapper: viewport,
-        content,
-        eventsTarget: viewport,
-        lerp: 0.1,
-        overscroll: false,
-      });
-      lenisRef.current = lenis;
-      registerLenis(lenis);
-    }
-
     updateHints(instance);
   }
 
   return (
-    <div className="scroll-area" ref={scrollAreaRef}>
+    <div
+      className="scroll-area"
+      ref={scrollAreaRef}
+      onPointerEnter={() => viewportRef.current && setHoveredViewport(viewportRef.current)}
+      onPointerLeave={() => setHoveredViewport(null)}
+    >
       <OverlayScrollbarsComponent
         element="div"
         className="scroll-area__os"
         defer
         options={{
           overflow: { x: 'hidden', y: 'scroll' },
-          scrollbars: { theme: 'os-theme-book', autoHide: 'move', autoHideDelay: 1200 },
+          scrollbars: { theme: 'os-theme-book', autoHide: 'leave', autoHideDelay: 1500 },
         }}
         events={{
           initialized: (instance) => handleInitialized(instance),
@@ -195,20 +155,19 @@ export function ScrollArea({ children, scrollKey, label, hint }: ScrollAreaProps
         {children}
       </OverlayScrollbarsComponent>
 
-      {/* The hint must only ever sit over bare paper (owner review) — no
-          hints at all while the viewer is open, and neither edge renders
-          when its own band overlaps an image, full stop (no drop-shadow
-          fallback shown over the image). */}
-      {!viewerOpen && hints.isScrollable && !hints.atTop && !hints.topOverImage && (
-        <div className="scroll-area__hint scroll-area__hint--top" aria-hidden="true" />
-      )}
-      {!viewerOpen && hints.isScrollable && !hints.atBottom && !hints.bottomOverImage && (
-        <div className="scroll-area__hint scroll-area__hint--bottom" aria-hidden="true">
-          <svg className="scroll-area__hint-chevron" viewBox="0 0 10 7" aria-hidden="true">
-            <path d="M1 1 L5 6 L9 1" fill="none" stroke="var(--accent-ink)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <span className="scroll-area__hint-label">{hint}</span>
-        </div>
+      {/* Hairlines at the clipping edges when there is more beyond them, and
+          a hint row in the bottom margin: both sit outside the text. */}
+      {!viewerOpen && hints.isScrollable && !hints.atTop && <div className="scroll-area__edge scroll-area__edge--top" aria-hidden="true" />}
+      {!viewerOpen && hints.isScrollable && !hints.atBottom && (
+        <>
+          <div className="scroll-area__edge scroll-area__edge--bottom" aria-hidden="true" />
+          <div className="scroll-area__hint" aria-hidden="true">
+            <span className="scroll-area__hint-label">{hint}</span>
+            <svg className="scroll-area__hint-chevron" viewBox="0 0 10 7" aria-hidden="true">
+              <path d="M1 1 L5 6 L9 1" fill="none" stroke="var(--accent-ink)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </>
       )}
     </div>
   );

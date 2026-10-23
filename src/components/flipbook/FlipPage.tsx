@@ -2,7 +2,7 @@ import { lazy, Suspense, useState, type CSSProperties, type ReactNode, type Ref 
 import { useBuildRadius, useCurrentPage } from '../../lib/currentPageStore';
 import './flip-page.css';
 
-// Scrolling (OverlayScrollbars, Lenis) loads with the first built page.
+// Scrolling (OverlayScrollbars) loads with the first built page.
 const ScrollArea = lazy(() => import('./ScrollArea').then((m) => ({ default: m.ScrollArea })));
 
 interface FlipPageProps {

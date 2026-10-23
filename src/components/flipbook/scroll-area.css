@@ -1,82 +1,85 @@
+/* The scroll area is the whole page rectangle. The page margins are padding
+   inside it (a scroll anywhere on the page scrolls it), and the text is
+   clipped at the margin lines, so nothing ever runs under the hint row, the
+   folio or the scrollbar. */
 .scroll-area {
-  position: relative;
-  height: 100%;
-  width: 100%;
+  --scroll-clip: max(var(--page-margin), 40px);
+  --scroll-hint-height: 28px;
+  position: absolute;
+  inset: 0;
 }
 
 .scroll-area__os {
   height: 100%;
   width: 100%;
+  padding-block: var(--page-margin) calc(var(--scroll-clip) + var(--scroll-hint-height) + 24px);
+  padding-inline: var(--page-margin);
+  box-sizing: border-box;
 }
 
-/* Page Scrolling.md section 2 — a 4px thumb, no track, inset 12px from
-   the page's outer edge (mirrored to the inner/left edge in Arabic by
-   the logical-direction override below), accent at 45% normally and
-   100% while scrolling or hovered. */
+.scroll-area [data-overlayscrollbars-viewport] {
+  overscroll-behavior: contain;
+  scroll-behavior: auto;
+  touch-action: pan-y;
+  clip-path: inset(var(--page-margin) 0 var(--scroll-clip) 0);
+}
+
+/* A 6px thumb in a 24px grab strip at the page edge (the margin, outside the
+   text; on the end side, so the left in Arabic). Chapter ink at 60%, solid on hover or drag. */
 .scroll-area .os-scrollbar {
-  --os-size: 4px;
-  --os-padding-perpendicular: 0px;
+  --os-size: 24px;
+  --os-padding-perpendicular: 9px;
   --os-padding-axis: 0px;
   --os-track-border-radius: 4px;
   --os-track-bg: transparent;
-  --os-handle-border-radius: 4px;
-  --os-handle-min-size: 24px;
-  --os-handle-bg: color-mix(in srgb, var(--accent-ink) 45%, transparent);
+  --os-track-bg-hover: transparent;
+  --os-track-bg-active: transparent;
+  --os-handle-border-radius: 3px;
+  --os-handle-min-size: 32px;
+  --os-handle-perpendicular-size: 100%;
+  --os-handle-perpendicular-size-hover: 100%;
+  --os-handle-perpendicular-size-active: 100%;
+  --os-handle-bg: color-mix(in srgb, var(--accent-ink) 60%, transparent);
   --os-handle-bg-hover: var(--accent-ink);
   --os-handle-bg-active: var(--accent-ink);
 }
 
 .scroll-area .os-scrollbar-vertical {
-  inset-inline-end: 12px;
+  inset-inline-end: 0;
   inset-inline-start: auto;
+  top: var(--page-margin) !important;
+  bottom: var(--scroll-clip) !important;
+  height: auto;
+  width: 24px;
 }
 
-:root[dir='rtl'] .scroll-area .os-scrollbar-vertical {
-  inset-inline-start: 12px;
-  inset-inline-end: auto;
-}
-
-.scroll-area:has(.os-viewport[data-overlayscrollbars-viewport~='scrolling']) .os-scrollbar-handle {
-  background: var(--accent-ink);
-}
-
-.scroll-area .os-viewport {
-  overscroll-behavior: contain;
-  touch-action: pan-y;
-}
-
-/* A fade of the page's own paper colour at the scrollable edges, never
-   over the folio (which lives outside this component). */
-.scroll-area__hint {
+/* Hairlines where text is clipped and there is more beyond. */
+.scroll-area__edge {
   position: absolute;
   inset-inline: 0;
-  height: 32px;
+  height: 1px;
+  background: #e4e1d8;
   pointer-events: none;
 }
 
-.scroll-area__hint--top {
-  inset-block-start: 0;
-  background: linear-gradient(to bottom, var(--color-paper), transparent);
+.scroll-area__edge--top {
+  inset-block-start: var(--page-margin);
 }
 
-.scroll-area__hint--bottom {
-  inset-block-end: 0;
+.scroll-area__edge--bottom {
+  inset-block-end: var(--scroll-clip);
+}
+
+/* A reserved strip in the bottom margin, above the folio, never over text. */
+.scroll-area__hint {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: calc((var(--scroll-clip) - var(--scroll-hint-height)) / 2);
+  height: var(--scroll-hint-height);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-half);
-  /* A solid paper band: text fades out above it and never runs through
-     the label. */
-  background: var(--color-paper);
-}
-
-.scroll-area__hint--bottom::before {
-  content: '';
-  position: absolute;
-  inset-inline: 0;
-  inset-block-end: 100%;
-  height: 24px;
-  background: linear-gradient(to top, var(--color-paper), transparent);
   pointer-events: none;
 }
 
@@ -120,5 +123,12 @@
 @media (hover: none), (pointer: coarse) {
   .scroll-area .os-scrollbar {
     display: none;
+  }
+}
+
+/* Floating arrows get their own strip at each page edge on short landscape phones. */
+@media (max-width: 899px) and (max-height: 520px) {
+  .scroll-area__os {
+    padding-inline: 60px;
   }
 }

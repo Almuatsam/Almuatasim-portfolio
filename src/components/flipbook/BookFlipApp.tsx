@@ -21,6 +21,7 @@ import { useWebGLSupport } from '../../hooks/useWebGLSupport';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { usePreloadSoriaFont } from '../../hooks/usePreloadSoriaFont';
 import { useChapterKeyboardNav } from '../../hooks/useChapterKeyboardNav';
+import { useScrollKeys } from '../../hooks/useScrollKeys';
 import { resetScrollArea } from '../../lib/scrollRegistry';
 import { initCurrentPage, setCurrentPage, widenBuildRadius } from '../../lib/currentPageStore';
 import './stpageflip-base.css';
@@ -114,6 +115,7 @@ export function BookFlipApp() {
     if (chapter.id === 'contact' && use3D) preloadCoverScene();
   }, [chapter.id, use3D]);
   useChapterKeyboardNav(lang, chapter);
+  useScrollKeys(chapter.id !== 'cover');
 
   const flipTo = useCallback((page: number, isInstant = false) => {
     const pageFlip = flipBookRef.current?.pageFlip();
